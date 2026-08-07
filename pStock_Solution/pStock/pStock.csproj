@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>pStock</RootNamespace>
+    <AssemblyName>pStock</AssemblyName>
+    <ApplicationIcon>pStock.ico</ApplicationIcon>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <!-- 빌드가 끝날 때마다(솔루션 빌드 포함) 출력 폴더(exe/dll/deps.json/runtimeconfig.json/
+       참조 라이브러리 전부가 있는 곳, 지금까지 exe가 있던 바로 그 폴더) 전체를 압축해서
+       같은 폴더 안에 pStock.zip으로 만들어준다. 파일명은 항상 고정이며(솔루션 빌드한다고
+       매번 버전이 오르는 게 아니므로), 실제 버전 구분은 버전관리 화면에서 등록할 때
+       입력하는 VERSION_ID가 담당한다. 이 zip을 그 화면에서 선택해 등록하면 된다 -
+       별도 스크립트를 손으로 실행할 필요가 없다. -->
+  <Target Name="PackageZipAfterBuild" AfterTargets="Build">
+    <PropertyGroup>
+      <_ZipPath>$(TargetDir)pStock.zip</_ZipPath>
+    </PropertyGroup>
+    <ItemGroup>
+      <_OldZip Include="$(TargetDir)*.zip" />
+    </ItemGroup>
+    <Delete Files="@(_OldZip)" Condition="'@(_OldZip)' != ''" />
+    <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -Command &quot;Compress-Archive -Path '$(TargetDir)*' -DestinationPath '$(_ZipPath)' -Force&quot;" />
+    <Message Importance="high" Text="[pStock] 배포용 zip 생성됨: $(_ZipPath)" />
+  </Target>
+
+  <ItemGroup>
+    <!-- 원본 BDE 접속(chang / CHANG, MS SQL Server)을 대체하는 ADO.NET 드라이버 -->
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
+    <!-- 원본 gp_SendToExcel(RealGrid 전용)을 대체하는 Excel 내보내기 -->
+    <PackageReference Include="ClosedXML" Version="0.104.1" />
+  </ItemGroup>
+
+</Project>

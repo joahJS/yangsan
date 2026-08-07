@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <Compile Update="Common\FastDataGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Forms\BA\BA00EForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\BA\BA00Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\BA\BA01Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\BA\BA02Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\BA\BA03Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\BA\BA04Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\BA\VersionListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\BA\VersionUploadForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Common\CvcodLookupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Common\ItemLookupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Common\LnLookupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Common\PostalLookupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ED\ED01Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ED\ED02Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ED\ED03Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\JA\JA01Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\JA\JA02Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\JA\JA03Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\JA\JA04Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\JA\JA05Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\PlaceholderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SS\SS020F01Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SS\SS020Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SS\SS21AForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SS\SS21Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SS\SS23AForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SS\SS23BForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SS\SS23Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SS\SS32AForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SS\SS32Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SS\SS33AForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SS\SS33BForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SS\SS33Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SS\SS34Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SS\SS35Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SS\SS36Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>

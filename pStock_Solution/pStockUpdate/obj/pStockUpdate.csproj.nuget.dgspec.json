@@ -1,0 +1,60 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\소나무정보기술\\pStock_Solution\\pStockUpdate\\pStockUpdate.csproj": {}
+  },
+  "projects": {
+    "D:\\소나무정보기술\\pStock_Solution\\pStockUpdate\\pStockUpdate.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\소나무정보기술\\pStock_Solution\\pStockUpdate\\pStockUpdate.csproj",
+        "projectName": "pStockUpdate",
+        "projectPath": "D:\\소나무정보기술\\pStock_Solution\\pStockUpdate\\pStockUpdate.csproj",
+        "packagesPath": "C:\\Users\\eunji\\.nuget\\packages\\",
+        "outputPath": "D:\\소나무정보기술\\pStock_Solution\\pStockUpdate\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\eunji\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 18.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net48"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 18.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net48": {
+            "targetAlias": "net48",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net48": {
+          "targetAlias": "net48",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.316\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win-x86": {
+          "#import": []
+        }
+      }
+    }
+  }
+}
