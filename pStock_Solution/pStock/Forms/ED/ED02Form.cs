@@ -20,6 +20,31 @@ public partial class ED02Form : Form
         else if (e.KeyCode == Keys.Escape) Close();
     }
 
+    private void ED02Form_Load(object? sender, EventArgs e)
+    {
+        this.edtYear.Text = DateTime.Now.Year.ToString();
+    }
+
+    private void BtnDown_Click(object? sender, EventArgs e)
+    {
+        edtYear.Text = (PublicLib.StrToIntSafe(edtYear.Text) - 1).ToString();
+    }
+
+    private void BtnUp_Click(object? sender, EventArgs e)
+    {
+        edtYear.Text = (PublicLib.StrToIntSafe(edtYear.Text) + 1).ToString();
+    }
+
+    private void BtnOk_Click(object? sender, EventArgs e)
+    {
+        RunClose();
+    }
+
+    private void BtnCancel_Click(object? sender, EventArgs e)
+    {
+        Close();
+    }
+
     private void RunClose()
     {
         if (MessageBox.Show("년이월 작업을 진행합니다.\r\n다시 한번 확인해 주십시오.", "확인",
