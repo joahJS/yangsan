@@ -8,103 +8,13 @@ namespace pStock.Forms.BA;
 /// 원본 BA00.pas / BA00.dfm (TfrmBA00) 이식 — 사업장 마스터(SAUPJANGF 테이블).
 /// 회사 전체 설정을 담는 단일 레코드 화면(SCODE='100001' 고정).
 /// </summary>
-public class BA00Form : Form
+public partial class BA00Form : Form
 {
     private const string CompanyCode = "100001";
 
-    private readonly TextBox edtSang = new();   // 상호
-    private readonly TextBox edtName = new();   // 대표자명
-    private readonly TextBox edtSa1 = new();    // 사업자번호 앞3
-    private readonly TextBox edtSa2 = new();    // 사업자번호 중2
-    private readonly TextBox edtSa3 = new();    // 사업자번호 뒤5
-    private readonly TextBox edtNo1 = new();    // 법인번호 앞6
-    private readonly TextBox edtNo2 = new();    // 법인번호 뒤7
-    private readonly TextBox edtUptae = new();  // 업태
-    private readonly TextBox edtJong = new();   // 종목
-    private readonly TextBox edtPost1 = new();  // 우편번호 앞3
-    private readonly TextBox edtPost2 = new();  // 우편번호 뒤3
-    private readonly TextBox edtAddr = new();   // 주소
-    private readonly TextBox edtDDD = new();    // 지역번호
-    private readonly TextBox edtTel = new();
-    private readonly TextBox edtFax = new();
-    private readonly TextBox edtBigo = new();
-
-    private readonly Button btnSave = new() { Text = "저장(F2)" };
-    private readonly Button btnClose = new() { Text = "닫기(Esc)" };
-
     public BA00Form()
     {
-        Text = "사업장 마스터";
-        Width = 660;
-        KeyPreview = true;
-        FormBorderStyle = FormBorderStyle.FixedDialog;
-        StartPosition = FormStartPosition.CenterParent;
-
-        BuildLayout();
-
-        Load += (_, _) => LoadCompanyInfo();
-        KeyDown += BA00Form_KeyDown;
-    }
-
-    private void BuildLayout()
-    {
-        edtBigo.Multiline = true;
-        edtBigo.Height = 60;
-
-        var editPanel = new Panel { Dock = DockStyle.Fill };
-        var grid = new GridLayout(editPanel, 10, 10, slotWidth: 290, labelWidth: 80, rowHeight: 30, slotsPerRow: 2);
-
-        grid.Add("상호", edtSang);
-        grid.Add("대표자", edtName);
-
-        grid.Add("사업자번호", edtSa1, editWidth: 50);
-        edtSa1.MaxLength = 3;
-        edtSa2.Left = edtSa1.Right + 5; edtSa2.Top = edtSa1.Top; edtSa2.Width = 40; edtSa2.MaxLength = 2;
-        edtSa3.Left = edtSa2.Right + 5; edtSa3.Top = edtSa1.Top; edtSa3.Width = 60; edtSa3.MaxLength = 5;
-        editPanel.Controls.AddRange(new Control[] { edtSa2, edtSa3 });
-
-        grid.Add("법인번호", edtNo1, editWidth: 80);
-        edtNo1.MaxLength = 6;
-        edtNo2.Left = edtNo1.Right + 5; edtNo2.Top = edtNo1.Top; edtNo2.Width = 80; edtNo2.MaxLength = 7;
-        editPanel.Controls.Add(edtNo2);
-
-        grid.Add("업태", edtUptae);
-        grid.Add("종목", edtJong);
-
-        grid.Add("우편번호", edtPost1, editWidth: 50);
-        edtPost1.MaxLength = 3;
-        edtPost2.Left = edtPost1.Right + 5; edtPost2.Top = edtPost1.Top; edtPost2.Width = 50; edtPost2.MaxLength = 3;
-        var btnPost = new Button { Text = "검색", Left = edtPost2.Right + 5, Top = edtPost1.Top - 2, Width = 60 };
-        btnPost.Click += (_, _) => LookupPostalCode();
-        editPanel.Controls.AddRange(new Control[] { edtPost2, btnPost });
-
-        grid.Add("지역번호", edtDDD);
-
-        grid.Add("전화번호", edtTel);
-        grid.Add("팩스번호", edtFax);
-
-        grid.NewRow();
-        grid.Add("주소", edtAddr, span: 2);
-        edtAddr.DoubleClick += (_, _) => LookupPostalCode();
-
-        grid.NewRow();
-        grid.Add("비고", edtBigo, span: 2);
-
-        // 비고가 Multiline(높이 60)이라 grid.Bottom()이 계산하는 표준 행 높이(rowHeight=30)보다
-        // 실제로 더 아래까지 차지한다. 그 값 그대로 버튼 Y좌표를 잡으면 버튼이 비고 입력란에
-        // 가려지므로, 비고의 실제 Bottom을 기준으로 버튼 위치를 잡는다.
-        int y = edtBigo.Bottom + 20;
-        btnSave.Left = 220; btnSave.Top = y; btnSave.Width = 100; btnSave.Height = 30;
-        btnClose.Left = 330; btnClose.Top = y; btnClose.Width = 100; btnClose.Height = 30;
-        editPanel.Controls.AddRange(new Control[] { btnSave, btnClose });
-
-        Controls.Add(editPanel);
-
-        // 버튼 아래로 남는 여백 없이 딱 맞게 창 높이를 잡는다(가로폭은 기존 그대로 유지).
-        ClientSize = new Size(ClientSize.Width, y + btnSave.Height + 20);
-
-        btnSave.Click += (_, _) => Save();
-        btnClose.Click += (_, _) => Close();
+        InitializeComponent();
     }
 
     private void BA00Form_KeyDown(object? sender, KeyEventArgs e)

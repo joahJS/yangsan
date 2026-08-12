@@ -12,73 +12,15 @@ namespace pStock.Forms.BA;
 ///   INSERT INTO DBO.zSYS_VERSION (VERSION_ID, FILE_NAME, FILE_NO, FILE_BYTE, UPLOAD_DT, VERSION_RMK)
 ///   VALUES(...)
 /// </summary>
-public class VersionUploadForm : Form
+public partial class VersionUploadForm : Form
 {
-    private readonly TextBox edtVersionId = new();
-    private readonly TextBox edtRmk = new();
-    private readonly FastDataGridView grid = new();
-
-    private readonly Button btnUpload = new() { Text = "파일선택" };
-    private readonly Button btnSave = new() { Text = "저장(F3)" };
-    private readonly Button btnClose = new() { Text = "닫기(Esc)" };
-
     private readonly List<(string fileName, long fileBytes, byte[] fileNo)> _pendingFiles = new();
 
     public bool Saved { get; private set; }
 
     public VersionUploadForm()
     {
-        Text = "버전 등록";
-        Width = 620;
-        FormBorderStyle = FormBorderStyle.FixedDialog;
-        StartPosition = FormStartPosition.CenterParent;
-        KeyPreview = true;
-
-        BuildLayout();
-        KeyDown += VersionUploadForm_KeyDown;
-
-        Shown += (_, _) => edtVersionId.Focus();
-    }
-
-    private void BuildLayout()
-    {
-        var layout = new GridLayout(this, 20, 15, 280, 90, 30, 2);
-        layout.Add("VersionID", edtVersionId, editWidth: 150);
-        layout.NewRow();
-        layout.Add("비고", edtRmk, span: 2, editWidth: 470);
-        layout.NewRow();
-
-        var gridButtons = new Panel { Left = 20, Top = layout.Bottom(5), Width = 560, Height = 30 };
-        btnUpload.Left = 0; btnUpload.Top = 0; btnUpload.Width = 100;
-        gridButtons.Controls.Add(btnUpload);
-
-        var lblHint = new Label
-        {
-            Text = "※ debug 폴더내의 pStock.zip 파일 업로드",
-            ForeColor = Color.Red,
-            AutoSize = true,
-            Left = btnUpload.Right + 25,
-            Top = btnUpload.Top + 4,
-        };
-        gridButtons.Controls.Add(lblHint);
-
-        grid.Left = 20; grid.Top = gridButtons.Bottom + 5; grid.Width = 560; grid.Height = 220;
-        grid.ReadOnly = true;
-        grid.AllowUserToAddRows = false;
-        grid.Columns.Add("FILE_NAME", "파일명");
-        grid.Columns.Add("FILE_BYTE", "크기");
-
-        var bottom = new Panel { Left = 20, Top = grid.Bottom + 10, Width = 560, Height = 35 };
-        btnSave.Left = 340; btnSave.Top = 0; btnSave.Width = 100;
-        btnClose.Left = 450; btnClose.Top = 0; btnClose.Width = 100;
-        bottom.Controls.AddRange(new Control[] { btnSave, btnClose });
-
-        Controls.AddRange(new Control[] { gridButtons, grid, bottom });
-        ClientSize = new Size(600, bottom.Bottom + 15);
-
-        btnUpload.Click += (_, _) => PickFiles();
-        btnSave.Click += (_, _) => Save();
-        btnClose.Click += (_, _) => Close();
+        InitializeComponent();
     }
 
     private void VersionUploadForm_KeyDown(object? sender, KeyEventArgs e)

@@ -9,96 +9,14 @@ namespace pStock.Forms.BA;
 /// 원본 BA04.pas / BA04.dfm (TfrmBA04) 이식 — 착지처 마스터(REACH 테이블).
 /// 원본 cnREACH_I/U (cmSQL_0.pas) SQL을 그대로 이식.
 /// </summary>
-public class BA04Form : Form
+public partial class BA04Form : Form
 {
-    private readonly FastDataGridView grid = new();
-    private readonly TextBox edtCode = new();
-    private readonly CheckBox chkAuto = new() { Text = "자동채번" };
-    private readonly TextBox edtName = new();
-    private readonly TextBox edtPost = new();
-    private readonly TextBox edtAddr1 = new();
-    private readonly TextBox edtAddr2 = new();
-    private readonly TextBox edtTel = new();
-    private readonly TextBox edtBigo = new();
-    private readonly TextBox edtWord = new();
-
-    private readonly Button btnNew = new() { Text = "신규(F1)" };
-    private readonly Button btnAdd = new() { Text = "저장(F2)" };
-    private readonly Button btnOne = new() { Text = "수정(F3)" };
-    private readonly Button btnDel = new() { Text = "삭제(F4)" };
-    private readonly Button btnClose = new() { Text = "닫기(Esc)" };
-    private readonly Label lblDbCnt = new() { AutoSize = true };
-
     private string _vSort = "Code";
     private DataTable? _listTable;
 
     public BA04Form()
     {
-        Text = "착지처 마스터";
-        Width = 950;
-        Height = 600;
-        KeyPreview = true;
-
-        BuildLayout();
-
-        Load += (_, _) => { _vSort = "Code"; ReloadList(); };
-        KeyDown += BA04Form_KeyDown;
-    }
-
-    private void BuildLayout()
-    {
-        var top = new Panel { Dock = DockStyle.Top, Height = 40 };
-        top.Controls.AddRange(new Control[] { btnNew, btnAdd, btnOne, btnDel, btnClose, lblDbCnt });
-        int bx = 5;
-        foreach (Control c in new Control[] { btnNew, btnAdd, btnOne, btnDel, btnClose })
-        { c.Left = bx; c.Top = 8; c.Width = 90; bx += 95; }
-        lblDbCnt.Left = bx + 20; lblDbCnt.Top = 14;
-
-        var searchPanel = new Panel { Dock = DockStyle.Top, Height = 35 };
-        var lblWord = new Label { Text = "검색어", Left = 5, Top = 10, AutoSize = true };
-        edtWord.Left = 60; edtWord.Top = 6; edtWord.Width = 200;
-        edtWord.KeyUp += (_, _) => LocateInGrid(edtWord.Text);
-        searchPanel.Controls.AddRange(new Control[] { lblWord, edtWord });
-
-        var editPanel = new Panel { Dock = DockStyle.Top, Height = 190, AutoScroll = true };
-        var layout = new GridLayout(editPanel, 5, 5, slotWidth: 250, labelWidth: 80, rowHeight: 30, slotsPerRow: 3);
-
-        layout.Add("코드", edtCode);
-        layout.AddRaw(chkAuto, width: 100);
-        layout.NewRow();
-
-        layout.Add("착지처명", edtName);
-        layout.Add("우편번호", edtPost);
-        layout.Add("전화번호", edtTel);
-
-        layout.Add("주소1", edtAddr1, span: 2);
-        layout.NewRow();
-        layout.Add("주소2", edtAddr2, span: 2);
-
-        layout.NewRow();
-        layout.Add("비고", edtBigo, span: 2);
-
-        editPanel.Height = layout.Bottom(15);
-
-        edtAddr1.DoubleClick += (_, _) => LookupPostalCode();
-        chkAuto.Click += (_, _) => CodeToggle(!chkAuto.Checked);
-
-        grid.Dock = DockStyle.Fill;
-        grid.ReadOnly = true;
-        grid.AllowUserToAddRows = false;
-        grid.CellDoubleClick += (_, _) => SyncEditFromGrid();
-        grid.KeyDown += (_, e) => { if (e.KeyCode == Keys.Delete) btnDel.PerformClick(); };
-
-        Controls.Add(grid);
-        Controls.Add(editPanel);
-        Controls.Add(searchPanel);
-        Controls.Add(top);
-
-        btnNew.Click += (_, _) => { ClearEdit(); edtName.Focus(); };
-        btnAdd.Click += (_, _) => Save(isInsert: true);
-        btnOne.Click += (_, _) => Save(isInsert: false);
-        btnDel.Click += (_, _) => Delete();
-        btnClose.Click += (_, _) => Close();
+        InitializeComponent();
     }
 
     private void BA04Form_KeyDown(object? sender, KeyEventArgs e)
