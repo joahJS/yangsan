@@ -45,14 +45,21 @@ partial class SS33BForm
     private void InitializeComponent()
     {
         this.edtTDate = new TextBox();
-        this.edtNo = new TextBox { ReadOnly = true };
+        this.edtNo = new TextBox();
+        this.edtNo.ReadOnly = true;
         this.edtCvcod = new TextBox();
-        this.dspCvnam = new TextBox { ReadOnly = true };
-        this.rdo1 = new RadioButton { Text = "영수" };
-        this.rdo2 = new RadioButton { Text = "청구", Checked = true };
+        this.dspCvnam = new TextBox();
+        this.dspCvnam.ReadOnly = true;
+        this.rdo1 = new RadioButton();
+        this.rdo1.Text = "영수";
+        this.rdo2 = new RadioButton();
+        this.rdo2.Text = "청구";
+        this.rdo2.Checked = true;
         this.edtBigo = new TextBox();
-        this.lblAmt = new Label { AutoSize = true };
-        this.lblVat = new Label { AutoSize = true };
+        this.lblAmt = new Label();
+        this.lblAmt.AutoSize = true;
+        this.lblVat = new Label();
+        this.lblVat.AutoSize = true;
 
         this.edtMmdd = new TextBox[4];
         this.edtItnbr = new TextBox[4];
@@ -61,9 +68,12 @@ partial class SS33BForm
         this.edtCost = new NumericUpDown[4];
         this.edtAmt = new NumericUpDown[4];
 
-        this.btnAdd = new Button { Text = "연속저장(F2)" };
-        this.btnOne = new Button { Text = "저장(F3)" };
-        this.btnClose = new Button { Text = "닫기(Esc)" };
+        this.btnAdd = new Button();
+        this.btnAdd.Text = "연속저장(F2)";
+        this.btnOne = new Button();
+        this.btnOne.Text = "저장(F3)";
+        this.btnClose = new Button();
+        this.btnClose.Text = "닫기(Esc)";
 
         this._tip = new ToolTip();
 
