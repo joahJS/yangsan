@@ -48,6 +48,17 @@ partial class SS020F01Form
     private Panel panelBottom;
     private Label lblTamt;
     private Label lblJamt;
+    private Label lblTdate;
+    private Label lblNo;
+    private Label lblCvcod;
+    private Label lblCvnam;
+    private Label lblTelno;
+    private Label lblLncod;
+    private Label lblLnnam;
+    private Label lblLnadr;
+    private Label lblPlncd;
+    private Label lblSsamt;
+    private Label lblMbigo;
 
     private void InitializeComponent()
     {
@@ -104,6 +115,17 @@ partial class SS020F01Form
         this.panelBottom = new Panel();
         this.lblTamt = new Label();
         this.lblJamt = new Label();
+        this.lblTdate = new Label();
+        this.lblNo = new Label();
+        this.lblCvcod = new Label();
+        this.lblCvnam = new Label();
+        this.lblTelno = new Label();
+        this.lblLncod = new Label();
+        this.lblLnnam = new Label();
+        this.lblLnadr = new Label();
+        this.lblPlncd = new Label();
+        this.lblSsamt = new Label();
+        this.lblMbigo = new Label();
         this.SuspendLayout();
         //
         // SS020F01Form (원본 생성자 프롤로그)
@@ -114,13 +136,75 @@ partial class SS020F01Form
         this.FormBorderStyle = FormBorderStyle.FixedDialog;
         this.StartPosition = FormStartPosition.CenterParent;
         this.KeyPreview = true;
-        // panelTop 내부는 GridLayout 헬퍼(지역변수 기반 동적 좌표 계산)로 배치하기 때문에
-        // WinForms 디자이너가 InitializeComponent() 안에서 처리하지 못한다. 그 부분만
-        // BuildDynamicLayout()(SS020F01Form.cs)으로 분리해 생성자에서 InitializeComponent()
-        // 호출 직후 실행한다. 나머지(panelGrid/panelGridButtons/panelBottom 등, 전부 리터럴
-        // 좌표)는 그대로 여기 둔다.
+        // panelTop 내부(원본 GridLayout(panelTop, 10, 5, slotWidth:300, labelWidth:85,
+        // rowHeight:30, slotsPerRow:3) 계산 결과를 리터럴로 반영)
         this.panelTop.Dock = DockStyle.Top;
-        this.panelTop.Height = 180;
+        this.panelTop.Height = 165;
+
+        this.lblTdate.Text = "출고일자";
+        this.lblTdate.Left = 10; this.lblTdate.Top = 8; this.lblTdate.AutoSize = true;
+        this.eTdate.Left = 95; this.eTdate.Top = 5; this.eTdate.Width = 203;
+
+        this.lblNo.Text = "전표번호";
+        this.lblNo.Left = 310; this.lblNo.Top = 8; this.lblNo.AutoSize = true;
+        this.eNo.Left = 395; this.eNo.Top = 5; this.eNo.Width = 203;
+
+        this.chkAuto.Left = 610; this.chkAuto.Top = 7; this.chkAuto.Width = 100;
+
+        this.lblCvcod.Text = "거래처코드";
+        this.lblCvcod.Left = 10; this.lblCvcod.Top = 38; this.lblCvcod.AutoSize = true;
+        this.eCvcod.Left = 95; this.eCvcod.Top = 35; this.eCvcod.Width = 203;
+        this._tip.SetToolTip(this.eCvcod, "Enter 키를 누르면 거래처를 검색합니다.");
+        this.eCvcod.KeyDown += new KeyEventHandler(this.ECvcod_KeyDown);
+
+        this.lblCvnam.Text = "거래처명";
+        this.lblCvnam.Left = 310; this.lblCvnam.Top = 38; this.lblCvnam.AutoSize = true;
+        this.lCvnam.Left = 395; this.lCvnam.Top = 35; this.lCvnam.Width = 203;
+
+        this.lblTelno.Text = "전화번호";
+        this.lblTelno.Left = 610; this.lblTelno.Top = 38; this.lblTelno.AutoSize = true;
+        this.lTelno.Left = 695; this.lTelno.Top = 35; this.lTelno.Width = 203;
+
+        this.lblLncod.Text = "착지처코드";
+        this.lblLncod.Left = 10; this.lblLncod.Top = 68; this.lblLncod.AutoSize = true;
+        this.eLncod.Left = 95; this.eLncod.Top = 65; this.eLncod.Width = 203;
+        this.eLncod.KeyDown += new KeyEventHandler(this.ELncod_KeyDown);
+
+        this.lblLnnam.Text = "착지처명";
+        this.lblLnnam.Left = 310; this.lblLnnam.Top = 68; this.lblLnnam.AutoSize = true;
+        this.lLnnam.Left = 395; this.lLnnam.Top = 65; this.lLnnam.Width = 203;
+
+        this.lblLnadr.Text = "착지처주소";
+        this.lblLnadr.Left = 610; this.lblLnadr.Top = 68; this.lblLnadr.AutoSize = true;
+        this.lLnadr.Left = 695; this.lLnadr.Top = 65; this.lLnadr.Width = 203;
+
+        this.lblPlncd.Text = "담당자";
+        this.lblPlncd.Left = 10; this.lblPlncd.Top = 98; this.lblPlncd.AutoSize = true;
+        this.ePlncd.Left = 95; this.ePlncd.Top = 95; this.ePlncd.Width = 203;
+
+        this.lblSsamt.Text = "운송비";
+        this.lblSsamt.Left = 310; this.lblSsamt.Top = 98; this.lblSsamt.AutoSize = true;
+        this.eSsamt.Left = 395; this.eSsamt.Top = 95; this.eSsamt.Width = 203;
+
+        this.lblMbigo.Text = "비고";
+        this.lblMbigo.Left = 10; this.lblMbigo.Top = 128; this.lblMbigo.AutoSize = true;
+        this.eMbigo.Left = 95; this.eMbigo.Top = 125; this.eMbigo.Width = 803;
+
+        this.panelTop.Controls.AddRange(new Control[]
+        {
+            this.lblTdate, this.eTdate,
+            this.lblNo, this.eNo,
+            this.chkAuto,
+            this.lblCvcod, this.eCvcod,
+            this.lblCvnam, this.lCvnam,
+            this.lblTelno, this.lTelno,
+            this.lblLncod, this.eLncod,
+            this.lblLnnam, this.lLnnam,
+            this.lblLnadr, this.lLnadr,
+            this.lblPlncd, this.ePlncd,
+            this.lblSsamt, this.eSsamt,
+            this.lblMbigo, this.eMbigo
+        });
 
         this.rgListS.Dock = DockStyle.Fill;
         this.rgListS.AllowUserToAddRows = false;
