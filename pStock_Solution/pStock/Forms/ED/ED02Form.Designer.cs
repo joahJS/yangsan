@@ -26,11 +26,20 @@ partial class ED02Form
     private void InitializeComponent()
     {
         this.edtYear = new TextBox();
-        this.btnDown = new Button { Text = "◀" };
-        this.btnUp = new Button { Text = "▶" };
-        this.btnOk = new Button { Text = "마감실행(F2)" };
-        this.btnCancel = new Button { Text = "취소(Esc)" };
+        this.btnDown = new Button();
+        this.btnUp = new Button();
+        this.btnOk = new Button();
+        this.btnCancel = new Button();
+        this.lblYear = new Label();
+        this.lblHint = new Label();
         this.SuspendLayout();
+        //
+        // btnDown / btnUp / btnOk / btnCancel
+        //
+        this.btnDown.Text = "◀";
+        this.btnUp.Text = "▶";
+        this.btnOk.Text = "마감실행(F2)";
+        this.btnCancel.Text = "취소(Esc)";
         //
         // ED02Form
         //
@@ -44,16 +53,18 @@ partial class ED02Form
         //
         // BuildLayout (원본 그대로 이동)
         //
-        this.lblYear = new Label { Text = "마감년도", Left = 20, Top = 25, AutoSize = true };
+        this.lblYear.Text = "마감년도";
+        this.lblYear.Left = 20;
+        this.lblYear.Top = 25;
+        this.lblYear.AutoSize = true;
         this.edtYear.Left = 100; this.edtYear.Top = 20; this.edtYear.Width = 60;
         this.btnDown.Left = 165; this.btnDown.Top = 19; this.btnDown.Width = 30;
         this.btnUp.Left = 200; this.btnUp.Top = 19; this.btnUp.Width = 30;
 
-        this.lblHint = new Label
-        {
-            Text = "선택한 년도의 재고/미수금을 다음 해로 이월합니다.",
-            Left = 20, Top = 60, AutoSize = true
-        };
+        this.lblHint.Text = "선택한 년도의 재고/미수금을 다음 해로 이월합니다.";
+        this.lblHint.Left = 20;
+        this.lblHint.Top = 60;
+        this.lblHint.AutoSize = true;
 
         this.btnOk.Left = 100; this.btnOk.Top = 130; this.btnOk.Width = 100;
         this.btnCancel.Left = 210; this.btnCancel.Top = 130; this.btnCancel.Width = 100;
