@@ -32,13 +32,19 @@ partial class VersionUploadForm
         this.edtVersionId = new TextBox();
         this.edtRmk = new TextBox();
         this.grid = new FastDataGridView();
-        this.btnUpload = new Button() { Text = "파일선택" };
-        this.btnSave = new Button() { Text = "저장(F3)" };
-        this.btnClose = new Button() { Text = "닫기(Esc)" };
+        this.btnUpload = new Button();
+        this.btnSave = new Button();
+        this.btnClose = new Button();
         this.gridButtons = new Panel();
         this.lblHint = new Label();
         this.bottom = new Panel();
         this.SuspendLayout();
+        //
+        // btnUpload / btnSave / btnClose
+        //
+        this.btnUpload.Text = "파일선택";
+        this.btnSave.Text = "저장(F3)";
+        this.btnClose.Text = "닫기(Esc)";
         //
         // VersionUploadForm (원본 생성자에서 BuildLayout() 호출 전에 설정하던 폼 속성)
         //

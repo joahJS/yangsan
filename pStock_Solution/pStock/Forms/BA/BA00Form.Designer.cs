@@ -54,11 +54,16 @@ partial class BA00Form
         this.edtTel = new TextBox();
         this.edtFax = new TextBox();
         this.edtBigo = new TextBox();
-        this.btnSave = new Button() { Text = "저장(F2)" };
-        this.btnClose = new Button() { Text = "닫기(Esc)" };
+        this.btnSave = new Button();
+        this.btnClose = new Button();
         this.editPanel = new Panel();
         this.btnPost = new Button();
         this.SuspendLayout();
+        //
+        // btnSave / btnClose
+        //
+        this.btnSave.Text = "저장(F2)";
+        this.btnClose.Text = "닫기(Esc)";
         //
         // BA00Form (원본 생성자에서 BuildLayout() 호출 전에 설정하던 폼 속성)
         //

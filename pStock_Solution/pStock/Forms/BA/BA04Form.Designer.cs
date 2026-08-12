@@ -42,7 +42,7 @@ partial class BA04Form
     {
         this.grid = new FastDataGridView();
         this.edtCode = new TextBox();
-        this.chkAuto = new CheckBox() { Text = "자동채번" };
+        this.chkAuto = new CheckBox();
         this.edtName = new TextBox();
         this.edtPost = new TextBox();
         this.edtAddr1 = new TextBox();
@@ -50,17 +50,27 @@ partial class BA04Form
         this.edtTel = new TextBox();
         this.edtBigo = new TextBox();
         this.edtWord = new TextBox();
-        this.btnNew = new Button() { Text = "신규(F1)" };
-        this.btnAdd = new Button() { Text = "저장(F2)" };
-        this.btnOne = new Button() { Text = "수정(F3)" };
-        this.btnDel = new Button() { Text = "삭제(F4)" };
-        this.btnClose = new Button() { Text = "닫기(Esc)" };
-        this.lblDbCnt = new Label() { AutoSize = true };
+        this.btnNew = new Button();
+        this.btnAdd = new Button();
+        this.btnOne = new Button();
+        this.btnDel = new Button();
+        this.btnClose = new Button();
+        this.lblDbCnt = new Label();
         this.panelTop = new Panel();
         this.searchPanel = new Panel();
         this.lblWord = new Label();
         this.editPanel = new Panel();
         this.SuspendLayout();
+        //
+        // chkAuto / btnNew / btnAdd / btnOne / btnDel / btnClose / lblDbCnt
+        //
+        this.chkAuto.Text = "자동채번";
+        this.btnNew.Text = "신규(F1)";
+        this.btnAdd.Text = "저장(F2)";
+        this.btnOne.Text = "수정(F3)";
+        this.btnDel.Text = "삭제(F4)";
+        this.btnClose.Text = "닫기(Esc)";
+        this.lblDbCnt.AutoSize = true;
         //
         // BA04Form (원본 생성자에서 BuildLayout() 호출 전에 설정하던 폼 속성)
         //

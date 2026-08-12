@@ -36,12 +36,18 @@ partial class BA00EForm
         this.edtPass = new TextBox();
         this.edtDate1 = new TextBox();
         this.edtDate2 = new TextBox();
-        this.btnNew = new Button() { Text = "신규(F1)" };
-        this.btnSave = new Button() { Text = "저장(F2)" };
-        this.btnClose = new Button() { Text = "닫기(Esc)" };
+        this.btnNew = new Button();
+        this.btnSave = new Button();
+        this.btnClose = new Button();
         this.panelTop = new Panel();
         this.panelEdit = new Panel();
         this.SuspendLayout();
+        //
+        // btnNew / btnSave / btnClose
+        //
+        this.btnNew.Text = "신규(F1)";
+        this.btnSave.Text = "저장(F2)";
+        this.btnClose.Text = "닫기(Esc)";
         // 원본 BuildLayout()은 GridLayout 헬퍼(지역변수 기반 동적 좌표 계산)를 쓰기 때문에
         // WinForms 디자이너가 InitializeComponent() 안에서 파싱할 수 없다. 그래서
         // BuildDynamicLayout()(BA00EForm.cs)으로 분리해 생성자에서 InitializeComponent()

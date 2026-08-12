@@ -51,30 +51,52 @@ partial class BA03Form
         this.edtCvcod = new TextBox();
         this.edtCvnam = new TextBox();
         this.edtCode = new TextBox();
-        this.chkAuto = new CheckBox() { Text = "자동채번" };
+        this.chkAuto = new CheckBox();
         this.edtItdsc = new TextBox();
         this.edtSpec = new TextBox();
-        this.cboDanwi = new ComboBox() { DropDownStyle = ComboBoxStyle.DropDownList };
-        this.eItwgt = new NumericUpDown() { DecimalPlaces = 2, Maximum = 999999 };
-        this.edtIcost = new NumericUpDown() { DecimalPlaces = 0, Maximum = 999999999 };
-        this.edtBcost = new NumericUpDown() { DecimalPlaces = 0, Maximum = 999999999 };
-        this.edtOcost = new NumericUpDown() { DecimalPlaces = 0, Maximum = 999999999 };
-        this.cboSavLoc = new ComboBox() { DropDownStyle = ComboBoxStyle.DropDownList };
+        this.cboDanwi = new ComboBox();
+        this.eItwgt = new NumericUpDown();
+        this.edtIcost = new NumericUpDown();
+        this.edtBcost = new NumericUpDown();
+        this.edtOcost = new NumericUpDown();
+        this.cboSavLoc = new ComboBox();
         this.edtBigo = new TextBox();
         this.edtWord = new TextBox();
-        this.btnNew = new Button() { Text = "신규(F1)" };
-        this.btnAdd = new Button() { Text = "연속저장(F2)" };
-        this.btnOne = new Button() { Text = "저장(F3)" };
-        this.btnDel = new Button() { Text = "삭제(F4)" };
-        this.btnExcel = new Button() { Text = "엑셀저장" };
-        this.btnPrint = new Button() { Text = "인쇄" };
-        this.btnClose = new Button() { Text = "닫기(Esc)" };
-        this.lblDbCnt = new Label() { AutoSize = true };
+        this.btnNew = new Button();
+        this.btnAdd = new Button();
+        this.btnOne = new Button();
+        this.btnDel = new Button();
+        this.btnExcel = new Button();
+        this.btnPrint = new Button();
+        this.btnClose = new Button();
+        this.lblDbCnt = new Label();
         this.panelTop = new Panel();
         this.searchPanel = new Panel();
         this.lblWord = new Label();
         this.editPanel = new Panel();
         this.SuspendLayout();
+        //
+        // chkAuto / cboDanwi / eItwgt / edtIcost / edtBcost / edtOcost / cboSavLoc / btnNew / btnAdd / btnOne / btnDel / btnExcel / btnPrint / btnClose / lblDbCnt
+        //
+        this.chkAuto.Text = "자동채번";
+        this.cboDanwi.DropDownStyle = ComboBoxStyle.DropDownList;
+        this.eItwgt.DecimalPlaces = 2;
+        this.eItwgt.Maximum = 999999;
+        this.edtIcost.DecimalPlaces = 0;
+        this.edtIcost.Maximum = 999999999;
+        this.edtBcost.DecimalPlaces = 0;
+        this.edtBcost.Maximum = 999999999;
+        this.edtOcost.DecimalPlaces = 0;
+        this.edtOcost.Maximum = 999999999;
+        this.cboSavLoc.DropDownStyle = ComboBoxStyle.DropDownList;
+        this.btnNew.Text = "신규(F1)";
+        this.btnAdd.Text = "연속저장(F2)";
+        this.btnOne.Text = "저장(F3)";
+        this.btnDel.Text = "삭제(F4)";
+        this.btnExcel.Text = "엑셀저장";
+        this.btnPrint.Text = "인쇄";
+        this.btnClose.Text = "닫기(Esc)";
+        this.lblDbCnt.AutoSize = true;
         //
         // BA03Form (원본 생성자에서 BuildLayout() 호출 전에 설정하던 폼 속성)
         //

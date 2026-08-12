@@ -32,14 +32,20 @@ partial class VersionListForm
         this.grid = new FastDataGridView();
         this.dtpFrom = new DateTimePicker();
         this.dtpTo = new DateTimePicker();
-        this.btnAdd = new Button() { Text = "등록(F1)" };
-        this.btnSearch = new Button() { Text = "조회(F5)" };
-        this.btnClose = new Button() { Text = "닫기(Esc)" };
+        this.btnAdd = new Button();
+        this.btnSearch = new Button();
+        this.btnClose = new Button();
         this.panelTop = new Panel();
         this.editPanel = new Panel();
         this.lblDate = new Label();
         this.lblTilde = new Label();
         this.SuspendLayout();
+        //
+        // btnAdd / btnSearch / btnClose
+        //
+        this.btnAdd.Text = "등록(F1)";
+        this.btnSearch.Text = "조회(F5)";
+        this.btnClose.Text = "닫기(Esc)";
         //
         // VersionListForm (원본 생성자에서 BuildLayout() 호출 전에 설정하던 폼 속성)
         //
