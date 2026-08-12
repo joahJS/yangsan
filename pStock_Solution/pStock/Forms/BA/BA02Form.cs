@@ -14,114 +14,15 @@ namespace pStock.Forms.BA;
 ///             (원본은 DataSource=srcGroup 마스터-디테일 자동 연동. 여기서는 그룹 그리드
 ///              선택이 바뀔 때마다 qryCode를 다시 조회하는 방식으로 재현한다.)
 /// </summary>
-public class BA02Form : Form
+public partial class BA02Form : Form
 {
-    private readonly FastDataGridView gridGroup = new();
-    private readonly FastDataGridView gridCode = new();
-    private readonly SplitContainer splitContainer = new() { Dock = DockStyle.Fill };
-    private readonly RadioButton radModeGroup = new() { Text = "구분코드", Checked = true, AutoSize = true };
-    private readonly RadioButton radModeCode = new() { Text = "코드", AutoSize = true };
-    private readonly TextBox edtRcdtp = new();
-    private readonly TextBox edtRetxf = new();
-    private readonly Label lblCode = new() { Text = "코드", AutoSize = true };
-    private readonly TextBox edtCode = new();
-    private readonly Label lblRetxs = new() { Text = "약칭(S)", AutoSize = true };
-    private readonly TextBox edtRetxs = new();
-    private readonly Button btnNew = new() { Text = "신규(F1)" };
-    private readonly Button btnSave = new() { Text = "저장(F2)" };
-    private readonly Button btnUpd = new() { Text = "수정(F3)" };
-    private readonly Button btnDel = new() { Text = "삭제(F4)" };
-    private readonly Button btnSearch = new() { Text = "조회" };
-    private readonly Button btnClose = new() { Text = "닫기(Esc)" };
-
     private DataTable? _groupTable;
     private DataTable? _codeTable;
 
     public BA02Form()
     {
-        Text = "공통코드 마스터";
-        Width = 1200;
-        Height = 800;
-        KeyPreview = true;
-
-        BuildLayout();
-
-        Load += (_, _) =>
-        {
-            LoadGroup();
-            // 생성자 시점에는 splitContainer가 실제 화면 크기를 아직 갖지 못해 SplitterDistance를
-            // 픽셀값으로 바로 지정하면 이후 폼이 리사이즈될 때 비율이 깨지면서(작은 초기값 기준으로
-            // 재계산되어) 오른쪽에 큰 빈 여백이 생기는 문제가 있었다. 폼이 실제 크기를 가진 뒤인
-            // Load 시점에 왼쪽(그룹) 그리드 컬럼들이 다 보일 정도로만 폭을 잡아준다.
-            splitContainer.SplitterDistance = 560;
-        };
-        KeyDown += BA02Form_KeyDown;
+        InitializeComponent();
         ApplyMode();
-    }
-
-    private void BuildLayout()
-    {
-        var top = new Panel { Dock = DockStyle.Top, Height = 40 };
-        top.Controls.AddRange(new Control[] { btnNew, btnSave, btnUpd, btnDel, btnSearch, btnClose });
-        int bx = 5;
-        foreach (Control c in top.Controls) { c.Left = bx; c.Top = 8; c.Width = 90; bx += 95; }
-
-        var editPanel = new Panel { Dock = DockStyle.Top, Height = 40 };
-        int nx = 5;
-        radModeGroup.Left = nx; radModeGroup.Top = 12;
-        editPanel.Controls.Add(radModeGroup);
-        nx = radModeGroup.Right + 10;
-        radModeCode.Left = nx; radModeCode.Top = 12;
-        editPanel.Controls.Add(radModeCode);
-        nx = radModeCode.Right + 20;
-        nx = AddLabeledEdit(editPanel, "구분", edtRcdtp, nx);
-        nx = AddLabeledEdit(editPanel, "전체명", edtRetxf, nx);
-        nx = AddLabeledEdit(editPanel, lblCode, edtCode, nx);
-        AddLabeledEdit(editPanel, lblRetxs, edtRetxs, nx);
-
-        radModeGroup.CheckedChanged += (_, _) => ApplyMode();
-        radModeCode.CheckedChanged += (_, _) => ApplyMode();
-
-        splitContainer.FixedPanel = FixedPanel.Panel1;
-        gridGroup.Dock = DockStyle.Fill;
-        gridGroup.ReadOnly = true;
-        gridGroup.AllowUserToAddRows = false;
-        gridGroup.SelectionChanged += GridGroup_SelectionChanged;
-        gridGroup.CellDoubleClick += (_, _) => SyncEditFromGroup();
-
-        gridCode.Dock = DockStyle.Fill;
-        gridCode.ReadOnly = true;
-        gridCode.AllowUserToAddRows = false;
-        gridCode.CellDoubleClick += (_, _) => SyncEditFromCode();
-
-        splitContainer.Panel1.Controls.Add(gridGroup);
-        splitContainer.Panel2.Controls.Add(gridCode);
-
-        Controls.Add(splitContainer);
-        Controls.Add(editPanel);
-        Controls.Add(top);
-
-        btnNew.Click += (_, _) => { ClearEdit(); (radModeCode.Checked ? edtCode : edtRcdtp).Focus(); };
-        btnSave.Click += (_, _) => Save(isInsert: true);
-        btnUpd.Click += (_, _) => Save(isInsert: false);
-        btnDel.Click += (_, _) => Delete();
-        btnSearch.Click += (_, _) => Search();
-        btnClose.Click += (_, _) => Close();
-    }
-
-    private static int AddLabeledEdit(Control parent, string caption, TextBox edit, int left)
-        => AddLabeledEdit(parent, new Label { Text = caption, AutoSize = true }, edit, left);
-
-    private static int AddLabeledEdit(Control parent, Label lbl, TextBox edit, int left)
-    {
-        lbl.Left = left;
-        lbl.Top = 12;
-        parent.Controls.Add(lbl);
-        edit.Left = lbl.Right + 5;
-        edit.Top = 8;
-        edit.Width = 120;
-        parent.Controls.Add(edit);
-        return edit.Right + 20;
     }
 
     /// <summary>

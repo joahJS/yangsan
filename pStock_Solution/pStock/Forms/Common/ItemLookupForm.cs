@@ -9,14 +9,8 @@ namespace pStock.Forms.Common;
 /// 사용법: using var dlg = new ItemLookupForm();
 ///        if (dlg.ShowDialog() == DialogResult.OK) { var no = dlg.SelectedItnbr; ... }
 /// </summary>
-public class ItemLookupForm : Form
+public partial class ItemLookupForm : Form
 {
-    private readonly ComboBox cboSort = new() { DropDownStyle = ComboBoxStyle.DropDownList };
-    private readonly TextBox edtSearch = new();
-    private readonly FastDataGridView grid = new();
-    private readonly Button btnConfirm = new() { Text = "확인" };
-    private readonly Button btnClose = new() { Text = "닫기" };
-
     public string SelectedItnbr { get; private set; } = string.Empty;
     public string SelectedItdsc { get; private set; } = string.Empty;
     public string SelectedIspec { get; private set; } = string.Empty;
@@ -27,47 +21,7 @@ public class ItemLookupForm : Form
 
     public ItemLookupForm()
     {
-        Text = "품목 검색";
-        Width = 700;
-        Height = 500;
-        FormBorderStyle = FormBorderStyle.FixedDialog;
-        StartPosition = FormStartPosition.CenterParent;
-        KeyPreview = true;
-
-        BuildLayout();
-
-        Load += (_, _) => { cboSort.SelectedIndex = 1; Search(); };
-        KeyDown += (_, e) => { if (e.KeyCode == Keys.Escape) Close(); };
-    }
-
-    private void BuildLayout()
-    {
-        cboSort.Items.AddRange(new object[] { "품번", "품명" });
-
-        var top = new Panel { Dock = DockStyle.Top, Height = 40 };
-        var lbl = new Label { Text = "검색", Left = 10, Top = 12, AutoSize = true };
-        cboSort.Left = 50; cboSort.Top = 8; cboSort.Width = 100;
-        cboSort.SelectedIndexChanged += (_, _) => Search();
-        edtSearch.Left = 160; edtSearch.Top = 8; edtSearch.Width = 200;
-        edtSearch.KeyDown += (_, e) => { if (e.KeyCode == Keys.Enter) LocateInGrid(); };
-        top.Controls.AddRange(new Control[] { lbl, cboSort, edtSearch });
-
-        grid.Dock = DockStyle.Fill;
-        grid.ReadOnly = true;
-        grid.AllowUserToAddRows = false;
-        grid.CellDoubleClick += (_, _) => Confirm();
-
-        var bottom = new Panel { Dock = DockStyle.Bottom, Height = 40 };
-        btnConfirm.Left = 500; btnConfirm.Top = 6; btnConfirm.Width = 80;
-        btnClose.Left = 590; btnClose.Top = 6; btnClose.Width = 80;
-        bottom.Controls.AddRange(new Control[] { btnConfirm, btnClose });
-
-        Controls.Add(grid);
-        Controls.Add(bottom);
-        Controls.Add(top);
-
-        btnConfirm.Click += (_, _) => Confirm();
-        btnClose.Click += (_, _) => { DialogResult = DialogResult.Cancel; Close(); };
+        InitializeComponent();
     }
 
     private void Search()

@@ -8,83 +8,11 @@ namespace pStock.Forms.ED;
 /// 원본 ED03.pas / ED03.dfm (TfrmED03) 이식 — 기초잔액 보수(MISUF.BAMT 이월잔액 등록/수정/삭제).
 /// 거래처 검색 팝업(BA00C)은 아직 변환되지 않아 거래처코드 직접입력만 지원한다.
 /// </summary>
-public class ED03Form : Form
+public partial class ED03Form : Form
 {
-    private readonly FastDataGridView grid = new();
-    private readonly TextBox edtYear = new();
-    private readonly TextBox edtCode = new();
-    private readonly TextBox edtCvnam = new() { ReadOnly = true };
-    private readonly TextBox edtOwnam = new() { ReadOnly = true };
-    private readonly NumericUpDown edtBamt = new() { Maximum = 9999999999, DecimalPlaces = 0 };
-
-    private readonly Button btnNew = new() { Text = "신규(F1)" };
-    private readonly Button btnAdd = new() { Text = "저장(F2)" };
-    private readonly Button btnDel = new() { Text = "삭제(F4)" };
-    private readonly Button btnSearch = new() { Text = "조회" };
-    private readonly Button btnClose = new() { Text = "닫기(Esc)" };
-    private readonly Button btnYearDown = new() { Text = "◀" };
-    private readonly Button btnYearUp = new() { Text = "▶" };
-
     public ED03Form()
     {
-        Text = "기초잔액 보수";
-        Width = 1000;
-        Height = 650;
-        KeyPreview = true;
-
-        BuildLayout();
-
-        Load += (_, _) => { edtYear.Text = DateTime.Now.Year.ToString(); Search(); };
-        KeyDown += ED03Form_KeyDown;
-    }
-
-    private void BuildLayout()
-    {
-        PublicLib.MakeTypingFriendly(edtBamt);
-
-        var top = new Panel { Dock = DockStyle.Top, Height = 40 };
-        top.Controls.AddRange(new Control[] { btnNew, btnAdd, btnDel, btnSearch, btnClose });
-        int bx = 5;
-        foreach (Control c in new Control[] { btnNew, btnAdd, btnDel, btnSearch, btnClose })
-        { c.Left = bx; c.Top = 8; c.Width = 90; bx += 95; }
-
-        var editPanel = new Panel { Dock = DockStyle.Top, Height = 40 };
-        var lblYear = new Label { Text = "년도", Left = 5, Top = 12, AutoSize = true };
-        edtYear.Left = 45; edtYear.Top = 8; edtYear.Width = 60;
-        edtYear.KeyDown += (_, e) => { if (e.KeyCode == Keys.Enter) Search(); };
-        btnYearDown.Left = 110; btnYearDown.Top = 8; btnYearDown.Width = 30;
-        btnYearUp.Left = 143; btnYearUp.Top = 8; btnYearUp.Width = 30;
-        btnYearDown.Click += (_, _) => { edtYear.Text = (PublicLib.StrToIntSafe(edtYear.Text) - 1).ToString(); Search(); };
-        btnYearUp.Click += (_, _) => { edtYear.Text = (PublicLib.StrToIntSafe(edtYear.Text) + 1).ToString(); Search(); };
-
-        var lblCode = new Label { Text = "거래처코드", Left = 190, Top = 12, AutoSize = true };
-        edtCode.Left = 260; edtCode.Top = 8; edtCode.Width = 80;
-        edtCode.KeyDown += EdtCode_KeyDown;
-        edtCvnam.Left = 350; edtCvnam.Top = 8; edtCvnam.Width = 150;
-        edtOwnam.Left = 510; edtOwnam.Top = 8; edtOwnam.Width = 120;
-
-        var lblBamt = new Label { Text = "기초잔액", Left = 640, Top = 12, AutoSize = true };
-        edtBamt.Left = 710; edtBamt.Top = 8; edtBamt.Width = 130;
-
-        editPanel.Controls.AddRange(new Control[]
-        {
-            lblYear, edtYear, btnYearDown, btnYearUp, lblCode, edtCode, edtCvnam, edtOwnam, lblBamt, edtBamt
-        });
-
-        grid.Dock = DockStyle.Fill;
-        grid.ReadOnly = true;
-        grid.AllowUserToAddRows = false;
-        grid.CellDoubleClick += (_, _) => SyncEditFromGrid();
-
-        Controls.Add(grid);
-        Controls.Add(editPanel);
-        Controls.Add(top);
-
-        btnNew.Click += (_, _) => { ClearEdit(); edtCode.Focus(); };
-        btnAdd.Click += (_, _) => Save();
-        btnDel.Click += (_, _) => Delete();
-        btnSearch.Click += (_, _) => Search();
-        btnClose.Click += (_, _) => Close();
+        InitializeComponent();
     }
 
     private void ED03Form_KeyDown(object? sender, KeyEventArgs e)
