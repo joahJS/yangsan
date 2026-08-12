@@ -29,16 +29,29 @@ partial class ED01Form
     private void InitializeComponent()
     {
         this.edtYear = new TextBox();
-        this.cboMonth = new ComboBox { DropDownStyle = ComboBoxStyle.DropDownList };
-        this.chk1 = new CheckBox { Text = "입고 마감" };
-        this.chk2 = new CheckBox { Text = "보관 마감" };
-        this.chk3 = new CheckBox { Text = "출고 마감" };
-        this.chk4 = new CheckBox { Text = "수금 마감" };
-        this.chk5 = new CheckBox { Text = "임시자료 정리" };
+        this.cboMonth = new ComboBox();
+        this.chk1 = new CheckBox();
+        this.chk2 = new CheckBox();
+        this.chk3 = new CheckBox();
+        this.chk4 = new CheckBox();
+        this.chk5 = new CheckBox();
         this.progress = new ProgressBar();
-        this.btnOk = new Button { Text = "마감실행(F2)" };
-        this.btnCancel = new Button { Text = "취소(Esc)" };
+        this.btnOk = new Button();
+        this.btnCancel = new Button();
+        this.lblYear = new Label();
+        this.lblMonth = new Label();
         this.SuspendLayout();
+        //
+        // 컨트롤 기본 속성
+        //
+        this.cboMonth.DropDownStyle = ComboBoxStyle.DropDownList;
+        this.chk1.Text = "입고 마감";
+        this.chk2.Text = "보관 마감";
+        this.chk3.Text = "출고 마감";
+        this.chk4.Text = "수금 마감";
+        this.chk5.Text = "임시자료 정리";
+        this.btnOk.Text = "마감실행(F2)";
+        this.btnCancel.Text = "취소(Esc)";
         //
         // ED01Form
         //
@@ -53,9 +66,15 @@ partial class ED01Form
         //
         this.cboMonth.Items.AddRange(new object[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" });
 
-        this.lblYear = new Label { Text = "년도", Left = 20, Top = 20, AutoSize = true };
+        this.lblYear.Text = "년도";
+        this.lblYear.Left = 20;
+        this.lblYear.Top = 20;
+        this.lblYear.AutoSize = true;
         this.edtYear.Left = 70; this.edtYear.Top = 16; this.edtYear.Width = 60;
-        this.lblMonth = new Label { Text = "월", Left = 150, Top = 20, AutoSize = true };
+        this.lblMonth.Text = "월";
+        this.lblMonth.Left = 150;
+        this.lblMonth.Top = 20;
+        this.lblMonth.AutoSize = true;
         this.cboMonth.Left = 180; this.cboMonth.Top = 16; this.cboMonth.Width = 60;
 
         this.chk1.Left = 20;

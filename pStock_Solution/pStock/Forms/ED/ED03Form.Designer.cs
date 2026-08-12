@@ -40,19 +40,36 @@ partial class ED03Form
         this.grid = new FastDataGridView();
         this.edtYear = new TextBox();
         this.edtCode = new TextBox();
-        this.edtCvnam = new TextBox { ReadOnly = true };
-        this.edtOwnam = new TextBox { ReadOnly = true };
-        this.edtBamt = new NumericUpDown { Maximum = 9999999999, DecimalPlaces = 0 };
+        this.edtCvnam = new TextBox();
+        this.edtOwnam = new TextBox();
+        this.edtBamt = new NumericUpDown();
 
-        this.btnNew = new Button { Text = "신규(F1)" };
-        this.btnAdd = new Button { Text = "저장(F2)" };
-        this.btnDel = new Button { Text = "삭제(F4)" };
-        this.btnSearch = new Button { Text = "조회" };
-        this.btnClose = new Button { Text = "닫기(Esc)" };
-        this.btnYearDown = new Button { Text = "◀" };
-        this.btnYearUp = new Button { Text = "▶" };
+        this.btnNew = new Button();
+        this.btnAdd = new Button();
+        this.btnDel = new Button();
+        this.btnSearch = new Button();
+        this.btnClose = new Button();
+        this.btnYearDown = new Button();
+        this.btnYearUp = new Button();
         this.panelTop = new Panel();
         this.panelEdit = new Panel();
+        this.lblYear = new Label();
+        this.lblCode = new Label();
+        this.lblBamt = new Label();
+        //
+        // 컨트롤 기본 속성
+        //
+        this.edtCvnam.ReadOnly = true;
+        this.edtOwnam.ReadOnly = true;
+        this.edtBamt.Maximum = 9999999999;
+        this.edtBamt.DecimalPlaces = 0;
+        this.btnNew.Text = "신규(F1)";
+        this.btnAdd.Text = "저장(F2)";
+        this.btnDel.Text = "삭제(F4)";
+        this.btnSearch.Text = "조회";
+        this.btnClose.Text = "닫기(Esc)";
+        this.btnYearDown.Text = "◀";
+        this.btnYearUp.Text = "▶";
         ((System.ComponentModel.ISupportInitialize)(this.edtBamt)).BeginInit();
         this.panelTop.SuspendLayout();
         this.panelEdit.SuspendLayout();
@@ -80,7 +97,10 @@ partial class ED03Form
 
         this.panelEdit.Dock = DockStyle.Top;
         this.panelEdit.Height = 40;
-        this.lblYear = new Label { Text = "년도", Left = 5, Top = 12, AutoSize = true };
+        this.lblYear.Text = "년도";
+        this.lblYear.Left = 5;
+        this.lblYear.Top = 12;
+        this.lblYear.AutoSize = true;
         this.edtYear.Left = 45; this.edtYear.Top = 8; this.edtYear.Width = 60;
         this.edtYear.KeyDown += (_, e) => { if (e.KeyCode == Keys.Enter) Search(); };
         this.btnYearDown.Left = 110; this.btnYearDown.Top = 8; this.btnYearDown.Width = 30;
@@ -88,13 +108,19 @@ partial class ED03Form
         this.btnYearDown.Click += (_, _) => { edtYear.Text = (PublicLib.StrToIntSafe(edtYear.Text) - 1).ToString(); Search(); };
         this.btnYearUp.Click += (_, _) => { edtYear.Text = (PublicLib.StrToIntSafe(edtYear.Text) + 1).ToString(); Search(); };
 
-        this.lblCode = new Label { Text = "거래처코드", Left = 190, Top = 12, AutoSize = true };
+        this.lblCode.Text = "거래처코드";
+        this.lblCode.Left = 190;
+        this.lblCode.Top = 12;
+        this.lblCode.AutoSize = true;
         this.edtCode.Left = 260; this.edtCode.Top = 8; this.edtCode.Width = 80;
         this.edtCode.KeyDown += new KeyEventHandler(this.EdtCode_KeyDown);
         this.edtCvnam.Left = 350; this.edtCvnam.Top = 8; this.edtCvnam.Width = 150;
         this.edtOwnam.Left = 510; this.edtOwnam.Top = 8; this.edtOwnam.Width = 120;
 
-        this.lblBamt = new Label { Text = "기초잔액", Left = 640, Top = 12, AutoSize = true };
+        this.lblBamt.Text = "기초잔액";
+        this.lblBamt.Left = 640;
+        this.lblBamt.Top = 12;
+        this.lblBamt.AutoSize = true;
         this.edtBamt.Left = 710; this.edtBamt.Top = 8; this.edtBamt.Width = 130;
 
         this.panelEdit.Controls.AddRange(new Control[]
