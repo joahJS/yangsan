@@ -21,50 +21,21 @@ public partial class VersionUploadForm : Form
     public VersionUploadForm()
     {
         InitializeComponent();
-        BuildDynamicLayout();
     }
 
-    /// <summary>
-    /// 원본 BuildLayout() — GridLayout 헬퍼로 좌표를 동적으로 계산하기 때문에(지역변수 사용)
-    /// WinForms 디자이너가 InitializeComponent() 안에서는 처리하지 못해 이 메서드로 분리했다.
-    /// InitializeComponent() 호출 직후 생성자에서 실행되므로 동작은 이전과 동일하다.
-    /// </summary>
-    private void BuildDynamicLayout()
+    private void BtnUpload_Click(object? sender, EventArgs e)
     {
-        var layout = new GridLayout(this, 20, 15, 280, 90, 30, 2);
-        layout.Add("VersionID", this.edtVersionId, editWidth: 150);
-        layout.NewRow();
-        layout.Add("비고", this.edtRmk, span: 2, editWidth: 470);
-        layout.NewRow();
+        PickFiles();
+    }
 
-        this.gridButtons.Left = 20; this.gridButtons.Top = layout.Bottom(5); this.gridButtons.Width = 560; this.gridButtons.Height = 30;
-        this.btnUpload.Left = 0; this.btnUpload.Top = 0; this.btnUpload.Width = 100;
-        this.gridButtons.Controls.Add(this.btnUpload);
+    private void BtnSave_Click(object? sender, EventArgs e)
+    {
+        Save();
+    }
 
-        this.lblHint.Text = "※ debug 폴더내의 pStock.zip 파일 업로드";
-        this.lblHint.ForeColor = Color.Red;
-        this.lblHint.AutoSize = true;
-        this.lblHint.Left = this.btnUpload.Right + 25;
-        this.lblHint.Top = this.btnUpload.Top + 4;
-        this.gridButtons.Controls.Add(this.lblHint);
-
-        this.grid.Left = 20; this.grid.Top = this.gridButtons.Bottom + 5; this.grid.Width = 560; this.grid.Height = 220;
-        this.grid.ReadOnly = true;
-        this.grid.AllowUserToAddRows = false;
-        this.grid.Columns.Add("FILE_NAME", "파일명");
-        this.grid.Columns.Add("FILE_BYTE", "크기");
-
-        this.bottom.Left = 20; this.bottom.Top = this.grid.Bottom + 10; this.bottom.Width = 560; this.bottom.Height = 35;
-        this.btnSave.Left = 340; this.btnSave.Top = 0; this.btnSave.Width = 100;
-        this.btnClose.Left = 450; this.btnClose.Top = 0; this.btnClose.Width = 100;
-        this.bottom.Controls.AddRange(new Control[] { this.btnSave, this.btnClose });
-
-        this.Controls.AddRange(new Control[] { this.gridButtons, this.grid, this.bottom });
-        this.ClientSize = new Size(600, this.bottom.Bottom + 15);
-
-        this.btnUpload.Click += (_, _) => PickFiles();
-        this.btnSave.Click += (_, _) => Save();
-        this.btnClose.Click += (_, _) => Close();
+    private void BtnClose_Click(object? sender, EventArgs e)
+    {
+        Close();
     }
 
     private void VersionUploadForm_Shown(object? sender, EventArgs e)
