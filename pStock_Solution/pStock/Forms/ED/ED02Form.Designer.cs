@@ -34,6 +34,7 @@ partial class ED02Form
         //
         // ED02Form
         //
+        this.Font = new Font("맑은 고딕", 9F);
         this.Text = "년마감 작업";
         this.Width = 400;
         this.Height = 220;
