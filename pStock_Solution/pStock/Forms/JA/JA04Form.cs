@@ -8,95 +8,13 @@ namespace pStock.Forms.JA;
 /// 원본 JA04.pas / JA04.dfm (TfrmJA04) 이식 — 재고관리-품목(월별 입출고 집계, 상/하순 구분).
 /// 원본 prcDBopen의 UNION ALL SQL(IPGOF 입고 + SALE_M/D 출고 + IPCHF 보관 + ITEMBL 이월)을 그대로 이식.
 /// </summary>
-public class JA04Form : Form
+public partial class JA04Form : Form
 {
     private static readonly string[] SearchFields = { "A1.ITNBR", "ITDSC", "SUBSTRING(A1.ITNBR,1,4)", "CVNAM" };
 
-    private readonly FastDataGridView grid = new();
-    private readonly TextBox edtMonth = new();
-    private readonly ComboBox cSrcd = new() { DropDownStyle = ComboBoxStyle.DropDownList };
-    private readonly TextBox eSrwd = new();
-
-    private readonly Button btnNew = new() { Text = "초기화(F1)" };
-    private readonly Button btnSearch = new() { Text = "조회(F5)" };
-    private readonly Button btnExcel = new() { Text = "엑셀저장" };
-    private readonly Button btnPrint = new() { Text = "인쇄" };
-    private readonly Button btnClose = new() { Text = "닫기(Esc)" };
-    private readonly Button btnMonthDown = new() { Text = "◀" };
-    private readonly Button btnMonthUp = new() { Text = "▶" };
-
     public JA04Form()
     {
-        Text = "재고관리-품목";
-        Width = 1200;
-        Height = 650;
-        KeyPreview = true;
-
-        BuildLayout();
-
-        Load += (_, _) =>
-        {
-            edtMonth.Text = DateTime.Now.ToString("yyyy-MM");
-            cSrcd.SelectedIndex = 1;
-        };
-        KeyDown += JA04Form_KeyDown;
-    }
-
-    private void BuildLayout()
-    {
-        cSrcd.Items.AddRange(new object[] { "품번", "품명", "거래처코드", "거래처명" });
-
-        var top = new Panel { Dock = DockStyle.Top, Height = 40 };
-        top.Controls.AddRange(new Control[] { btnNew, btnSearch, btnExcel, btnPrint, btnClose });
-        int bx = 5;
-        foreach (Control c in new Control[] { btnNew, btnSearch, btnExcel, btnPrint, btnClose })
-        { c.Left = bx; c.Top = 8; c.Width = 100; bx += 105; }
-        btnExcel.Click += (_, _) => pStock.Common.ExcelExporter.Export(grid, "재고관리-품목");
-        btnPrint.Click += (_, _) => pStock.Common.GridPrinter.Print(grid, "재고관리-품목");
-
-        var editPanel = new Panel { Dock = DockStyle.Top, Height = 40 };
-        var lblMonth = new Label { Text = "조회월(YYYY-MM)", Left = 10, Top = 12, AutoSize = true };
-        edtMonth.Left = 140; edtMonth.Top = 8; edtMonth.Width = 80;
-        edtMonth.KeyDown += (_, e) => { if (e.KeyCode == Keys.Enter) ReloadList(); };
-        btnMonthDown.Left = 225; btnMonthDown.Top = 8; btnMonthDown.Width = 30;
-        btnMonthUp.Left = 258; btnMonthUp.Top = 8; btnMonthUp.Width = 30;
-        btnMonthDown.Click += (_, _) => { ShiftMonth(-1); ReloadList(); };
-        btnMonthUp.Click += (_, _) => { ShiftMonth(1); ReloadList(); };
-
-        var lblSearch = new Label { Text = "검색조건", Left = 320, Top = 12, AutoSize = true };
-        cSrcd.Left = 390; cSrcd.Top = 8; cSrcd.Width = 100;
-        eSrwd.Left = 500; eSrwd.Top = 8; eSrwd.Width = 200;
-
-        editPanel.Controls.AddRange(new Control[]
-        {
-            lblMonth, edtMonth, btnMonthDown, btnMonthUp, lblSearch, cSrcd, eSrwd
-        });
-
-        grid.Dock = DockStyle.Fill;
-        grid.ReadOnly = true;
-        grid.AllowUserToAddRows = false;
-        grid.Columns.Add("ITDSC", "품명");
-        grid.Columns.Add("ITNBR", "품번");
-        grid.Columns.Add("BQTY", "기초");
-        grid.Columns.Add("IQT1", "입고(상순)");
-        grid.Columns.Add("IQT2", "입고(하순)");
-        grid.Columns.Add("OQT1", "출고(상순)");
-        grid.Columns.Add("OQT2", "출고(하순)");
-        grid.Columns.Add("JQTY1", "재고(상순)");
-        grid.Columns.Add("JQTY2", "재고(하순)");
-        grid.Columns.Add("IAMT", "입고금액");
-        grid.Columns.Add("OAMT", "보관금액");
-        grid.Columns.Add("JAM1", "출고금액1");
-        grid.Columns.Add("JAM2", "출고금액2");
-        grid.Columns.Add("TAMT", "합계금액");
-
-        Controls.Add(grid);
-        Controls.Add(editPanel);
-        Controls.Add(top);
-
-        btnNew.Click += (_, _) => { cSrcd.SelectedIndex = 1; eSrwd.Clear(); grid.Rows.Clear(); eSrwd.Focus(); };
-        btnSearch.Click += (_, _) => ReloadList();
-        btnClose.Click += (_, _) => Close();
+        InitializeComponent();
     }
 
     private void JA04Form_KeyDown(object? sender, KeyEventArgs e)

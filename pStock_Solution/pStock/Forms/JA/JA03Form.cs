@@ -9,82 +9,11 @@ namespace pStock.Forms.JA;
 /// 컬럼: 일자, 입고금액/부가세1~3, 보관금액/부가세합계, 출고금액/부가세1~3, 합계, 합계/10, 수금액, 미수금잔액.
 /// 거래처 검색 팝업(BA00C)은 아직 변환되지 않아 거래처코드 직접입력만 지원한다.
 /// </summary>
-public class JA03Form : Form
+public partial class JA03Form : Form
 {
-    private readonly FastDataGridView grid = new();
-    private readonly TextBox edtMonth = new();
-    private readonly TextBox edtCvcod = new();
-    private readonly TextBox dspName = new() { ReadOnly = true };
-
-    private readonly Button btnNew = new() { Text = "초기화(F1)" };
-    private readonly Button btnSearch = new() { Text = "조회(F5)" };
-    private readonly Button btnClose = new() { Text = "닫기(Esc)" };
-    private readonly Button btnMonthDown = new() { Text = "◀" };
-    private readonly Button btnMonthUp = new() { Text = "▶" };
-
     public JA03Form()
     {
-        Text = "일자별 집계작업";
-        Width = 1300;
-        Height = 650;
-        KeyPreview = true;
-
-        BuildLayout();
-
-        Load += (_, _) => { edtMonth.Text = DateTime.Now.ToString("yyyy-MM"); ReloadList(); };
-        KeyDown += JA03Form_KeyDown;
-    }
-
-    private void BuildLayout()
-    {
-        var top = new Panel { Dock = DockStyle.Top, Height = 40 };
-        top.Controls.AddRange(new Control[] { btnNew, btnSearch, btnClose });
-        int bx = 5;
-        foreach (Control c in new Control[] { btnNew, btnSearch, btnClose })
-        { c.Left = bx; c.Top = 8; c.Width = 100; bx += 105; }
-
-        var editPanel = new Panel { Dock = DockStyle.Top, Height = 40 };
-        var lblMonth = new Label { Text = "조회월(YYYY-MM)", Left = 10, Top = 12, AutoSize = true };
-        edtMonth.Left = 140; edtMonth.Top = 8; edtMonth.Width = 80;
-        edtMonth.KeyDown += (_, e) => { if (e.KeyCode == Keys.Enter) ReloadList(); };
-        btnMonthDown.Left = 225; btnMonthDown.Top = 8; btnMonthDown.Width = 30;
-        btnMonthUp.Left = 258; btnMonthUp.Top = 8; btnMonthUp.Width = 30;
-        btnMonthDown.Click += (_, _) => { ShiftMonth(-1); ReloadList(); };
-        btnMonthUp.Click += (_, _) => { ShiftMonth(1); ReloadList(); };
-
-        var lblCvcod = new Label { Text = "거래처코드", Left = 320, Top = 12, AutoSize = true };
-        edtCvcod.Left = 400; edtCvcod.Top = 8; edtCvcod.Width = 80;
-        edtCvcod.KeyDown += EdtCvcod_KeyDown;
-        dspName.Left = 490; dspName.Top = 8; dspName.Width = 200;
-
-        editPanel.Controls.AddRange(new Control[] { lblMonth, edtMonth, btnMonthDown, btnMonthUp, lblCvcod, edtCvcod, dspName });
-
-        grid.Dock = DockStyle.Fill;
-        grid.ReadOnly = true;
-        grid.AllowUserToAddRows = false;
-        grid.Columns.Add("DAY", "일자");
-        grid.Columns.Add("IAMT", "입고금액");
-        grid.Columns.Add("J1", "입고VAT1");
-        grid.Columns.Add("J2", "입고VAT2");
-        grid.Columns.Add("J3", "입고VAT3");
-        grid.Columns.Add("BAMT", "보관금액");
-        grid.Columns.Add("BVAT", "보관VAT합");
-        grid.Columns.Add("OAMT", "출고금액");
-        grid.Columns.Add("OJ1", "출고VAT1");
-        grid.Columns.Add("OJ2", "출고VAT2");
-        grid.Columns.Add("OJ3", "출고VAT3");
-        grid.Columns.Add("SUM", "합계");
-        grid.Columns.Add("SUM10", "합계/10");
-        grid.Columns.Add("SUGM", "수금액");
-        grid.Columns.Add("MISU", "미수금잔액");
-
-        Controls.Add(grid);
-        Controls.Add(editPanel);
-        Controls.Add(top);
-
-        btnNew.Click += (_, _) => { edtCvcod.Clear(); dspName.Clear(); grid.Rows.Clear(); edtCvcod.Focus(); };
-        btnSearch.Click += (_, _) => ReloadList();
-        btnClose.Click += (_, _) => Close();
+        InitializeComponent();
     }
 
     private void JA03Form_KeyDown(object? sender, KeyEventArgs e)
