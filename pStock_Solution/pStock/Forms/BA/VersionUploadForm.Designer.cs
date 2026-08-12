@@ -47,43 +47,10 @@ partial class VersionUploadForm
         this.FormBorderStyle = FormBorderStyle.FixedDialog;
         this.StartPosition = FormStartPosition.CenterParent;
         this.KeyPreview = true;
-        //
-        // 원본 BuildLayout()
-        //
-        var layout = new GridLayout(this, 20, 15, 280, 90, 30, 2);
-        layout.Add("VersionID", this.edtVersionId, editWidth: 150);
-        layout.NewRow();
-        layout.Add("비고", this.edtRmk, span: 2, editWidth: 470);
-        layout.NewRow();
-
-        this.gridButtons.Left = 20; this.gridButtons.Top = layout.Bottom(5); this.gridButtons.Width = 560; this.gridButtons.Height = 30;
-        this.btnUpload.Left = 0; this.btnUpload.Top = 0; this.btnUpload.Width = 100;
-        this.gridButtons.Controls.Add(this.btnUpload);
-
-        this.lblHint.Text = "※ debug 폴더내의 pStock.zip 파일 업로드";
-        this.lblHint.ForeColor = Color.Red;
-        this.lblHint.AutoSize = true;
-        this.lblHint.Left = this.btnUpload.Right + 25;
-        this.lblHint.Top = this.btnUpload.Top + 4;
-        this.gridButtons.Controls.Add(this.lblHint);
-
-        this.grid.Left = 20; this.grid.Top = this.gridButtons.Bottom + 5; this.grid.Width = 560; this.grid.Height = 220;
-        this.grid.ReadOnly = true;
-        this.grid.AllowUserToAddRows = false;
-        this.grid.Columns.Add("FILE_NAME", "파일명");
-        this.grid.Columns.Add("FILE_BYTE", "크기");
-
-        this.bottom.Left = 20; this.bottom.Top = this.grid.Bottom + 10; this.bottom.Width = 560; this.bottom.Height = 35;
-        this.btnSave.Left = 340; this.btnSave.Top = 0; this.btnSave.Width = 100;
-        this.btnClose.Left = 450; this.btnClose.Top = 0; this.btnClose.Width = 100;
-        this.bottom.Controls.AddRange(new Control[] { this.btnSave, this.btnClose });
-
-        this.Controls.AddRange(new Control[] { this.gridButtons, this.grid, this.bottom });
-        this.ClientSize = new Size(600, this.bottom.Bottom + 15);
-
-        this.btnUpload.Click += (_, _) => PickFiles();
-        this.btnSave.Click += (_, _) => Save();
-        this.btnClose.Click += (_, _) => Close();
+        // 원본 BuildLayout()은 GridLayout 헬퍼(지역변수 기반 동적 좌표 계산)를 쓰기 때문에
+        // WinForms 디자이너가 InitializeComponent() 안에서 파싱할 수 없다. 그래서
+        // BuildDynamicLayout()(VersionUploadForm.cs)으로 분리해 생성자에서
+        // InitializeComponent() 호출 직후에 실행한다 — 동작은 100% 동일하다.
 
         this.KeyDown += new KeyEventHandler(this.VersionUploadForm_KeyDown);
         this.Shown += (_, _) => this.edtVersionId.Focus();
