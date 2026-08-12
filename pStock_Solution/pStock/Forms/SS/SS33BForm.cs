@@ -9,121 +9,15 @@ namespace pStock.Forms.SS;
 /// 원본 SS33B.pas / SS33B.dfm (TfrmSS33B) 이식 — 계산서 등록/수정(TAXF).
 /// 하나의 계산서에 품목 4건(MMDD/품번/품명/수량/단가/금액)까지 기재 가능한 원본 구조를 그대로 유지.
 /// </summary>
-public class SS33BForm : Form
+public partial class SS33BForm : Form
 {
-    private readonly TextBox edtTDate = new();
-    private readonly TextBox edtNo = new() { ReadOnly = true };
-    private readonly TextBox edtCvcod = new();
-    private readonly TextBox dspCvnam = new() { ReadOnly = true };
-    private readonly RadioButton rdo1 = new() { Text = "영수" };
-    private readonly RadioButton rdo2 = new() { Text = "청구", Checked = true };
-    private readonly TextBox edtBigo = new();
-    private readonly Label lblAmt = new() { AutoSize = true };
-    private readonly Label lblVat = new() { AutoSize = true };
-
-    private readonly TextBox[] edtMmdd = new TextBox[4];
-    private readonly TextBox[] edtItnbr = new TextBox[4];
-    private readonly TextBox[] edtItdsc = new TextBox[4];
-    private readonly NumericUpDown[] edtQty = new NumericUpDown[4];
-    private readonly NumericUpDown[] edtCost = new NumericUpDown[4];
-    private readonly NumericUpDown[] edtAmt = new NumericUpDown[4];
-
-    private readonly Button btnAdd = new() { Text = "연속저장(F2)" };
-    private readonly Button btnOne = new() { Text = "저장(F3)" };
-    private readonly Button btnClose = new() { Text = "닫기(Esc)" };
-
     public string Job { get; set; } = "I";
     public bool Saved { get; private set; }
 
     public SS33BForm()
     {
-        Text = "계산서 등록";
-        Width = 750;
-        Height = 560;
-        FormBorderStyle = FormBorderStyle.FixedDialog;
-        StartPosition = FormStartPosition.CenterParent;
-        KeyPreview = true;
-
-        for (int i = 0; i < 4; i++)
-        {
-            edtMmdd[i] = new TextBox();
-            edtItnbr[i] = new TextBox();
-            edtItdsc[i] = new TextBox { ReadOnly = true };
-            edtQty[i] = new NumericUpDown { Maximum = 999999999, DecimalPlaces = 0 };
-            edtCost[i] = new NumericUpDown { Maximum = 999999999, DecimalPlaces = 0 };
-            edtAmt[i] = new NumericUpDown { Maximum = 999999999999, DecimalPlaces = 0 };
-            PublicLib.MakeTypingFriendly(edtQty[i]);
-            PublicLib.MakeTypingFriendly(edtCost[i]);
-            PublicLib.MakeTypingFriendly(edtAmt[i]);
-        }
-
-        BuildLayout();
-        KeyDown += SS33BForm_KeyDown;
+        InitializeComponent();
         ClearForm();
-    }
-
-    private readonly ToolTip _tip = new();
-
-    private void BuildLayout()
-    {
-        int col1 = 20;
-        var grid = new GridLayout(this, col1, 15, slotWidth: 260, labelWidth: 85, rowHeight: 30, slotsPerRow: 3);
-        grid.Add("발행일자", edtTDate);
-        grid.Add("전표번호", edtNo);
-        grid.NewRow();
-        grid.Add("거래처코드", edtCvcod);
-        _tip.SetToolTip(edtCvcod, "Enter 키를 누르면 거래처를 검색합니다.");
-        edtCvcod.KeyDown += EdtCvcod_KeyDown;
-        grid.Add("거래처명", dspCvnam);
-        grid.AddRaw(rdo1, width: 60);
-        grid.AddRaw(rdo2, width: 60);
-        int y = grid.Bottom();
-
-        var headerY = y;
-        var headers = new[] { "일자", "품번", "품명", "수량", "단가", "금액" };
-        var xs = new[] { col1, col1 + 70, col1 + 200, col1 + 380, col1 + 460, col1 + 550 };
-        for (int c = 0; c < headers.Length; c++)
-            Controls.Add(new Label { Text = headers[c], Left = xs[c], Top = headerY, AutoSize = true });
-        y += 20;
-
-        for (int i = 0; i < 4; i++)
-        {
-            edtMmdd[i].Left = xs[0]; edtMmdd[i].Top = y; edtMmdd[i].Width = 60;
-            edtItnbr[i].Left = xs[1]; edtItnbr[i].Top = y; edtItnbr[i].Width = 120;
-            var idx = i;
-            edtItnbr[i].KeyDown += (_, e) => EdtItnbr_KeyDown(idx, e);
-            _tip.SetToolTip(edtItnbr[i], "Enter 키를 누르면 품목을 검색합니다.");
-            edtItdsc[i].Left = xs[2]; edtItdsc[i].Top = y; edtItdsc[i].Width = 170;
-            edtQty[i].Left = xs[3]; edtQty[i].Top = y; edtQty[i].Width = 70;
-            edtQty[i].ValueChanged += (_, _) => RecalcRow(idx);
-            edtCost[i].Left = xs[4]; edtCost[i].Top = y; edtCost[i].Width = 80;
-            edtCost[i].ValueChanged += (_, _) => RecalcRow(idx);
-            edtAmt[i].Left = xs[5]; edtAmt[i].Top = y; edtAmt[i].Width = 100;
-            edtAmt[i].ValueChanged += (_, _) => RecalcTotal();
-
-            Controls.AddRange(new Control[] { edtMmdd[i], edtItnbr[i], edtItdsc[i], edtQty[i], edtCost[i], edtAmt[i] });
-            y += 30;
-        }
-
-        AddRow(this, "비고", edtBigo, col1, ref y, 400, labelWidth: 85);
-
-        var lblAmtCap = new Label { Text = "합계금액:", Left = col1, Top = y + 5, AutoSize = true };
-        lblAmt.Left = col1 + 90; lblAmt.Top = y + 5;
-        var lblVatCap = new Label { Text = "부가세:", Left = col1 + 250, Top = y + 5, AutoSize = true };
-        lblVat.Left = col1 + 330; lblVat.Top = y + 5;
-        Controls.AddRange(new Control[] { lblAmtCap, lblAmt, lblVatCap, lblVat });
-        y += 35;
-
-        btnAdd.Left = 150; btnAdd.Top = y; btnAdd.Width = 130;
-        btnOne.Left = 290; btnOne.Top = y; btnOne.Width = 100;
-        btnClose.Left = 400; btnClose.Top = y; btnClose.Width = 100;
-        Controls.AddRange(new Control[] { btnAdd, btnOne, btnClose });
-
-        btnAdd.Click += (_, _) => { if (SaveEntry()) { Saved = true; ClearForm(); edtCvcod.Focus(); } };
-        btnOne.Click += (_, _) => { if (SaveEntry()) { Saved = true; Close(); } };
-        btnClose.Click += (_, _) => Close();
-
-        ClientSize = new Size(ClientSize.Width, y + 45);
     }
 
     private void AddRow(Control parent, string caption, Control edit, int left, ref int y, int width, bool sameRow = false, int? labelWidth = null)

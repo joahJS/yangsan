@@ -14,77 +14,11 @@ namespace pStock.Forms.SS;
 /// 지원하고 신규/수정 버튼은 안내 메시지로 대체해 두었다. 삭제 로직(prcDBdel)은
 /// 재고/미수 파일 갱신까지 원본 그대로 이식했다(간략화된 UPDATE 방식 사용).
 /// </summary>
-public class SS21Form : Form
+public partial class SS21Form : Form
 {
-    private readonly FastDataGridView grid = new();
-    private readonly DateTimePicker dtpDate1 = new();
-    private readonly DateTimePicker dtpDate2 = new();
-    private readonly TextBox edtCvcd1 = new();
-    private readonly Label lblAmt2 = new() { AutoSize = true };
-    private readonly Label lblAmt3 = new() { AutoSize = true };
-
-    private readonly Button btnNew = new() { Text = "신규(F1)" };
-    private readonly Button btnDel = new() { Text = "삭제(F4)" };
-    private readonly Button btnSearch = new() { Text = "조회" };
-    private readonly Button btnExcel = new() { Text = "엑셀저장" };
-    private readonly Button btnPrint = new() { Text = "인쇄" };
-    private readonly Button btnClose = new() { Text = "닫기(Esc)" };
-
     public SS21Form()
     {
-        Text = "입고 관리";
-        Width = 1200;
-        Height = 650;
-        KeyPreview = true;
-
-        BuildLayout();
-
-        Load += (_, _) => { dtpDate1.Value = DateTime.Now; dtpDate2.Value = DateTime.Now; Search(); };
-        KeyDown += SS21Form_KeyDown;
-    }
-
-    private void BuildLayout()
-    {
-        var top = new Panel { Dock = DockStyle.Top, Height = 40 };
-        top.Controls.AddRange(new Control[] { btnNew, btnDel, btnSearch, btnExcel, btnPrint, btnClose });
-        int bx = 5;
-        foreach (Control c in new Control[] { btnNew, btnDel, btnSearch, btnExcel, btnPrint, btnClose })
-        { c.Left = bx; c.Top = 8; c.Width = 90; bx += 95; }
-        btnExcel.Click += (_, _) => pStock.Common.ExcelExporter.Export(grid, "입고관리");
-        btnPrint.Click += (_, _) => pStock.Common.GridPrinter.Print(grid, "입고관리");
-
-        var editPanel = new Panel { Dock = DockStyle.Top, Height = 40 };
-        var lblDate = new Label { Text = "기간", Left = 5, Top = 12, AutoSize = true };
-        dtpDate1.Left = 50; dtpDate1.Top = 8; dtpDate1.Width = 110; dtpDate1.Format = DateTimePickerFormat.Short;
-        var lblTilde = new Label { Text = "~", Left = 165, Top = 12, AutoSize = true };
-        dtpDate2.Left = 180; dtpDate2.Top = 8; dtpDate2.Width = 110; dtpDate2.Format = DateTimePickerFormat.Short;
-        var lblCvcod = new Label { Text = "거래처코드", Left = 310, Top = 12, AutoSize = true };
-        edtCvcd1.Left = 380; edtCvcd1.Top = 8; edtCvcd1.Width = 80;
-
-        var lblAmtCap2 = new Label { Text = "입고금액:", Left = 480, Top = 12, AutoSize = true };
-        lblAmt2.Left = 550; lblAmt2.Top = 12;
-        var lblAmtCap3 = new Label { Text = "부가세:", Left = 650, Top = 12, AutoSize = true };
-        lblAmt3.Left = 710; lblAmt3.Top = 12;
-
-        editPanel.Controls.AddRange(new Control[]
-        {
-            lblDate, dtpDate1, lblTilde, dtpDate2, lblCvcod, edtCvcd1,
-            lblAmtCap2, lblAmt2, lblAmtCap3, lblAmt3
-        });
-
-        grid.Dock = DockStyle.Fill;
-        grid.ReadOnly = true;
-        grid.AllowUserToAddRows = false;
-        grid.CellDoubleClick += (_, _) => OpenEntry(isNew: false);
-
-        Controls.Add(grid);
-        Controls.Add(editPanel);
-        Controls.Add(top);
-
-        btnNew.Click += (_, _) => OpenEntry(isNew: true);
-        btnDel.Click += (_, _) => Delete();
-        btnSearch.Click += (_, _) => Search();
-        btnClose.Click += (_, _) => Close();
+        InitializeComponent();
     }
 
     private void SS21Form_KeyDown(object? sender, KeyEventArgs e)

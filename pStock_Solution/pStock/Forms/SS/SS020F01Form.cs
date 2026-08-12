@@ -12,160 +12,16 @@ namespace pStock.Forms.SS;
 /// (결과는 동일하지만 트랜잭션 안에서 원자적으로 처리되어 더 안전하다).
 /// 재고/미수 반영은 저장 전후 상세 합계 차이만큼만 적용한다.
 /// </summary>
-public class SS020F01Form : Form
+public partial class SS020F01Form : Form
 {
-    private readonly TextBox eTdate = new();
-    private readonly TextBox eNo = new() { ReadOnly = true };
-    private readonly CheckBox chkAuto = new() { Text = "자동채번", Checked = true };
-    private readonly TextBox eCvcod = new();
-    private readonly TextBox lCvnam = new() { ReadOnly = true };
-    private readonly TextBox lTelno = new() { ReadOnly = true };
-    private readonly TextBox eLncod = new();
-    private readonly TextBox lLnnam = new() { ReadOnly = true };
-    private readonly TextBox lLnadr = new() { ReadOnly = true };
-    private readonly TextBox ePlncd = new();
-    private readonly TextBox eMbigo = new() { Multiline = true, Height = 50 };
-    private readonly NumericUpDown eSsamt = new() { Maximum = 999999999, DecimalPlaces = 0 };
-    private readonly FastDataGridView rgListS = new();
-    private readonly NumericUpDown dTamt = new() { ReadOnly = true, Maximum = 999999999999, DecimalPlaces = 0 };
-    private readonly NumericUpDown dJamt = new() { ReadOnly = true, Maximum = 999999999999, DecimalPlaces = 0 };
-
-    private readonly Button btnAddRow = new() { Text = "행추가" };
-    private readonly Button btnDelRow = new() { Text = "행삭제(F4)" };
-    private readonly CheckBox ckPrint = new() { Text = "저장 후 인쇄" };
-    private readonly Button btnPrintNow = new() { Text = "인쇄" };
-    private readonly Button bAdd = new() { Text = "연속저장(F2)" };
-    private readonly Button bOne = new() { Text = "저장(F3)" };
-    private readonly Button btnClose = new() { Text = "닫기(Esc)" };
-
     /// <summary>원본 bIns: true=신규, false=수정.</summary>
     public bool IsInsert { get; set; } = true;
     public bool Saved { get; private set; }
 
     public SS020F01Form()
     {
-        Text = "출고 등록";
-        Width = 950;
-        Height = 700;
-        FormBorderStyle = FormBorderStyle.FixedDialog;
-        StartPosition = FormStartPosition.CenterParent;
-        KeyPreview = true;
-
-        BuildLayout();
-        KeyDown += SS020F01Form_KeyDown;
+        InitializeComponent();
         InitScreen();
-    }
-
-    private readonly ToolTip _tip = new();
-
-    private void BuildLayout()
-    {
-        PublicLib.MakeTypingFriendly(eSsamt);
-
-        var top = new Panel { Dock = DockStyle.Top, Height = 180 };
-        var grid = new GridLayout(top, 10, 5, slotWidth: 300, labelWidth: 85, rowHeight: 30, slotsPerRow: 3);
-
-        grid.Add("출고일자", eTdate);
-        grid.Add("전표번호", eNo);
-        grid.AddRaw(chkAuto, width: 100);
-
-        grid.Add("거래처코드", eCvcod);
-        _tip.SetToolTip(eCvcod, "Enter 키를 누르면 거래처를 검색합니다.");
-        eCvcod.KeyDown += ECvcod_KeyDown;
-        grid.Add("거래처명", lCvnam);
-        grid.Add("전화번호", lTelno);
-
-        grid.Add("착지처코드", eLncod);
-        eLncod.KeyDown += ELncod_KeyDown;
-        grid.Add("착지처명", lLnnam);
-        grid.Add("착지처주소", lLnadr);
-
-        grid.Add("담당자", ePlncd);
-        grid.Add("운송비", eSsamt);
-
-        grid.NewRow();
-        grid.Add("비고", eMbigo, span: 3);
-
-        top.Height = grid.Bottom();
-
-        rgListS.Dock = DockStyle.Fill;
-        rgListS.AllowUserToAddRows = false;
-        rgListS.Columns.Add("ITCOD", "품번");
-        rgListS.Columns.Add("ITNAM", "품명");
-        rgListS.Columns.Add("ISPEC", "규격");
-        rgListS.Columns.Add("DANWI", "단위");
-        rgListS.Columns.Add("HOUSE", "저장위치");
-        rgListS.Columns.Add("TRQTY", "수량");
-        rgListS.Columns.Add("UCOST", "단가");
-        rgListS.Columns.Add("TRAMT", "금액");
-        rgListS.Columns.Add("JAMT1", "부가세1");
-        rgListS.Columns.Add("JAMT2", "부가세2");
-        rgListS.Columns.Add("JAMT3", "부가세3");
-        rgListS.Columns.Add("DBIGO", "비고");
-        rgListS.Columns["ITCOD"]!.ReadOnly = true;
-        rgListS.Columns["ITNAM"]!.ReadOnly = true;
-        rgListS.Columns["ISPEC"]!.ReadOnly = true;
-        rgListS.Columns["DANWI"]!.ReadOnly = true;
-        rgListS.Columns["HOUSE"]!.ReadOnly = true;
-        rgListS.CellDoubleClick += RgListS_CellDoubleClick;
-        rgListS.CellEndEdit += (_, _) => RecalcRowAndTotal();
-
-        var gridPanel = new Panel { Dock = DockStyle.Top, Height = 300 };
-        gridPanel.Controls.Add(rgListS);
-        var gridButtons = new Panel { Dock = DockStyle.Top, Height = 35 };
-        btnAddRow.Left = 5; btnAddRow.Top = 5; btnAddRow.Width = 90;
-        btnDelRow.Left = 100; btnDelRow.Top = 5; btnDelRow.Width = 100;
-        gridButtons.Controls.AddRange(new Control[] { btnAddRow, btnDelRow });
-        btnAddRow.Click += (_, _) => { rgListS.Rows.Add("", "", "", "", "", 0, 0, 0, 0, 0, 0, ""); };
-        btnDelRow.Click += (_, _) => { if (rgListS.CurrentRow != null) { rgListS.Rows.Remove(rgListS.CurrentRow); RecalcTotal(); } };
-
-        var bottom = new Panel { Dock = DockStyle.Bottom, Height = 80 };
-        var lblT = new Label { Text = "출고금액:", Left = 10, Top = 10, AutoSize = true };
-        dTamt.Left = 90; dTamt.Top = 6; dTamt.Width = 100;
-        var lblJ = new Label { Text = "부가세:", Left = 200, Top = 10, AutoSize = true };
-        dJamt.Left = 250; dJamt.Top = 6; dJamt.Width = 100;
-        ckPrint.Left = 365; ckPrint.Top = 10; ckPrint.AutoSize = true;
-        btnPrintNow.Left = 480; btnPrintNow.Top = 6; btnPrintNow.Width = 70;
-        bAdd.Left = 560; bAdd.Top = 6; bAdd.Width = 110;
-        bOne.Left = 680; bOne.Top = 6; bOne.Width = 90;
-        btnClose.Left = 780; btnClose.Top = 6; btnClose.Width = 90;
-        bottom.Controls.AddRange(new Control[] { lblT, dTamt, lblJ, dJamt, ckPrint, btnPrintNow, bAdd, bOne, btnClose });
-
-        Controls.Add(rgListS);
-        Controls.Add(gridButtons);
-        Controls.Add(bottom);
-        Controls.Add(top);
-
-        bAdd.Click += (_, _) =>
-        {
-            if (SaveEntry(out var savedNo))
-            {
-                Saved = true;
-                if (ckPrint.Checked) pStock.Common.DeliverySlipPrinter.Print(savedNo);
-                InitScreen();
-                eCvcod.Focus();
-            }
-        };
-        bOne.Click += (_, _) =>
-        {
-            if (SaveEntry(out var savedNo))
-            {
-                Saved = true;
-                if (ckPrint.Checked) pStock.Common.DeliverySlipPrinter.Print(savedNo);
-                Close();
-            }
-        };
-        btnPrintNow.Click += (_, _) =>
-        {
-            if (string.IsNullOrWhiteSpace(eNo.Text))
-            {
-                MessageBox.Show("저장된 출고번호가 없습니다. 먼저 저장하세요.", "확인",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            pStock.Common.DeliverySlipPrinter.Print(eNo.Text.Trim());
-        };
-        btnClose.Click += (_, _) => Close();
     }
 
     private void SS020F01Form_KeyDown(object? sender, KeyEventArgs e)
