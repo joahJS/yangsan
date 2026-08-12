@@ -9,86 +9,13 @@ namespace pStock.Forms.SS;
 /// 기간/거래처코드 범위를 지정하면 해당 기간의 출고(SALE_M/D)+보관료(IPCHF)+입고(IPGOF)
 /// 합계를 거래처별로 집계해 계산서(TAXF, TNO1='A' 자동생성분)를 일괄 생성한다.
 /// </summary>
-public class SS33AForm : Form
+public partial class SS33AForm : Form
 {
-    private readonly DateTimePicker dtpDate1 = new();  // 집계 시작일
-    private readonly DateTimePicker dtpDate2 = new();  // 집계 종료일
-    private readonly DateTimePicker dtpDate = new();   // 발행일자
-    private readonly TextBox edtCd1 = new();
-    private readonly TextBox edtCd2 = new();
-    private readonly RadioButton rdo1 = new() { Text = "영수" };
-    private readonly RadioButton rdo2 = new() { Text = "청구", Checked = true };
-
-    private readonly Button btnYes = new() { Text = "실행(F2)" };
-    private readonly Button btnClose = new() { Text = "닫기(Esc)" };
-
     public bool Executed { get; private set; }
 
     public SS33AForm()
     {
-        Text = "계산서 자동발행";
-        Width = 480;
-        Height = 320;
-        FormBorderStyle = FormBorderStyle.FixedDialog;
-        StartPosition = FormStartPosition.CenterParent;
-        KeyPreview = true;
-
-        BuildLayout();
-        Load += (_, _) => ClearForm();
-        KeyDown += SS33AForm_KeyDown;
-    }
-
-    private void BuildLayout()
-    {
-        int y = 20, col1 = 20;
-        AddRow("집계기간", dtpDate1, col1, ref y, 130);
-        var lblT = new Label { Text = "~", Left = col1 + 300, Top = y - 26 + 3, AutoSize = true };
-        dtpDate2.Left = col1 + 320; dtpDate2.Top = y - 26; dtpDate2.Width = 130; dtpDate2.Format = DateTimePickerFormat.Short;
-        Controls.AddRange(new Control[] { lblT, dtpDate2 });
-
-        AddRow("발행일자", dtpDate, col1, ref y, 130);
-
-        var lblCd = new Label { Text = "거래처코드 범위", Left = col1, Top = y + 3, AutoSize = true };
-        edtCd1.Left = col1 + 150; edtCd1.Top = y; edtCd1.Width = 80;
-        var lblCdT = new Label { Text = "~", Left = col1 + 235, Top = y + 3, AutoSize = true };
-        edtCd2.Left = col1 + 255; edtCd2.Top = y; edtCd2.Width = 80;
-        var btnLookup = new Button { Text = "검색", Left = col1 + 340, Top = y - 2, Width = 60 };
-        btnLookup.Click += (_, _) => LookupCvcod();
-        Controls.AddRange(new Control[] { lblCd, edtCd1, edtCd2, lblCdT, btnLookup });
-        y += 30;
-
-        rdo1.Left = col1 + 150; rdo1.Top = y; rdo1.AutoSize = true;
-        rdo2.Left = col1 + 230; rdo2.Top = y; rdo2.AutoSize = true;
-        var lblGu = new Label { Text = "발행구분", Left = col1, Top = y + 3, AutoSize = true };
-        Controls.AddRange(new Control[] { lblGu, rdo1, rdo2 });
-        y += 40;
-
-        var lblHint = new Label
-        {
-            Text = "선택한 발행일자에 이미 자동생성된(TNO1='A') 계산서가 있으면\r\n" +
-                   "해당 거래처코드 범위 내에서 삭제 후 다시 생성합니다.",
-            Left = col1, Top = y, AutoSize = true
-        };
-        y += 50;
-
-        btnYes.Left = 130; btnYes.Top = y; btnYes.Width = 100;
-        btnClose.Left = 250; btnClose.Top = y; btnClose.Width = 100;
-        Controls.AddRange(new Control[] { lblHint, btnYes, btnClose });
-
-        btnYes.Click += (_, _) => RunBatch();
-        btnClose.Click += (_, _) => Close();
-    }
-
-    private void AddRow(string caption, Control edit, int left, ref int y, int width)
-    {
-        var lbl = new Label { Text = caption, Left = left, Top = y + 3, AutoSize = true };
-        edit.Left = left + 150;
-        edit.Top = y;
-        edit.Width = width;
-        if (edit is DateTimePicker dtp) dtp.Format = DateTimePickerFormat.Short;
-        Controls.Add(lbl);
-        Controls.Add(edit);
-        y += 30;
+        InitializeComponent();
     }
 
     private void SS33AForm_KeyDown(object? sender, KeyEventArgs e)
