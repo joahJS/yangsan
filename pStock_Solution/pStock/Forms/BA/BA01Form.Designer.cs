@@ -105,10 +105,14 @@ partial class BA01Form
         this.panelTop.Controls.Add(this.btnPrint);
         this.panelTop.Controls.Add(this.btnClose);
         this.panelTop.Controls.Add(this.lblDbCnt);
-        int bx = 5;
-        foreach (Control c in new Control[] { this.btnNew, this.btnAdd, this.btnOne, this.btnDel, this.btnExcel, this.btnPrint, this.btnClose })
-        { c.Left = bx; c.Top = 8; c.Width = 90; bx += 95; }
-        this.lblDbCnt.Left = bx + 20; this.lblDbCnt.Top = 14;
+        this.btnNew.Left = 5; this.btnNew.Top = 8; this.btnNew.Width = 90;
+        this.btnAdd.Left = 100; this.btnAdd.Top = 8; this.btnAdd.Width = 90;
+        this.btnOne.Left = 195; this.btnOne.Top = 8; this.btnOne.Width = 90;
+        this.btnDel.Left = 290; this.btnDel.Top = 8; this.btnDel.Width = 90;
+        this.btnExcel.Left = 385; this.btnExcel.Top = 8; this.btnExcel.Width = 90;
+        this.btnPrint.Left = 480; this.btnPrint.Top = 8; this.btnPrint.Width = 90;
+        this.btnClose.Left = 575; this.btnClose.Top = 8; this.btnClose.Width = 90;
+        this.lblDbCnt.Left = 690; this.lblDbCnt.Top = 14;
         this.btnExcel.Click += (_, _) => pStock.Common.ExcelExporter.Export(this.grid, "거래처마스터");
         this.btnPrint.Click += (_, _) => pStock.Common.GridPrinter.Print(this.grid, "거래처마스터");
 

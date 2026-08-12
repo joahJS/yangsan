@@ -77,8 +77,12 @@ partial class SS23AForm
         //
         // BuildLayout (원본 그대로 이동)
         //
-        foreach (var n in new[] { this.edtOqty, this.edtOcost, this.edtOamt, this.edtJamt1, this.edtJamt2, this.edtJamt3 })
-            PublicLib.MakeTypingFriendly(n);
+        PublicLib.MakeTypingFriendly(this.edtOqty);
+        PublicLib.MakeTypingFriendly(this.edtOcost);
+        PublicLib.MakeTypingFriendly(this.edtOamt);
+        PublicLib.MakeTypingFriendly(this.edtJamt1);
+        PublicLib.MakeTypingFriendly(this.edtJamt2);
+        PublicLib.MakeTypingFriendly(this.edtJamt3);
 
         this.pnlJob.Left = 20; this.pnlJob.Top = 10;
         this.Controls.Add(this.pnlJob);

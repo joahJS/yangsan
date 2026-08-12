@@ -55,9 +55,9 @@ partial class VersionListForm
         this.panelTop.Controls.Add(this.btnAdd);
         this.panelTop.Controls.Add(this.btnSearch);
         this.panelTop.Controls.Add(this.btnClose);
-        int bx = 5;
-        foreach (Control c in new Control[] { this.btnAdd, this.btnSearch, this.btnClose })
-        { c.Left = bx; c.Top = 8; c.Width = 90; bx += 95; }
+        this.btnAdd.Left = 5; this.btnAdd.Top = 8; this.btnAdd.Width = 90;
+        this.btnSearch.Left = 100; this.btnSearch.Top = 8; this.btnSearch.Width = 90;
+        this.btnClose.Left = 195; this.btnClose.Top = 8; this.btnClose.Width = 90;
 
         this.editPanel.Dock = DockStyle.Top;
         this.editPanel.Height = 40;

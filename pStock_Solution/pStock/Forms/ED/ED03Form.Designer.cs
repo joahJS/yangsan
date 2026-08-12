@@ -72,9 +72,11 @@ partial class ED03Form
         this.panelTop.Dock = DockStyle.Top;
         this.panelTop.Height = 40;
         this.panelTop.Controls.AddRange(new Control[] { this.btnNew, this.btnAdd, this.btnDel, this.btnSearch, this.btnClose });
-        int bx = 5;
-        foreach (Control c in new Control[] { this.btnNew, this.btnAdd, this.btnDel, this.btnSearch, this.btnClose })
-        { c.Left = bx; c.Top = 8; c.Width = 90; bx += 95; }
+        this.btnNew.Left = 5; this.btnNew.Top = 8; this.btnNew.Width = 90;
+        this.btnAdd.Left = 100; this.btnAdd.Top = 8; this.btnAdd.Width = 90;
+        this.btnDel.Left = 195; this.btnDel.Top = 8; this.btnDel.Width = 90;
+        this.btnSearch.Left = 290; this.btnSearch.Top = 8; this.btnSearch.Width = 90;
+        this.btnClose.Left = 385; this.btnClose.Top = 8; this.btnClose.Width = 90;
 
         this.panelEdit.Dock = DockStyle.Top;
         this.panelEdit.Height = 40;

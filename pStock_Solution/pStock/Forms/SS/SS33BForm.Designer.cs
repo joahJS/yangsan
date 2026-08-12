@@ -81,18 +81,42 @@ partial class SS33BForm
         //
         // 라인아이템 4건 컨트롤 생성 (원본 생성자에서 BuildLayout() 호출 전에 있던 루프)
         //
-        for (int i = 0; i < 4; i++)
-        {
-            this.edtMmdd[i] = new TextBox();
-            this.edtItnbr[i] = new TextBox();
-            this.edtItdsc[i] = new TextBox { ReadOnly = true };
-            this.edtQty[i] = new NumericUpDown { Maximum = 999999999, DecimalPlaces = 0 };
-            this.edtCost[i] = new NumericUpDown { Maximum = 999999999, DecimalPlaces = 0 };
-            this.edtAmt[i] = new NumericUpDown { Maximum = 999999999999, DecimalPlaces = 0 };
-            PublicLib.MakeTypingFriendly(this.edtQty[i]);
-            PublicLib.MakeTypingFriendly(this.edtCost[i]);
-            PublicLib.MakeTypingFriendly(this.edtAmt[i]);
-        }
+        this.edtMmdd[0] = new TextBox();
+        this.edtItnbr[0] = new TextBox();
+        this.edtItdsc[0] = new TextBox { ReadOnly = true };
+        this.edtQty[0] = new NumericUpDown { Maximum = 999999999, DecimalPlaces = 0 };
+        this.edtCost[0] = new NumericUpDown { Maximum = 999999999, DecimalPlaces = 0 };
+        this.edtAmt[0] = new NumericUpDown { Maximum = 999999999999, DecimalPlaces = 0 };
+        PublicLib.MakeTypingFriendly(this.edtQty[0]);
+        PublicLib.MakeTypingFriendly(this.edtCost[0]);
+        PublicLib.MakeTypingFriendly(this.edtAmt[0]);
+        this.edtMmdd[1] = new TextBox();
+        this.edtItnbr[1] = new TextBox();
+        this.edtItdsc[1] = new TextBox { ReadOnly = true };
+        this.edtQty[1] = new NumericUpDown { Maximum = 999999999, DecimalPlaces = 0 };
+        this.edtCost[1] = new NumericUpDown { Maximum = 999999999, DecimalPlaces = 0 };
+        this.edtAmt[1] = new NumericUpDown { Maximum = 999999999999, DecimalPlaces = 0 };
+        PublicLib.MakeTypingFriendly(this.edtQty[1]);
+        PublicLib.MakeTypingFriendly(this.edtCost[1]);
+        PublicLib.MakeTypingFriendly(this.edtAmt[1]);
+        this.edtMmdd[2] = new TextBox();
+        this.edtItnbr[2] = new TextBox();
+        this.edtItdsc[2] = new TextBox { ReadOnly = true };
+        this.edtQty[2] = new NumericUpDown { Maximum = 999999999, DecimalPlaces = 0 };
+        this.edtCost[2] = new NumericUpDown { Maximum = 999999999, DecimalPlaces = 0 };
+        this.edtAmt[2] = new NumericUpDown { Maximum = 999999999999, DecimalPlaces = 0 };
+        PublicLib.MakeTypingFriendly(this.edtQty[2]);
+        PublicLib.MakeTypingFriendly(this.edtCost[2]);
+        PublicLib.MakeTypingFriendly(this.edtAmt[2]);
+        this.edtMmdd[3] = new TextBox();
+        this.edtItnbr[3] = new TextBox();
+        this.edtItdsc[3] = new TextBox { ReadOnly = true };
+        this.edtQty[3] = new NumericUpDown { Maximum = 999999999, DecimalPlaces = 0 };
+        this.edtCost[3] = new NumericUpDown { Maximum = 999999999, DecimalPlaces = 0 };
+        this.edtAmt[3] = new NumericUpDown { Maximum = 999999999999, DecimalPlaces = 0 };
+        PublicLib.MakeTypingFriendly(this.edtQty[3]);
+        PublicLib.MakeTypingFriendly(this.edtCost[3]);
+        PublicLib.MakeTypingFriendly(this.edtAmt[3]);
 
         //
         // 원본 BuildLayout() 그대로 이동 (GridLayout 헬퍼로 상단 4개 입력란 배치)
@@ -111,34 +135,80 @@ partial class SS33BForm
         int y = grid.Bottom();
 
         var headerY = y;
-        var headers = new[] { "일자", "품번", "품명", "수량", "단가", "금액" };
-        var xs = new[] { col1, col1 + 70, col1 + 200, col1 + 380, col1 + 460, col1 + 550 };
-        this.lblHdr = new Label[headers.Length];
-        for (int c = 0; c < headers.Length; c++)
-        {
-            this.lblHdr[c] = new Label { Text = headers[c], Left = xs[c], Top = headerY, AutoSize = true };
-            this.Controls.Add(this.lblHdr[c]);
-        }
+        this.lblHdr = new Label[6];
+        this.lblHdr[0] = new Label { Text = "일자", Left = col1, Top = headerY, AutoSize = true };
+        this.Controls.Add(this.lblHdr[0]);
+        this.lblHdr[1] = new Label { Text = "품번", Left = col1 + 70, Top = headerY, AutoSize = true };
+        this.Controls.Add(this.lblHdr[1]);
+        this.lblHdr[2] = new Label { Text = "품명", Left = col1 + 200, Top = headerY, AutoSize = true };
+        this.Controls.Add(this.lblHdr[2]);
+        this.lblHdr[3] = new Label { Text = "수량", Left = col1 + 380, Top = headerY, AutoSize = true };
+        this.Controls.Add(this.lblHdr[3]);
+        this.lblHdr[4] = new Label { Text = "단가", Left = col1 + 460, Top = headerY, AutoSize = true };
+        this.Controls.Add(this.lblHdr[4]);
+        this.lblHdr[5] = new Label { Text = "금액", Left = col1 + 550, Top = headerY, AutoSize = true };
+        this.Controls.Add(this.lblHdr[5]);
         y += 20;
 
-        for (int i = 0; i < 4; i++)
-        {
-            this.edtMmdd[i].Left = xs[0]; this.edtMmdd[i].Top = y; this.edtMmdd[i].Width = 60;
-            this.edtItnbr[i].Left = xs[1]; this.edtItnbr[i].Top = y; this.edtItnbr[i].Width = 120;
-            var idx = i;
-            this.edtItnbr[i].KeyDown += (_, e) => this.EdtItnbr_KeyDown(idx, e);
-            this._tip.SetToolTip(this.edtItnbr[i], "Enter 키를 누르면 품목을 검색합니다.");
-            this.edtItdsc[i].Left = xs[2]; this.edtItdsc[i].Top = y; this.edtItdsc[i].Width = 170;
-            this.edtQty[i].Left = xs[3]; this.edtQty[i].Top = y; this.edtQty[i].Width = 70;
-            this.edtQty[i].ValueChanged += (_, _) => this.RecalcRow(idx);
-            this.edtCost[i].Left = xs[4]; this.edtCost[i].Top = y; this.edtCost[i].Width = 80;
-            this.edtCost[i].ValueChanged += (_, _) => this.RecalcRow(idx);
-            this.edtAmt[i].Left = xs[5]; this.edtAmt[i].Top = y; this.edtAmt[i].Width = 100;
-            this.edtAmt[i].ValueChanged += (_, _) => this.RecalcTotal();
+        // 행 0
+        this.edtMmdd[0].Left = col1; this.edtMmdd[0].Top = y; this.edtMmdd[0].Width = 60;
+        this.edtItnbr[0].Left = col1 + 70; this.edtItnbr[0].Top = y; this.edtItnbr[0].Width = 120;
+        this.edtItnbr[0].KeyDown += (_, e) => this.EdtItnbr_KeyDown(0, e);
+        this._tip.SetToolTip(this.edtItnbr[0], "Enter 키를 누르면 품목을 검색합니다.");
+        this.edtItdsc[0].Left = col1 + 200; this.edtItdsc[0].Top = y; this.edtItdsc[0].Width = 170;
+        this.edtQty[0].Left = col1 + 380; this.edtQty[0].Top = y; this.edtQty[0].Width = 70;
+        this.edtQty[0].ValueChanged += (_, _) => this.RecalcRow(0);
+        this.edtCost[0].Left = col1 + 460; this.edtCost[0].Top = y; this.edtCost[0].Width = 80;
+        this.edtCost[0].ValueChanged += (_, _) => this.RecalcRow(0);
+        this.edtAmt[0].Left = col1 + 550; this.edtAmt[0].Top = y; this.edtAmt[0].Width = 100;
+        this.edtAmt[0].ValueChanged += (_, _) => this.RecalcTotal();
+        this.Controls.AddRange(new Control[] { this.edtMmdd[0], this.edtItnbr[0], this.edtItdsc[0], this.edtQty[0], this.edtCost[0], this.edtAmt[0] });
+        y += 30;
 
-            this.Controls.AddRange(new Control[] { this.edtMmdd[i], this.edtItnbr[i], this.edtItdsc[i], this.edtQty[i], this.edtCost[i], this.edtAmt[i] });
-            y += 30;
-        }
+        // 행 1
+        this.edtMmdd[1].Left = col1; this.edtMmdd[1].Top = y; this.edtMmdd[1].Width = 60;
+        this.edtItnbr[1].Left = col1 + 70; this.edtItnbr[1].Top = y; this.edtItnbr[1].Width = 120;
+        this.edtItnbr[1].KeyDown += (_, e) => this.EdtItnbr_KeyDown(1, e);
+        this._tip.SetToolTip(this.edtItnbr[1], "Enter 키를 누르면 품목을 검색합니다.");
+        this.edtItdsc[1].Left = col1 + 200; this.edtItdsc[1].Top = y; this.edtItdsc[1].Width = 170;
+        this.edtQty[1].Left = col1 + 380; this.edtQty[1].Top = y; this.edtQty[1].Width = 70;
+        this.edtQty[1].ValueChanged += (_, _) => this.RecalcRow(1);
+        this.edtCost[1].Left = col1 + 460; this.edtCost[1].Top = y; this.edtCost[1].Width = 80;
+        this.edtCost[1].ValueChanged += (_, _) => this.RecalcRow(1);
+        this.edtAmt[1].Left = col1 + 550; this.edtAmt[1].Top = y; this.edtAmt[1].Width = 100;
+        this.edtAmt[1].ValueChanged += (_, _) => this.RecalcTotal();
+        this.Controls.AddRange(new Control[] { this.edtMmdd[1], this.edtItnbr[1], this.edtItdsc[1], this.edtQty[1], this.edtCost[1], this.edtAmt[1] });
+        y += 30;
+
+        // 행 2
+        this.edtMmdd[2].Left = col1; this.edtMmdd[2].Top = y; this.edtMmdd[2].Width = 60;
+        this.edtItnbr[2].Left = col1 + 70; this.edtItnbr[2].Top = y; this.edtItnbr[2].Width = 120;
+        this.edtItnbr[2].KeyDown += (_, e) => this.EdtItnbr_KeyDown(2, e);
+        this._tip.SetToolTip(this.edtItnbr[2], "Enter 키를 누르면 품목을 검색합니다.");
+        this.edtItdsc[2].Left = col1 + 200; this.edtItdsc[2].Top = y; this.edtItdsc[2].Width = 170;
+        this.edtQty[2].Left = col1 + 380; this.edtQty[2].Top = y; this.edtQty[2].Width = 70;
+        this.edtQty[2].ValueChanged += (_, _) => this.RecalcRow(2);
+        this.edtCost[2].Left = col1 + 460; this.edtCost[2].Top = y; this.edtCost[2].Width = 80;
+        this.edtCost[2].ValueChanged += (_, _) => this.RecalcRow(2);
+        this.edtAmt[2].Left = col1 + 550; this.edtAmt[2].Top = y; this.edtAmt[2].Width = 100;
+        this.edtAmt[2].ValueChanged += (_, _) => this.RecalcTotal();
+        this.Controls.AddRange(new Control[] { this.edtMmdd[2], this.edtItnbr[2], this.edtItdsc[2], this.edtQty[2], this.edtCost[2], this.edtAmt[2] });
+        y += 30;
+
+        // 행 3
+        this.edtMmdd[3].Left = col1; this.edtMmdd[3].Top = y; this.edtMmdd[3].Width = 60;
+        this.edtItnbr[3].Left = col1 + 70; this.edtItnbr[3].Top = y; this.edtItnbr[3].Width = 120;
+        this.edtItnbr[3].KeyDown += (_, e) => this.EdtItnbr_KeyDown(3, e);
+        this._tip.SetToolTip(this.edtItnbr[3], "Enter 키를 누르면 품목을 검색합니다.");
+        this.edtItdsc[3].Left = col1 + 200; this.edtItdsc[3].Top = y; this.edtItdsc[3].Width = 170;
+        this.edtQty[3].Left = col1 + 380; this.edtQty[3].Top = y; this.edtQty[3].Width = 70;
+        this.edtQty[3].ValueChanged += (_, _) => this.RecalcRow(3);
+        this.edtCost[3].Left = col1 + 460; this.edtCost[3].Top = y; this.edtCost[3].Width = 80;
+        this.edtCost[3].ValueChanged += (_, _) => this.RecalcRow(3);
+        this.edtAmt[3].Left = col1 + 550; this.edtAmt[3].Top = y; this.edtAmt[3].Width = 100;
+        this.edtAmt[3].ValueChanged += (_, _) => this.RecalcTotal();
+        this.Controls.AddRange(new Control[] { this.edtMmdd[3], this.edtItnbr[3], this.edtItdsc[3], this.edtQty[3], this.edtCost[3], this.edtAmt[3] });
+        y += 30;
 
         this.AddRow(this, "비고", this.edtBigo, col1, ref y, 400, labelWidth: 85);
 

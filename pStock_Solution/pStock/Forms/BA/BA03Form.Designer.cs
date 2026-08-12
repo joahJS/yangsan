@@ -85,8 +85,10 @@ partial class BA03Form
         //
         // 원본 BuildLayout()
         //
-        foreach (var n in new[] { this.eItwgt, this.edtIcost, this.edtBcost, this.edtOcost })
-            PublicLib.MakeTypingFriendly(n);
+        PublicLib.MakeTypingFriendly(this.eItwgt);
+        PublicLib.MakeTypingFriendly(this.edtIcost);
+        PublicLib.MakeTypingFriendly(this.edtBcost);
+        PublicLib.MakeTypingFriendly(this.edtOcost);
 
         this.panelTop.Dock = DockStyle.Top;
         this.panelTop.Height = 40;
@@ -98,10 +100,14 @@ partial class BA03Form
         this.panelTop.Controls.Add(this.btnPrint);
         this.panelTop.Controls.Add(this.btnClose);
         this.panelTop.Controls.Add(this.lblDbCnt);
-        int bx = 5;
-        foreach (Control c in new Control[] { this.btnNew, this.btnAdd, this.btnOne, this.btnDel, this.btnExcel, this.btnPrint, this.btnClose })
-        { c.Left = bx; c.Top = 8; c.Width = 100; bx += 105; }
-        this.lblDbCnt.Left = bx + 20; this.lblDbCnt.Top = 14;
+        this.btnNew.Left = 5; this.btnNew.Top = 8; this.btnNew.Width = 100;
+        this.btnAdd.Left = 110; this.btnAdd.Top = 8; this.btnAdd.Width = 100;
+        this.btnOne.Left = 215; this.btnOne.Top = 8; this.btnOne.Width = 100;
+        this.btnDel.Left = 320; this.btnDel.Top = 8; this.btnDel.Width = 100;
+        this.btnExcel.Left = 425; this.btnExcel.Top = 8; this.btnExcel.Width = 100;
+        this.btnPrint.Left = 530; this.btnPrint.Top = 8; this.btnPrint.Width = 100;
+        this.btnClose.Left = 635; this.btnClose.Top = 8; this.btnClose.Width = 100;
+        this.lblDbCnt.Left = 760; this.lblDbCnt.Top = 14;
         this.btnExcel.Click += (_, _) => pStock.Common.ExcelExporter.Export(this.grid, "품목단가마스터");
         this.btnPrint.Click += (_, _) => pStock.Common.GridPrinter.Print(this.grid, "품목단가마스터");
 

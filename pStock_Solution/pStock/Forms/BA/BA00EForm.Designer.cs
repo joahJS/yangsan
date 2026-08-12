@@ -47,19 +47,18 @@ partial class BA00EForm
         //
         this.panelTop.Dock = DockStyle.Top;
         this.panelTop.Height = 40;
+        this.btnNew.Left = 5;
+        this.btnNew.Top = 8;
+        this.btnNew.Width = 90;
         this.panelTop.Controls.Add(this.btnNew);
+        this.btnSave.Left = 100;
+        this.btnSave.Top = 8;
+        this.btnSave.Width = 90;
         this.panelTop.Controls.Add(this.btnSave);
+        this.btnClose.Left = 195;
+        this.btnClose.Top = 8;
+        this.btnClose.Width = 90;
         this.panelTop.Controls.Add(this.btnClose);
-        {
-            int bx = 5;
-            foreach (Control c in this.panelTop.Controls)
-            {
-                c.Left = bx;
-                c.Top = 8;
-                c.Width = 90;
-                bx += 95;
-            }
-        }
         //
         // panelEdit (원본 BuildLayout()의 editPanel: GridLayout 헬퍼로 라벨/입력란 배치)
         //
