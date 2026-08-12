@@ -6,6 +6,11 @@ namespace pStock.Forms;
 /// </summary>
 public partial class PlaceholderForm : Form
 {
+    /// <summary>매개변수 없는 생성자는 WinForms 디자이너가 디자인 타임에 폼을 생성하는 데 필요하다.</summary>
+    public PlaceholderForm() : this(string.Empty)
+    {
+    }
+
     public PlaceholderForm(string caption)
     {
         InitializeComponent();

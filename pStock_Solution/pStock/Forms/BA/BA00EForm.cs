@@ -17,65 +17,27 @@ public partial class BA00EForm : Form
     public BA00EForm()
     {
         InitializeComponent();
-        BuildDynamicLayout();
     }
 
-    /// <summary>
-    /// 원본 BuildLayout() — GridLayout 헬퍼로 좌표를 동적으로 계산하기 때문에(지역변수 사용)
-    /// WinForms 디자이너가 InitializeComponent() 안에서는 처리하지 못해 이 메서드로 분리했다.
-    /// InitializeComponent() 호출 직후 생성자에서 실행되므로 동작은 이전과 동일하다.
-    /// </summary>
-    private void BuildDynamicLayout()
+    private void Grid_CellClick(object? sender, DataGridViewCellEventArgs e)
     {
-        //
-        // panelTop (원본 BuildLayout()의 top 패널)
-        //
-        this.panelTop.Dock = DockStyle.Top;
-        this.panelTop.Height = 40;
-        this.btnNew.Left = 5;
-        this.btnNew.Top = 8;
-        this.btnNew.Width = 90;
-        this.panelTop.Controls.Add(this.btnNew);
-        this.btnSave.Left = 100;
-        this.btnSave.Top = 8;
-        this.btnSave.Width = 90;
-        this.panelTop.Controls.Add(this.btnSave);
-        this.btnClose.Left = 195;
-        this.btnClose.Top = 8;
-        this.btnClose.Width = 90;
-        this.panelTop.Controls.Add(this.btnClose);
-        //
-        // panelEdit (원본 BuildLayout()의 editPanel: GridLayout 헬퍼로 라벨/입력란 배치)
-        //
-        this.panelEdit.Dock = DockStyle.Top;
-        this.panelEdit.Height = 100;
-        var layout = new GridLayout(this.panelEdit, 10, 5, slotWidth: 250, labelWidth: 90, rowHeight: 30, slotsPerRow: 2);
-        layout.Add("사용자 ID", this.edtCode);
-        layout.Add("성명", this.edtName);
-        layout.Add("비밀번호", this.edtPass);
-        layout.Add("사용시작일", this.edtDate1);
-        layout.Add("사용종료일", this.edtDate2);
-        this.panelEdit.Height = layout.Bottom();
-        //
-        // grid
-        //
-        this.grid.Dock = DockStyle.Fill;
-        this.grid.ReadOnly = true;
-        this.grid.AllowUserToAddRows = false;
-        this.grid.CellClick += (_, _) => SyncEditFromGrid();
-        this.grid.KeyDown += new KeyEventHandler(this.Grid_KeyDown);
-        //
-        // Controls.Add 순서 (원본 BuildLayout())
-        //
-        this.Controls.Add(this.grid);
-        this.Controls.Add(this.panelEdit);
-        this.Controls.Add(this.panelTop);
-        //
-        // 이벤트 배선
-        //
-        this.btnNew.Click += (_, _) => { ClearEdit(); edtCode.Focus(); };
-        this.btnSave.Click += (_, _) => Save();
-        this.btnClose.Click += (_, _) => Close();
+        SyncEditFromGrid();
+    }
+
+    private void BtnNew_Click(object? sender, EventArgs e)
+    {
+        ClearEdit();
+        edtCode.Focus();
+    }
+
+    private void BtnSave_Click(object? sender, EventArgs e)
+    {
+        Save();
+    }
+
+    private void BtnClose_Click(object? sender, EventArgs e)
+    {
+        Close();
     }
 
     private void BA00EForm_Load(object? sender, EventArgs e)

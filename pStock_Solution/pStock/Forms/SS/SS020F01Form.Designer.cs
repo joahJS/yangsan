@@ -136,11 +136,11 @@ partial class SS020F01Form
         this.rgListS.Columns.Add("JAMT2", "부가세2");
         this.rgListS.Columns.Add("JAMT3", "부가세3");
         this.rgListS.Columns.Add("DBIGO", "비고");
-        this.rgListS.Columns["ITCOD"]!.ReadOnly = true;
-        this.rgListS.Columns["ITNAM"]!.ReadOnly = true;
-        this.rgListS.Columns["ISPEC"]!.ReadOnly = true;
-        this.rgListS.Columns["DANWI"]!.ReadOnly = true;
-        this.rgListS.Columns["HOUSE"]!.ReadOnly = true;
+        this.rgListS.Columns[0].ReadOnly = true; // ITCOD
+        this.rgListS.Columns[1].ReadOnly = true; // ITNAM
+        this.rgListS.Columns[2].ReadOnly = true; // ISPEC
+        this.rgListS.Columns[3].ReadOnly = true; // DANWI
+        this.rgListS.Columns[4].ReadOnly = true; // HOUSE
         this.rgListS.CellDoubleClick += new DataGridViewCellEventHandler(this.RgListS_CellDoubleClick);
         this.rgListS.CellEndEdit += new DataGridViewCellEventHandler(this.RgListS_CellEndEdit);
 

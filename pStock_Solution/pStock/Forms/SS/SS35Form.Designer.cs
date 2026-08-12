@@ -185,7 +185,7 @@ partial class SS35Form
         this.tab2.Controls.Add(this.panel2);
 
         this.tabs.Dock = DockStyle.Fill;
-        this.tabs.TabPages.AddRange(new[] { this.tab1, this.tab2 });
+        this.tabs.TabPages.AddRange(new TabPage[] { this.tab1, this.tab2 });
 
         this.Controls.Add(this.tabs);
         this.Controls.Add(this.panelTop);

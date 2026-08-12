@@ -177,7 +177,7 @@ partial class SS33Form
         this.tab2.Controls.Add(this.panel2);
 
         this.tabs.Dock = DockStyle.Fill;
-        this.tabs.TabPages.AddRange(new[] { this.tab1, this.tab2 });
+        this.tabs.TabPages.AddRange(new TabPage[] { this.tab1, this.tab2 });
         this.tabs.SelectedIndexChanged += new EventHandler(this.Tabs_SelectedIndexChanged);
 
         this.Controls.Add(this.tabs);
