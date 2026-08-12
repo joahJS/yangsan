@@ -7,85 +7,11 @@ namespace pStock.Forms.SS;
 /// 원본 SS36.pas / SS36.dfm (TfrmSS36) 이식 — 품목원장 조회(품목 1건의 입고/출고/보관 이력 + 재고 잔량).
 /// 품목 검색 팝업(BA00D)은 아직 변환되지 않아 품번 직접입력만 지원한다.
 /// </summary>
-public class SS36Form : Form
+public partial class SS36Form : Form
 {
-    private readonly DateTimePicker dtpDate1 = new();
-    private readonly DateTimePicker dtpDate2 = new();
-    private readonly TextBox edtCode = new();
-    private readonly TextBox dspName = new() { ReadOnly = true };
-    private readonly TextBox dspDanwi = new() { ReadOnly = true };
-    private readonly Label lblCvnam = new() { AutoSize = true };
-    private readonly FastDataGridView grid = new();
-
-    private readonly Button btnNew = new() { Text = "초기화(F1)" };
-    private readonly Button btnSearch = new() { Text = "조회(F5)" };
-    private readonly Button btnExcel = new() { Text = "엑셀저장" };
-    private readonly Button btnPrint = new() { Text = "인쇄" };
-    private readonly Button btnClose = new() { Text = "닫기(Esc)" };
-
     public SS36Form()
     {
-        Text = "품목원장 조회";
-        Width = 1100;
-        Height = 650;
-        KeyPreview = true;
-
-        BuildLayout();
-
-        Load += (_, _) =>
-        {
-            var now = DateTime.Now;
-            dtpDate1.Value = new DateTime(now.Year, now.Month, 1);
-            dtpDate2.Value = now;
-        };
-        KeyDown += SS36Form_KeyDown;
-    }
-
-    private void BuildLayout()
-    {
-        var top = new Panel { Dock = DockStyle.Top, Height = 40 };
-        top.Controls.AddRange(new Control[] { btnNew, btnSearch, btnExcel, btnPrint, btnClose });
-        int bx = 5;
-        foreach (Control c in new Control[] { btnNew, btnSearch, btnExcel, btnPrint, btnClose })
-        { c.Left = bx; c.Top = 8; c.Width = 100; bx += 105; }
-        btnExcel.Click += (_, _) => pStock.Common.ExcelExporter.Export(grid, "품목원장조회");
-        btnPrint.Click += (_, _) => pStock.Common.GridPrinter.Print(grid, "품목원장조회");
-
-        var editPanel = new Panel { Dock = DockStyle.Top, Height = 40 };
-        var lblDate = new Label { Text = "기간", Left = 5, Top = 12, AutoSize = true };
-        dtpDate1.Left = 50; dtpDate1.Top = 8; dtpDate1.Width = 110; dtpDate1.Format = DateTimePickerFormat.Short;
-        var lblTilde = new Label { Text = "~", Left = 165, Top = 12, AutoSize = true };
-        dtpDate2.Left = 180; dtpDate2.Top = 8; dtpDate2.Width = 110; dtpDate2.Format = DateTimePickerFormat.Short;
-        var lblCode = new Label { Text = "품번", Left = 310, Top = 12, AutoSize = true };
-        edtCode.Left = 350; edtCode.Top = 8; edtCode.Width = 100;
-        edtCode.KeyDown += EdtCode_KeyDown;
-        dspName.Left = 460; dspName.Top = 8; dspName.Width = 200;
-        dspDanwi.Left = 670; dspDanwi.Top = 8; dspDanwi.Width = 60;
-        lblCvnam.Left = 740; lblCvnam.Top = 12;
-
-        editPanel.Controls.AddRange(new Control[]
-        {
-            lblDate, dtpDate1, lblTilde, dtpDate2, lblCode, edtCode, dspName, dspDanwi, lblCvnam
-        });
-
-        grid.Dock = DockStyle.Fill;
-        grid.ReadOnly = true;
-        grid.AllowUserToAddRows = false;
-        grid.Columns.Add("DATE", "일자");
-        grid.Columns.Add("GUBN", "구분");
-        grid.Columns.Add("IQTY", "입고(수량/금액)");
-        grid.Columns.Add("OQTY", "출고(수량/금액)");
-        grid.Columns.Add("BALANCE", "재고잔량");
-        grid.Columns.Add("BQTY", "보관(수량/금액)");
-        grid.Columns.Add("BIGO", "비고");
-
-        Controls.Add(grid);
-        Controls.Add(editPanel);
-        Controls.Add(top);
-
-        btnNew.Click += (_, _) => { edtCode.Clear(); dspName.Clear(); dspDanwi.Clear(); lblCvnam.Text = ""; grid.Rows.Clear(); edtCode.Focus(); };
-        btnSearch.Click += (_, _) => Search();
-        btnClose.Click += (_, _) => Close();
+        InitializeComponent();
     }
 
     private void SS36Form_KeyDown(object? sender, KeyEventArgs e)
