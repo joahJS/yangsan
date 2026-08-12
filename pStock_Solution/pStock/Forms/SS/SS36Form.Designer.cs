@@ -40,16 +40,24 @@ partial class SS36Form
         this.dtpDate1 = new DateTimePicker();
         this.dtpDate2 = new DateTimePicker();
         this.edtCode = new TextBox();
-        this.dspName = new TextBox { ReadOnly = true };
-        this.dspDanwi = new TextBox { ReadOnly = true };
-        this.lblCvnam = new Label { AutoSize = true };
+        this.dspName = new TextBox();
+        this.dspName.ReadOnly = true;
+        this.dspDanwi = new TextBox();
+        this.dspDanwi.ReadOnly = true;
+        this.lblCvnam = new Label();
+        this.lblCvnam.AutoSize = true;
         this.grid = new FastDataGridView();
 
-        this.btnNew = new Button { Text = "초기화(F1)" };
-        this.btnSearch = new Button { Text = "조회(F5)" };
-        this.btnExcel = new Button { Text = "엑셀저장" };
-        this.btnPrint = new Button { Text = "인쇄" };
-        this.btnClose = new Button { Text = "닫기(Esc)" };
+        this.btnNew = new Button();
+        this.btnNew.Text = "초기화(F1)";
+        this.btnSearch = new Button();
+        this.btnSearch.Text = "조회(F5)";
+        this.btnExcel = new Button();
+        this.btnExcel.Text = "엑셀저장";
+        this.btnPrint = new Button();
+        this.btnPrint.Text = "인쇄";
+        this.btnClose = new Button();
+        this.btnClose.Text = "닫기(Esc)";
 
         this.SuspendLayout();
         //
@@ -63,7 +71,9 @@ partial class SS36Form
         //
         // 원본 BuildLayout() 그대로 이동
         //
-        this.panelTop = new Panel { Dock = DockStyle.Top, Height = 40 };
+        this.panelTop = new Panel();
+        this.panelTop.Dock = DockStyle.Top;
+        this.panelTop.Height = 40;
         this.panelTop.Controls.AddRange(new Control[] { this.btnNew, this.btnSearch, this.btnExcel, this.btnPrint, this.btnClose });
         this.btnNew.Left = 5; this.btnNew.Top = 8; this.btnNew.Width = 100;
         this.btnSearch.Left = 110; this.btnSearch.Top = 8; this.btnSearch.Width = 100;
@@ -73,12 +83,26 @@ partial class SS36Form
         this.btnExcel.Click += (_, _) => pStock.Common.ExcelExporter.Export(this.grid, "품목원장조회");
         this.btnPrint.Click += (_, _) => pStock.Common.GridPrinter.Print(this.grid, "품목원장조회");
 
-        this.editPanel = new Panel { Dock = DockStyle.Top, Height = 40 };
-        this.lblDate = new Label { Text = "기간", Left = 5, Top = 12, AutoSize = true };
+        this.editPanel = new Panel();
+        this.editPanel.Dock = DockStyle.Top;
+        this.editPanel.Height = 40;
+        this.lblDate = new Label();
+        this.lblDate.Text = "기간";
+        this.lblDate.Left = 5;
+        this.lblDate.Top = 12;
+        this.lblDate.AutoSize = true;
         this.dtpDate1.Left = 50; this.dtpDate1.Top = 8; this.dtpDate1.Width = 110; this.dtpDate1.Format = DateTimePickerFormat.Short;
-        this.lblTilde = new Label { Text = "~", Left = 165, Top = 12, AutoSize = true };
+        this.lblTilde = new Label();
+        this.lblTilde.Text = "~";
+        this.lblTilde.Left = 165;
+        this.lblTilde.Top = 12;
+        this.lblTilde.AutoSize = true;
         this.dtpDate2.Left = 180; this.dtpDate2.Top = 8; this.dtpDate2.Width = 110; this.dtpDate2.Format = DateTimePickerFormat.Short;
-        this.lblCode = new Label { Text = "품번", Left = 310, Top = 12, AutoSize = true };
+        this.lblCode = new Label();
+        this.lblCode.Text = "품번";
+        this.lblCode.Left = 310;
+        this.lblCode.Top = 12;
+        this.lblCode.AutoSize = true;
         this.edtCode.Left = 350; this.edtCode.Top = 8; this.edtCode.Width = 100;
         this.edtCode.KeyDown += this.EdtCode_KeyDown;
         this.dspName.Left = 460; this.dspName.Top = 8; this.dspName.Width = 200;

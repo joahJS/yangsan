@@ -63,14 +63,22 @@ partial class SS33Form
         this.edtCvcd1 = new TextBox();
         this.edtCvcd2 = new TextBox();
 
-        this.btnNew = new Button { Text = "신규(F1)" };
-        this.btnDel = new Button { Text = "삭제" };
-        this.btnSum = new Button { Text = "합계표" };
-        this.btnAuto = new Button { Text = "자동발행" };
-        this.btnSearch = new Button { Text = "조회" };
-        this.btnExcel = new Button { Text = "엑셀저장" };
-        this.btnPrint = new Button { Text = "인쇄" };
-        this.btnClose = new Button { Text = "닫기(Esc)" };
+        this.btnNew = new Button();
+        this.btnNew.Text = "신규(F1)";
+        this.btnDel = new Button();
+        this.btnDel.Text = "삭제";
+        this.btnSum = new Button();
+        this.btnSum.Text = "합계표";
+        this.btnAuto = new Button();
+        this.btnAuto.Text = "자동발행";
+        this.btnSearch = new Button();
+        this.btnSearch.Text = "조회";
+        this.btnExcel = new Button();
+        this.btnExcel.Text = "엑셀저장";
+        this.btnPrint = new Button();
+        this.btnPrint.Text = "인쇄";
+        this.btnClose = new Button();
+        this.btnClose.Text = "닫기(Esc)";
 
         this.split1 = new SplitContainer();
 
@@ -90,7 +98,9 @@ partial class SS33Form
         //
         // 원본 BuildLayout() 그대로 이동
         //
-        this.panelTop = new Panel { Dock = DockStyle.Top, Height = 40 };
+        this.panelTop = new Panel();
+        this.panelTop.Dock = DockStyle.Top;
+        this.panelTop.Height = 40;
         this.panelTop.Controls.AddRange(new Control[] { this.btnNew, this.btnDel, this.btnSum, this.btnAuto, this.btnSearch, this.btnExcel, this.btnPrint, this.btnClose });
         this.btnNew.Left = 5; this.btnNew.Top = 8; this.btnNew.Width = 90;
         this.btnDel.Left = 100; this.btnDel.Top = 8; this.btnDel.Width = 90;
@@ -109,10 +119,20 @@ partial class SS33Form
         this.btnExcel.Click += (_, _) => pStock.Common.ExcelExporter.Export(this.gridList, "계산서관리");
         this.btnPrint.Click += (_, _) => pStock.Common.GridPrinter.Print(this.gridList, "계산서관리");
 
-        this.panel1 = new Panel { Dock = DockStyle.Top, Height = 35 };
-        this.lbl1a = new Label { Text = "발행기간", Left = 10, Top = 10, AutoSize = true };
+        this.panel1 = new Panel();
+        this.panel1.Dock = DockStyle.Top;
+        this.panel1.Height = 35;
+        this.lbl1a = new Label();
+        this.lbl1a.Text = "발행기간";
+        this.lbl1a.Left = 10;
+        this.lbl1a.Top = 10;
+        this.lbl1a.AutoSize = true;
         this.dtpDate1.Left = 90; this.dtpDate1.Top = 6; this.dtpDate1.Width = 110; this.dtpDate1.Format = DateTimePickerFormat.Short;
-        this.lbl1b = new Label { Text = "~", Left = 205, Top = 10, AutoSize = true };
+        this.lbl1b = new Label();
+        this.lbl1b.Text = "~";
+        this.lbl1b.Left = 205;
+        this.lbl1b.Top = 10;
+        this.lbl1b.AutoSize = true;
         this.dtpDate2.Left = 220; this.dtpDate2.Top = 6; this.dtpDate2.Width = 110; this.dtpDate2.Format = DateTimePickerFormat.Short;
         this.panel1.Controls.AddRange(new Control[] { this.lbl1a, this.dtpDate1, this.lbl1b, this.dtpDate2 });
 
@@ -130,14 +150,32 @@ partial class SS33Form
         this.tab1.Controls.Add(this.split1);
         this.tab1.Controls.Add(this.panel1);
 
-        this.panel2 = new Panel { Dock = DockStyle.Top, Height = 35 };
-        this.lbl2a = new Label { Text = "발행기간", Left = 10, Top = 10, AutoSize = true };
+        this.panel2 = new Panel();
+        this.panel2.Dock = DockStyle.Top;
+        this.panel2.Height = 35;
+        this.lbl2a = new Label();
+        this.lbl2a.Text = "발행기간";
+        this.lbl2a.Left = 10;
+        this.lbl2a.Top = 10;
+        this.lbl2a.AutoSize = true;
         this.dtpDate3.Left = 90; this.dtpDate3.Top = 6; this.dtpDate3.Width = 110; this.dtpDate3.Format = DateTimePickerFormat.Short;
-        this.lbl2b = new Label { Text = "~", Left = 205, Top = 10, AutoSize = true };
+        this.lbl2b = new Label();
+        this.lbl2b.Text = "~";
+        this.lbl2b.Left = 205;
+        this.lbl2b.Top = 10;
+        this.lbl2b.AutoSize = true;
         this.dtpDate4.Left = 220; this.dtpDate4.Top = 6; this.dtpDate4.Width = 110; this.dtpDate4.Format = DateTimePickerFormat.Short;
-        this.lbl2c = new Label { Text = "거래처", Left = 350, Top = 10, AutoSize = true };
+        this.lbl2c = new Label();
+        this.lbl2c.Text = "거래처";
+        this.lbl2c.Left = 350;
+        this.lbl2c.Top = 10;
+        this.lbl2c.AutoSize = true;
         this.edtCvcd1.Left = 400; this.edtCvcd1.Top = 6; this.edtCvcd1.Width = 70;
-        this.lbl2d = new Label { Text = "~", Left = 475, Top = 10, AutoSize = true };
+        this.lbl2d = new Label();
+        this.lbl2d.Text = "~";
+        this.lbl2d.Left = 475;
+        this.lbl2d.Top = 10;
+        this.lbl2d.AutoSize = true;
         this.edtCvcd2.Left = 490; this.edtCvcd2.Top = 6; this.edtCvcd2.Width = 70;
         this.panel2.Controls.AddRange(new Control[] { this.lbl2a, this.dtpDate3, this.lbl2b, this.dtpDate4, this.lbl2c, this.edtCvcd1, this.lbl2d, this.edtCvcd2 });
 

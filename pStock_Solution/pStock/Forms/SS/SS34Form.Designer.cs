@@ -40,16 +40,25 @@ partial class SS34Form
         this.grid = new FastDataGridView();
         this.edtMonth = new TextBox();
         this.edtCvcod = new TextBox();
-        this.dspName = new TextBox { ReadOnly = true };
-        this.lblAmt = new Label { AutoSize = true };
+        this.dspName = new TextBox();
+        this.dspName.ReadOnly = true;
+        this.lblAmt = new Label();
+        this.lblAmt.AutoSize = true;
 
-        this.btnNew = new Button { Text = "초기화(F1)" };
-        this.btnSearch = new Button { Text = "조회(F5)" };
-        this.btnExcel = new Button { Text = "엑셀저장" };
-        this.btnPrint = new Button { Text = "인쇄" };
-        this.btnClose = new Button { Text = "닫기(Esc)" };
-        this.btnMonthDown = new Button { Text = "◀" };
-        this.btnMonthUp = new Button { Text = "▶" };
+        this.btnNew = new Button();
+        this.btnNew.Text = "초기화(F1)";
+        this.btnSearch = new Button();
+        this.btnSearch.Text = "조회(F5)";
+        this.btnExcel = new Button();
+        this.btnExcel.Text = "엑셀저장";
+        this.btnPrint = new Button();
+        this.btnPrint.Text = "인쇄";
+        this.btnClose = new Button();
+        this.btnClose.Text = "닫기(Esc)";
+        this.btnMonthDown = new Button();
+        this.btnMonthDown.Text = "◀";
+        this.btnMonthUp = new Button();
+        this.btnMonthUp.Text = "▶";
 
         this.SuspendLayout();
         //
@@ -63,7 +72,9 @@ partial class SS34Form
         //
         // 원본 BuildLayout() 그대로 이동
         //
-        this.panelTop = new Panel { Dock = DockStyle.Top, Height = 40 };
+        this.panelTop = new Panel();
+        this.panelTop.Dock = DockStyle.Top;
+        this.panelTop.Height = 40;
         this.panelTop.Controls.AddRange(new Control[] { this.btnNew, this.btnSearch, this.btnExcel, this.btnPrint, this.btnClose });
         this.btnNew.Left = 5; this.btnNew.Top = 8; this.btnNew.Width = 100;
         this.btnSearch.Left = 110; this.btnSearch.Top = 8; this.btnSearch.Width = 100;
@@ -73,8 +84,14 @@ partial class SS34Form
         this.btnExcel.Click += (_, _) => pStock.Common.ExcelExporter.Export(this.grid, "미수금조회");
         this.btnPrint.Click += (_, _) => pStock.Common.GridPrinter.Print(this.grid, "미수금조회");
 
-        this.editPanel = new Panel { Dock = DockStyle.Top, Height = 40 };
-        this.lblMonth = new Label { Text = "조회월(YYYY-MM)", Left = 10, Top = 12, AutoSize = true };
+        this.editPanel = new Panel();
+        this.editPanel.Dock = DockStyle.Top;
+        this.editPanel.Height = 40;
+        this.lblMonth = new Label();
+        this.lblMonth.Text = "조회월(YYYY-MM)";
+        this.lblMonth.Left = 10;
+        this.lblMonth.Top = 12;
+        this.lblMonth.AutoSize = true;
         this.edtMonth.Left = 140; this.edtMonth.Top = 8; this.edtMonth.Width = 80;
         this.edtMonth.KeyDown += (_, e) => { if (e.KeyCode == Keys.Enter) this.Search(); };
         this.btnMonthDown.Left = 225; this.btnMonthDown.Top = 8; this.btnMonthDown.Width = 30;
@@ -82,12 +99,20 @@ partial class SS34Form
         this.btnMonthDown.Click += (_, _) => { this.ShiftMonth(-1); this.Search(); };
         this.btnMonthUp.Click += (_, _) => { this.ShiftMonth(1); this.Search(); };
 
-        this.lblCvcod = new Label { Text = "거래처코드", Left = 320, Top = 12, AutoSize = true };
+        this.lblCvcod = new Label();
+        this.lblCvcod.Text = "거래처코드";
+        this.lblCvcod.Left = 320;
+        this.lblCvcod.Top = 12;
+        this.lblCvcod.AutoSize = true;
         this.edtCvcod.Left = 400; this.edtCvcod.Top = 8; this.edtCvcod.Width = 80;
         this.edtCvcod.KeyDown += this.EdtCvcod_KeyDown;
         this.dspName.Left = 490; this.dspName.Top = 8; this.dspName.Width = 200;
 
-        this.lblAmtCap = new Label { Text = "미수금합계:", Left = 720, Top = 12, AutoSize = true };
+        this.lblAmtCap = new Label();
+        this.lblAmtCap.Text = "미수금합계:";
+        this.lblAmtCap.Left = 720;
+        this.lblAmtCap.Top = 12;
+        this.lblAmtCap.AutoSize = true;
         this.lblAmt.Left = 800; this.lblAmt.Top = 12;
 
         this.editPanel.Controls.AddRange(new Control[]
