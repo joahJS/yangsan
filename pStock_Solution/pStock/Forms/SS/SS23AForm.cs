@@ -9,106 +9,16 @@ namespace pStock.Forms.SS;
 /// 원본 SS23A.pas / SS23A.dfm (TfrmSS23A) 이식 — 보관료 등록/수정(IPCHF, GUBN1='1').
 /// 품번 입력 시 현재고(JQTY)를 계산해 보관수량/금액을 자동 채운다.
 /// </summary>
-public class SS23AForm : Form
+public partial class SS23AForm : Form
 {
-    private readonly DateTimePicker dtpDate = new();
-    private readonly TextBox edtNo = new() { ReadOnly = true };
-    private readonly Label lblNo = new() { AutoSize = true };
-    private readonly TextBox dspCvcod = new() { ReadOnly = true };
-    private readonly TextBox dspCvnam = new() { ReadOnly = true };
-    private readonly TextBox edtItnbr = new();
-    private readonly TextBox dspItdsc = new() { ReadOnly = true };
-    private readonly TextBox dspDanwi = new() { ReadOnly = true };
-    private readonly NumericUpDown edtOqty = new() { Maximum = 999999999, DecimalPlaces = 0 };
-    private readonly NumericUpDown edtOcost = new() { Maximum = 999999999, DecimalPlaces = 0 };
-    private readonly NumericUpDown edtOamt = new() { Maximum = 999999999999, DecimalPlaces = 0 };
-    private readonly NumericUpDown edtJamt1 = new() { Maximum = 999999999, DecimalPlaces = 0 };
-    private readonly NumericUpDown edtJamt2 = new() { Maximum = 999999999, DecimalPlaces = 0 };
-    private readonly NumericUpDown edtJamt3 = new() { Maximum = 999999999, DecimalPlaces = 0 };
-    private readonly NumericUpDown dspTamt = new() { Maximum = 999999999999, DecimalPlaces = 0, ReadOnly = true };
-    private readonly TextBox edtBigo = new();
-    private readonly Label pnlJob = new() { AutoSize = true, Font = new Font(FontFamily.GenericSansSerif, 10, FontStyle.Bold) };
-
-    private readonly Button btnAdd = new() { Text = "연속저장(F2)" };
-    private readonly Button btnOne = new() { Text = "저장(F3)" };
-    private readonly Button btnClose = new() { Text = "닫기(Esc)" };
-
     public string Job { get; set; } = "I";
     public int OriginalAmt { get; set; }
     public bool Saved { get; private set; }
 
     public SS23AForm()
     {
-        Text = "보관료 등록";
-        Width = 720;
-        Height = 480;
-        FormBorderStyle = FormBorderStyle.FixedDialog;
-        StartPosition = FormStartPosition.CenterParent;
-        KeyPreview = true;
-
-        BuildLayout();
-        KeyDown += SS23AForm_KeyDown;
+        InitializeComponent();
         ClearForm();
-    }
-
-    private readonly ToolTip _tip = new();
-
-    private void BuildLayout()
-    {
-        foreach (var n in new[] { edtOqty, edtOcost, edtOamt, edtJamt1, edtJamt2, edtJamt3 })
-            PublicLib.MakeTypingFriendly(n);
-
-        pnlJob.Left = 20; pnlJob.Top = 10;
-        Controls.Add(pnlJob);
-
-        var grid = new GridLayout(this, 20, 45, slotWidth: 220, labelWidth: 75, rowHeight: 30, slotsPerRow: 3);
-
-        grid.Add("산정일자", dtpDate);
-        dtpDate.Format = DateTimePickerFormat.Short;
-        dtpDate.ValueChanged += (_, _) => lblNo.Text = TermLabel(dtpDate.Value);
-        grid.AddRaw(lblNo);
-        grid.Add("전표번호", edtNo);
-
-        grid.Add("거래처코드", dspCvcod);
-        _tip.SetToolTip(dspCvcod, "Enter 키를 누르면 거래처를 검색합니다.");
-        dspCvcod.KeyDown += DspCvcod_KeyDown;
-        grid.Add("거래처명", dspCvnam, span: 2);
-
-        grid.Add("품번", edtItnbr);
-        _tip.SetToolTip(edtItnbr, "Enter 키를 누르면 품목을 검색합니다.");
-        edtItnbr.KeyDown += EdtItnbr_KeyDown;
-        grid.Add("품명", dspItdsc, span: 2);
-
-        grid.Add("단위", dspDanwi);
-        grid.Add("보관수량", edtOqty);
-        edtOqty.ValueChanged += (_, _) => RecalcAmt();
-        grid.Add("보관단가", edtOcost);
-        edtOcost.ValueChanged += (_, _) => RecalcAmt();
-
-        grid.Add("보관금액", edtOamt);
-        grid.Add("부가세1", edtJamt1);
-        edtJamt1.ValueChanged += (_, _) => RecalcTotal();
-        grid.Add("부가세2", edtJamt2);
-        edtJamt2.ValueChanged += (_, _) => RecalcTotal();
-
-        grid.Add("부가세3", edtJamt3);
-        edtJamt3.ValueChanged += (_, _) => RecalcTotal();
-        grid.Add("합계금액", dspTamt);
-
-        grid.NewRow();
-        grid.Add("비고", edtBigo, span: 3);
-
-        int y = grid.Bottom(20);
-        btnAdd.Left = 150; btnAdd.Top = y; btnAdd.Width = 120;
-        btnOne.Left = 280; btnOne.Top = y; btnOne.Width = 100;
-        btnClose.Left = 390; btnClose.Top = y; btnClose.Width = 100;
-        Controls.AddRange(new Control[] { btnAdd, btnOne, btnClose });
-
-        btnAdd.Click += (_, _) => { if (SaveEntry()) { Saved = true; ClearForm(); edtItnbr.Focus(); } };
-        btnOne.Click += (_, _) => { if (SaveEntry()) { Saved = true; Close(); } };
-        btnClose.Click += (_, _) => Close();
-
-        ClientSize = new Size(ClientSize.Width, y + 45);
     }
 
     private void SS23AForm_KeyDown(object? sender, KeyEventArgs e)

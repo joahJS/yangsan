@@ -9,61 +9,11 @@ namespace pStock.Forms.BA;
 /// 원본이 쓰던 테이블/컬럼명(zSYS_VERSION, VERSION_ID, FILE_NAME, FILE_NO, FILE_BYTE,
 /// UPLOAD_DT, VERSION_RMK)을 그대로 사용한다(SEQNO는 실제 테이블에 없어서 제외했다).
 /// </summary>
-public class VersionListForm : Form
+public partial class VersionListForm : Form
 {
-    private readonly FastDataGridView grid = new();
-    private readonly DateTimePicker dtpFrom = new();
-    private readonly DateTimePicker dtpTo = new();
-
-    private readonly Button btnAdd = new() { Text = "등록(F1)" };
-    private readonly Button btnSearch = new() { Text = "조회(F5)" };
-    private readonly Button btnClose = new() { Text = "닫기(Esc)" };
-
     public VersionListForm()
     {
-        Text = "버전관리";
-        Width = 900;
-        Height = 600;
-        KeyPreview = true;
-
-        BuildLayout();
-
-        Shown += (_, _) =>
-        {
-            dtpFrom.Value = DateTime.Now.AddMonths(-3);
-            dtpTo.Value = DateTime.Now;
-            Search();
-        };
-        KeyDown += VersionListForm_KeyDown;
-    }
-
-    private void BuildLayout()
-    {
-        var top = new Panel { Dock = DockStyle.Top, Height = 40 };
-        top.Controls.AddRange(new Control[] { btnAdd, btnSearch, btnClose });
-        int bx = 5;
-        foreach (Control c in new Control[] { btnAdd, btnSearch, btnClose })
-        { c.Left = bx; c.Top = 8; c.Width = 90; bx += 95; }
-
-        var editPanel = new Panel { Dock = DockStyle.Top, Height = 40 };
-        var lblDate = new Label { Text = "기간", Left = 5, Top = 12, AutoSize = true };
-        dtpFrom.Left = 50; dtpFrom.Top = 8; dtpFrom.Width = 110; dtpFrom.Format = DateTimePickerFormat.Short;
-        var lblTilde = new Label { Text = "~", Left = 165, Top = 12, AutoSize = true };
-        dtpTo.Left = 180; dtpTo.Top = 8; dtpTo.Width = 110; dtpTo.Format = DateTimePickerFormat.Short;
-        editPanel.Controls.AddRange(new Control[] { lblDate, dtpFrom, lblTilde, dtpTo });
-
-        grid.Dock = DockStyle.Fill;
-        grid.ReadOnly = true;
-        grid.AllowUserToAddRows = false;
-        grid.CellFormatting += Grid_CellFormatting;
-
-        Controls.Add(grid);
-        Controls.Add(editPanel);
-        Controls.Add(top);
-
-        btnAdd.Click += (_, _) => OpenUpload();
-        btnSearch.Click += (_, _) => Search();
-        btnClose.Click += (_, _) => Close();
+        InitializeComponent();
     }
 
     private void VersionListForm_KeyDown(object? sender, KeyEventArgs e)

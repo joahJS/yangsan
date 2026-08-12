@@ -8,105 +8,14 @@ namespace pStock.Forms.SS;
 /// 원본 ss020u00.pas (TSS020F00) 이식 — 출고 관리(SALE_M/SALE_D) 목록/상세/삭제.
 /// 신규 등록(SS020F01)은 이후 단계에서 연결 예정.
 /// </summary>
-public class SS020Form : Form
+public partial class SS020Form : Form
 {
     private static readonly string[] SearchFields =
         { "A1.SALNO", "A1.CVCOD", "CVNAM", "A1.PLNCD", "A1.LNCOD", "LNNAM", "B2.ADDR1", "MBIGO" };
 
-    private readonly FastDataGridView gridList = new();
-    private readonly FastDataGridView gridDetail = new();
-    private readonly TextBox eDate1 = new();
-    private readonly TextBox eDate2 = new();
-    private readonly ComboBox cSrcd = new() { DropDownStyle = ComboBoxStyle.DropDownList };
-    private readonly TextBox eSrwd = new();
-    private readonly Label lblCnt = new() { AutoSize = true };
-    private readonly Label lblAmt = new() { AutoSize = true };
-
-    private readonly Button btnNew = new() { Text = "신규(F1)" };
-    private readonly Button btnDel = new() { Text = "삭제(F4)" };
-    private readonly Button btnCut = new() { Text = "상세삭제" };
-    private readonly Button btnSearch = new() { Text = "조회(F5)" };
-    private readonly Button btnExcel = new() { Text = "엑셀저장" };
-    private readonly Button btnPrint = new() { Text = "인쇄" };
-    private readonly Button btnClose = new() { Text = "닫기(Esc)" };
-
     public SS020Form()
     {
-        Text = "출고 관리";
-        Width = 1300;
-        Height = 700;
-        KeyPreview = true;
-
-        BuildLayout();
-
-        Load += (_, _) =>
-        {
-            eDate2.Text = DateTime.Now.ToString("yyyy-MM-dd");
-            eDate1.Text = eDate2.Text;
-            cSrcd.SelectedIndex = 2;
-            Search();
-        };
-        KeyDown += SS020Form_KeyDown;
-    }
-
-    private void BuildLayout()
-    {
-        cSrcd.Items.AddRange(new object[] { "출고번호", "거래처코드", "거래처명", "발주번호", "착지처코드", "착지처명", "주소", "비고" });
-
-        var top = new Panel { Dock = DockStyle.Top, Height = 40 };
-        top.Controls.AddRange(new Control[] { btnNew, btnDel, btnCut, btnSearch, btnExcel, btnPrint, btnClose });
-        int bx = 5;
-        foreach (Control c in new Control[] { btnNew, btnDel, btnCut, btnSearch, btnExcel, btnPrint, btnClose })
-        { c.Left = bx; c.Top = 8; c.Width = 90; bx += 95; }
-        btnExcel.Click += (_, _) => pStock.Common.ExcelExporter.Export(gridList, "출고관리");
-        btnPrint.Click += (_, _) => pStock.Common.GridPrinter.Print(gridList, "출고관리");
-
-        var editPanel = new Panel { Dock = DockStyle.Top, Height = 40 };
-        var lblDate = new Label { Text = "기간", Left = 5, Top = 12, AutoSize = true };
-        eDate1.Left = 50; eDate1.Top = 8; eDate1.Width = 90;
-        var lblTilde = new Label { Text = "~", Left = 145, Top = 12, AutoSize = true };
-        eDate2.Left = 160; eDate2.Top = 8; eDate2.Width = 90;
-        var lblSearch = new Label { Text = "검색조건", Left = 270, Top = 12, AutoSize = true };
-        cSrcd.Left = 330; cSrcd.Top = 8; cSrcd.Width = 100;
-        eSrwd.Left = 440; eSrwd.Top = 8; eSrwd.Width = 180;
-        var lblCntCap = new Label { Text = "선택건수:", Left = 650, Top = 12, AutoSize = true };
-        lblCnt.Left = 720; lblCnt.Top = 12;
-        var lblAmtCap = new Label { Text = "선택금액:", Left = 800, Top = 12, AutoSize = true };
-        lblAmt.Left = 870; lblAmt.Top = 12;
-
-        editPanel.Controls.AddRange(new Control[]
-        {
-            lblDate, eDate1, lblTilde, eDate2, lblSearch, cSrcd, eSrwd, lblCntCap, lblCnt, lblAmtCap, lblAmt
-        });
-
-        var split = new SplitContainer { Dock = DockStyle.Fill, Orientation = Orientation.Horizontal, SplitterDistance = 300 };
-        gridList.Dock = DockStyle.Fill;
-        gridList.ReadOnly = true;
-        gridList.AllowUserToAddRows = false;
-        gridList.SelectionChanged += (_, _) => LoadDetail();
-        gridList.CellDoubleClick += (_, _) => OpenEditForSelected();
-
-        gridDetail.Dock = DockStyle.Fill;
-        gridDetail.ReadOnly = true;
-        gridDetail.AllowUserToAddRows = false;
-
-        split.Panel1.Controls.Add(gridList);
-        split.Panel2.Controls.Add(gridDetail);
-
-        Controls.Add(split);
-        Controls.Add(editPanel);
-        Controls.Add(top);
-
-        btnNew.Click += (_, _) =>
-        {
-            using var dlg = new SS020F01Form();
-            dlg.ShowDialog(this);
-            if (dlg.Saved) Search();
-        };
-        btnDel.Click += (_, _) => DeleteMaster();
-        btnCut.Click += (_, _) => DeleteDetail();
-        btnSearch.Click += (_, _) => Search();
-        btnClose.Click += (_, _) => Close();
+        InitializeComponent();
     }
 
     private void OpenEditForSelected()

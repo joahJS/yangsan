@@ -8,15 +8,8 @@ namespace pStock.Forms;
 /// PASSWD 테이블에서 사용자를 조회하고, 비밀번호/사용기간을 검사한다.
 /// 3회 오류 시 프로그램을 종료한다 (원본 pStock.dpr: frm_login.Cnt > 2 then Halt).
 /// </summary>
-public class LoginForm : Form
+public partial class LoginForm : Form
 {
-    private readonly TextBox edtCode = new();
-    private readonly TextBox edtNo = new();
-    private readonly Button btnOk = new();
-    private readonly Button btnCancel = new();
-    private readonly Label lblCodeCaption = new();
-    private readonly Label lblPassCaption = new();
-
     private string _vPass = string.Empty;
     private string _vSdat = string.Empty;
     private string _vEdat = string.Empty;
@@ -26,51 +19,7 @@ public class LoginForm : Form
 
     public LoginForm()
     {
-        Text = "로그인_개발서버";
-        FormBorderStyle = FormBorderStyle.FixedDialog;
-        StartPosition = FormStartPosition.CenterScreen;
-        MaximizeBox = false;
-        MinimizeBox = false;
-        ClientSize = new Size(320, 160);
-        KeyPreview = true;
-
-        lblCodeCaption.Text = "사용자 코드";
-        lblCodeCaption.Location = new Point(20, 25);
-        lblCodeCaption.AutoSize = true;
-
-        edtCode.Location = new Point(120, 22);
-        edtCode.Width = 160;
-        edtCode.Leave += EdtCode_Leave;
-
-        lblPassCaption.Text = "비밀번호";
-        lblPassCaption.Location = new Point(20, 60);
-        lblPassCaption.AutoSize = true;
-
-        edtNo.Location = new Point(120, 57);
-        edtNo.Width = 160;
-        edtNo.PasswordChar = '*';
-
-        btnOk.Text = "확인";
-        btnOk.Location = new Point(120, 100);
-        btnOk.Width = 75;
-        btnOk.Click += BtnOk_Click;
-
-        btnCancel.Text = "취소";
-        btnCancel.Location = new Point(205, 100);
-        btnCancel.Width = 75;
-        btnCancel.Click += BtnCancel_Click;
-
-        Controls.AddRange(new Control[]
-        {
-            lblCodeCaption, edtCode, lblPassCaption, edtNo, btnOk, btnCancel
-        });
-
-        AcceptButton = btnOk;
-        CancelButton = btnCancel;
-
-        Load += LoginForm_Load;
-        FormClosing += LoginForm_FormClosing;
-        KeyDown += LoginForm_KeyDown;
+        InitializeComponent();
     }
 
     private void LoginForm_Load(object? sender, EventArgs e)

@@ -8,76 +8,11 @@ namespace pStock.Forms.SS;
 /// 원본 SS23.pas / SS23.dfm (TfrmSS23) 이식 — 보관료 관리(IPCHF, GUBN1='1') 목록/검색/삭제.
 /// 신규/수정 입력창(SS23A)과 자동계산(SS23B)은 이후 단계에서 연결 예정.
 /// </summary>
-public class SS23Form : Form
+public partial class SS23Form : Form
 {
-    private readonly FastDataGridView grid = new();
-    private readonly DateTimePicker dtpDate1 = new();
-    private readonly DateTimePicker dtpDate2 = new();
-    private readonly Label lblAmt0 = new() { AutoSize = true };
-    private readonly Label lblAmt1 = new() { AutoSize = true };
-
-    private readonly Button btnNew = new() { Text = "신규(F1)" };
-    private readonly Button btnDel = new() { Text = "삭제(F4)" };
-    private readonly Button btnCompute = new() { Text = "자동계산" };
-    private readonly Button btnSearch = new() { Text = "조회" };
-    private readonly Button btnExcel = new() { Text = "엑셀저장" };
-    private readonly Button btnPrint = new() { Text = "인쇄" };
-    private readonly Button btnClose = new() { Text = "닫기(Esc)" };
-
     public SS23Form()
     {
-        Text = "보관료 관리";
-        Width = 1100;
-        Height = 650;
-        KeyPreview = true;
-
-        BuildLayout();
-
-        Load += (_, _) => { dtpDate1.Value = DateTime.Now; dtpDate2.Value = DateTime.Now; Search(); };
-        KeyDown += SS23Form_KeyDown;
-    }
-
-    private void BuildLayout()
-    {
-        var top = new Panel { Dock = DockStyle.Top, Height = 40 };
-        top.Controls.AddRange(new Control[] { btnNew, btnDel, btnCompute, btnSearch, btnExcel, btnPrint, btnClose });
-        int bx = 5;
-        foreach (Control c in new Control[] { btnNew, btnDel, btnCompute, btnSearch, btnExcel, btnPrint, btnClose })
-        { c.Left = bx; c.Top = 8; c.Width = 90; bx += 95; }
-        btnExcel.Click += (_, _) => pStock.Common.ExcelExporter.Export(grid, "보관료관리");
-        btnPrint.Click += (_, _) => pStock.Common.GridPrinter.Print(grid, "보관료관리");
-
-        var editPanel = new Panel { Dock = DockStyle.Top, Height = 40 };
-        var lblDate = new Label { Text = "기간", Left = 5, Top = 12, AutoSize = true };
-        dtpDate1.Left = 50; dtpDate1.Top = 8; dtpDate1.Width = 110; dtpDate1.Format = DateTimePickerFormat.Short;
-        var lblTilde = new Label { Text = "~", Left = 165, Top = 12, AutoSize = true };
-        dtpDate2.Left = 180; dtpDate2.Top = 8; dtpDate2.Width = 110; dtpDate2.Format = DateTimePickerFormat.Short;
-        var lblAmtCap0 = new Label { Text = "보관금액:", Left = 320, Top = 12, AutoSize = true };
-        lblAmt0.Left = 390; lblAmt0.Top = 12;
-        var lblAmtCap1 = new Label { Text = "부가세:", Left = 500, Top = 12, AutoSize = true };
-        lblAmt1.Left = 560; lblAmt1.Top = 12;
-
-        editPanel.Controls.AddRange(new Control[] { lblDate, dtpDate1, lblTilde, dtpDate2, lblAmtCap0, lblAmt0, lblAmtCap1, lblAmt1 });
-
-        grid.Dock = DockStyle.Fill;
-        grid.ReadOnly = true;
-        grid.AllowUserToAddRows = false;
-        grid.CellDoubleClick += (_, _) => OpenEntry(isNew: false);
-
-        Controls.Add(grid);
-        Controls.Add(editPanel);
-        Controls.Add(top);
-
-        btnNew.Click += (_, _) => OpenEntry(isNew: true);
-        btnDel.Click += (_, _) => Delete();
-        btnCompute.Click += (_, _) =>
-        {
-            using var dlg = new SS23BForm();
-            dlg.ShowDialog(this);
-            if (dlg.Executed) Search();
-        };
-        btnSearch.Click += (_, _) => Search();
-        btnClose.Click += (_, _) => Close();
+        InitializeComponent();
     }
 
     private void SS23Form_KeyDown(object? sender, KeyEventArgs e)

@@ -10,123 +10,14 @@ namespace pStock.Forms.BA;
 /// 원본 DFM 확인 SQL: qryList = SELECT * FROM CVMAST ORDER BY CVCOD
 /// cboGu 항목: 1.매입처 / 2.매출처 / 3.공통 (CVGU 컬럼에 1/2/3으로 저장)
 /// </summary>
-public class BA01Form : Form
+public partial class BA01Form : Form
 {
-    private readonly FastDataGridView grid = new();
-    private readonly ComboBox cboGu = new() { DropDownStyle = ComboBoxStyle.DropDownList };
-    private readonly CheckBox chkAuto = new() { Text = "자동채번" };
-    private readonly TextBox edtCode = new();
-    private readonly TextBox edtName = new();
-    private readonly TextBox edtOwnam = new();
-    private readonly TextBox edtSano = new();   // 사업자번호
-    private readonly TextBox edtCvno = new();   // 법인번호
-    private readonly TextBox edtUptae = new();  // 업태
-    private readonly TextBox edtJongk = new();  // 종목
-    private readonly TextBox edtPost = new();   // 우편번호
-    private readonly TextBox edtDDD = new();    // 지역번호
-    private readonly TextBox edtTel = new();
-    private readonly TextBox edtFax = new();
-    private readonly TextBox edtAddr = new();
-    private readonly TextBox edtSdate = new();  // 시작일
-    private readonly TextBox edtEdate = new();  // 종료일
-    private readonly TextBox edtBigo = new();   // 비고
-    private readonly TextBox edtWord = new();   // 검색어
-
-    private readonly Button btnNew = new() { Text = "신규(F1)" };
-    private readonly Button btnAdd = new() { Text = "저장(F2)" };
-    private readonly Button btnOne = new() { Text = "수정(F3)" };
-    private readonly Button btnDel = new() { Text = "삭제(F4)" };
-    private readonly Button btnExcel = new() { Text = "엑셀저장" };
-    private readonly Button btnPrint = new() { Text = "인쇄" };
-    private readonly Button btnClose = new() { Text = "닫기(Esc)" };
-    private readonly Label lblDbCnt = new() { AutoSize = true };
-
     private string _vSort = "Code";
     private DataTable? _listTable;
 
     public BA01Form()
     {
-        Text = "거래처 마스터";
-        Width = 1100;
-        Height = 700;
-        KeyPreview = true;
-
-        BuildLayout();
-
-        Load += (_, _) => { _vSort = "Code"; ReloadList(); };
-        KeyDown += BA01Form_KeyDown;
-    }
-
-    private void BuildLayout()
-    {
-        cboGu.Items.AddRange(new object[] { "1. 매입처", "2. 매출처", "3. 공통" });
-
-        var top = new Panel { Dock = DockStyle.Top, Height = 40 };
-        top.Controls.AddRange(new Control[] { btnNew, btnAdd, btnOne, btnDel, btnExcel, btnPrint, btnClose, lblDbCnt });
-        int bx = 5;
-        foreach (Control c in new Control[] { btnNew, btnAdd, btnOne, btnDel, btnExcel, btnPrint, btnClose })
-        { c.Left = bx; c.Top = 8; c.Width = 90; bx += 95; }
-        lblDbCnt.Left = bx + 20; lblDbCnt.Top = 14;
-        btnExcel.Click += (_, _) => pStock.Common.ExcelExporter.Export(grid, "거래처마스터");
-        btnPrint.Click += (_, _) => pStock.Common.GridPrinter.Print(grid, "거래처마스터");
-
-        var searchPanel = new Panel { Dock = DockStyle.Top, Height = 35 };
-        var lblWord = new Label { Text = "검색어", Left = 5, Top = 10, AutoSize = true };
-        edtWord.Left = 60; edtWord.Top = 6; edtWord.Width = 200;
-        edtWord.KeyUp += (_, _) => LocateInGrid(edtWord.Text);
-        searchPanel.Controls.AddRange(new Control[] { lblWord, edtWord });
-
-        var editPanel = new Panel { Dock = DockStyle.Top, Height = 230, AutoScroll = true };
-        var layout = new GridLayout(editPanel, 5, 5, slotWidth: 250, labelWidth: 85, rowHeight: 30, slotsPerRow: 3);
-
-        layout.Add("구분", cboGu);
-        layout.Add("코드", edtCode);
-        layout.AddRaw(chkAuto, width: 100);
-
-        layout.Add("거래처명", edtName);
-        layout.Add("대표자", edtOwnam);
-
-        layout.Add("사업자번호", edtSano);
-        layout.Add("법인번호", edtCvno);
-
-        layout.Add("업태", edtUptae);
-        layout.Add("종목", edtJongk);
-
-        layout.Add("우편번호", edtPost);
-        layout.Add("주소", edtAddr, span: 2);
-
-        layout.Add("지역번호", edtDDD);
-        layout.Add("전화번호", edtTel);
-        layout.Add("팩스번호", edtFax);
-
-        layout.Add("시작일", edtSdate);
-        layout.Add("종료일", edtEdate);
-
-        layout.NewRow();
-        layout.Add("비고", edtBigo, span: 3);
-
-        editPanel.Height = layout.Bottom(15);
-
-        edtPost.DoubleClick += (_, _) => LookupPostalCode();
-        edtAddr.DoubleClick += (_, _) => LookupPostalCode();
-        chkAuto.Click += (_, _) => CodeToggle(!chkAuto.Checked);
-
-        grid.Dock = DockStyle.Fill;
-        grid.ReadOnly = true;
-        grid.AllowUserToAddRows = false;
-        grid.CellDoubleClick += (_, _) => SyncEditFromGrid();
-        grid.KeyDown += (_, e) => { if (e.KeyCode == Keys.Delete) btnDel.PerformClick(); };
-
-        Controls.Add(grid);
-        Controls.Add(editPanel);
-        Controls.Add(searchPanel);
-        Controls.Add(top);
-
-        btnNew.Click += (_, _) => { ClearEdit(); CodeToggle(!chkAuto.Checked); cboGu.Focus(); };
-        btnAdd.Click += (_, _) => Save(isInsert: true);
-        btnOne.Click += (_, _) => Save(isInsert: false);
-        btnDel.Click += (_, _) => Delete();
-        btnClose.Click += (_, _) => Close();
+        InitializeComponent();
     }
 
     private void BA01Form_KeyDown(object? sender, KeyEventArgs e)

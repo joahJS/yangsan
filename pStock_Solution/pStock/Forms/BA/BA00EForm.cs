@@ -10,64 +10,13 @@ namespace pStock.Forms.BA;
 /// 로그인 화면(LoginForm)이 조회하는 PASSWD 테이블(USRID/PNAME/PPASS/PSDAT/PEDAT)을
 /// 등록/수정/삭제하는 관리자용 화면이다. 원본은 모달(ShowModal)로 열린다.
 /// </summary>
-public class BA00EForm : Form
+public partial class BA00EForm : Form
 {
-    private readonly FastDataGridView grid = new();
-    private readonly TextBox edtCode = new();  // USRID
-    private readonly TextBox edtName = new();  // PNAME
-    private readonly TextBox edtPass = new();  // PPASS
-    private readonly TextBox edtDate1 = new(); // PSDAT 사용시작일
-    private readonly TextBox edtDate2 = new(); // PEDAT 사용종료일
-
-    private readonly Button btnNew = new() { Text = "신규(F1)" };
-    private readonly Button btnSave = new() { Text = "저장(F2)" };
-    private readonly Button btnClose = new() { Text = "닫기(Esc)" };
-
     private DataTable? _passTable;
 
     public BA00EForm()
     {
-        Text = "패스워드 변경";
-        Width = 700;
-        Height = 500;
-        KeyPreview = true;
-        StartPosition = FormStartPosition.CenterParent;
-
-        BuildLayout();
-
-        Load += (_, _) => ReloadList();
-        KeyDown += BA00EForm_KeyDown;
-    }
-
-    private void BuildLayout()
-    {
-        var top = new Panel { Dock = DockStyle.Top, Height = 40 };
-        top.Controls.AddRange(new Control[] { btnNew, btnSave, btnClose });
-        int bx = 5;
-        foreach (Control c in top.Controls) { c.Left = bx; c.Top = 8; c.Width = 90; bx += 95; }
-
-        var editPanel = new Panel { Dock = DockStyle.Top, Height = 100 };
-        var layout = new GridLayout(editPanel, 10, 5, slotWidth: 250, labelWidth: 90, rowHeight: 30, slotsPerRow: 2);
-        layout.Add("사용자 ID", edtCode);
-        layout.Add("성명", edtName);
-        layout.Add("비밀번호", edtPass);
-        layout.Add("사용시작일", edtDate1);
-        layout.Add("사용종료일", edtDate2);
-        editPanel.Height = layout.Bottom();
-
-        grid.Dock = DockStyle.Fill;
-        grid.ReadOnly = true;
-        grid.AllowUserToAddRows = false;
-        grid.CellClick += (_, _) => SyncEditFromGrid();
-        grid.KeyDown += Grid_KeyDown;
-
-        Controls.Add(grid);
-        Controls.Add(editPanel);
-        Controls.Add(top);
-
-        btnNew.Click += (_, _) => { ClearEdit(); edtCode.Focus(); };
-        btnSave.Click += (_, _) => Save();
-        btnClose.Click += (_, _) => Close();
+        InitializeComponent();
     }
 
     private void BA00EForm_KeyDown(object? sender, KeyEventArgs e)

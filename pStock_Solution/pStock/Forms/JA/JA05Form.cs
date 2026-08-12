@@ -6,87 +6,13 @@ namespace pStock.Forms.JA;
 /// <summary>
 /// 원본 JA05.pas / JA05.dfm (TfrmJA05) 이식 — 운송현황(SALE_M 기준 배송처/금액 조회).
 /// </summary>
-public class JA05Form : Form
+public partial class JA05Form : Form
 {
     private static readonly string[] SearchFields = { "A.CVCOD", "CVNAM" };
 
-    private readonly FastDataGridView grid = new();
-    private readonly TextBox edtMonth = new();
-    private readonly ComboBox cSrcd = new() { DropDownStyle = ComboBoxStyle.DropDownList };
-    private readonly TextBox eSrwd = new();
-    private readonly CheckBox chkOnlyNonZero = new() { Text = "금액 0 제외" };
-
-    private readonly Button btnNew = new() { Text = "초기화(F1)" };
-    private readonly Button btnSearch = new() { Text = "조회(F5)" };
-    private readonly Button btnClose = new() { Text = "닫기(Esc)" };
-    private readonly Button btnMonthDown = new() { Text = "◀" };
-    private readonly Button btnMonthUp = new() { Text = "▶" };
-    private readonly Label lblSum = new() { AutoSize = true };
-
     public JA05Form()
     {
-        Text = "운송현황";
-        Width = 1000;
-        Height = 600;
-        KeyPreview = true;
-
-        BuildLayout();
-
-        Load += (_, _) => { edtMonth.Text = DateTime.Now.ToString("yyyy-MM"); cSrcd.SelectedIndex = 1; };
-        KeyDown += JA05Form_KeyDown;
-    }
-
-    private void BuildLayout()
-    {
-        cSrcd.Items.AddRange(new object[] { "거래처코드", "거래처명" });
-
-        var top = new Panel { Dock = DockStyle.Top, Height = 40 };
-        top.Controls.AddRange(new Control[] { btnNew, btnSearch, btnClose });
-        int bx = 5;
-        foreach (Control c in new Control[] { btnNew, btnSearch, btnClose })
-        { c.Left = bx; c.Top = 8; c.Width = 100; bx += 105; }
-
-        var editPanel = new Panel { Dock = DockStyle.Top, Height = 40 };
-        var lblMonth = new Label { Text = "조회월(YYYY-MM)", Left = 10, Top = 12, AutoSize = true };
-        edtMonth.Left = 140; edtMonth.Top = 8; edtMonth.Width = 80;
-        edtMonth.KeyDown += (_, e) => { if (e.KeyCode == Keys.Enter) ReloadList(); };
-        btnMonthDown.Left = 225; btnMonthDown.Top = 8; btnMonthDown.Width = 30;
-        btnMonthUp.Left = 258; btnMonthUp.Top = 8; btnMonthUp.Width = 30;
-        btnMonthDown.Click += (_, _) => { ShiftMonth(-1); ReloadList(); };
-        btnMonthUp.Click += (_, _) => { ShiftMonth(1); ReloadList(); };
-
-        var lblSearch = new Label { Text = "검색조건", Left = 320, Top = 12, AutoSize = true };
-        cSrcd.Left = 390; cSrcd.Top = 8; cSrcd.Width = 100;
-        eSrwd.Left = 500; eSrwd.Top = 8; eSrwd.Width = 180;
-        chkOnlyNonZero.Left = 700; chkOnlyNonZero.Top = 10; chkOnlyNonZero.AutoSize = true;
-
-        editPanel.Controls.AddRange(new Control[]
-        {
-            lblMonth, edtMonth, btnMonthDown, btnMonthUp, lblSearch, cSrcd, eSrwd, chkOnlyNonZero
-        });
-
-        var bottom = new Panel { Dock = DockStyle.Bottom, Height = 30 };
-        lblSum.Left = 10; lblSum.Top = 6;
-        bottom.Controls.Add(lblSum);
-
-        grid.Dock = DockStyle.Fill;
-        grid.ReadOnly = true;
-        grid.AllowUserToAddRows = false;
-        grid.Columns.Add("SALNO", "전표번호");
-        grid.Columns.Add("TDATE", "일자");
-        grid.Columns.Add("CVNAM", "거래처명");
-        grid.Columns.Add("LNNAM", "착지처명");
-        grid.Columns.Add("ADDR1", "주소");
-        grid.Columns.Add("SSAMT", "금액");
-
-        Controls.Add(grid);
-        Controls.Add(bottom);
-        Controls.Add(editPanel);
-        Controls.Add(top);
-
-        btnNew.Click += (_, _) => { cSrcd.SelectedIndex = 1; eSrwd.Clear(); grid.Rows.Clear(); lblSum.Text = string.Empty; eSrwd.Focus(); };
-        btnSearch.Click += (_, _) => ReloadList();
-        btnClose.Click += (_, _) => Close();
+        InitializeComponent();
     }
 
     private void JA05Form_KeyDown(object? sender, KeyEventArgs e)

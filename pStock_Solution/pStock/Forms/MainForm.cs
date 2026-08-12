@@ -7,31 +7,14 @@ namespace pStock.Forms;
 /// 원본 Main.pas / Main.dfm (Tfrm_Main, MDI 부모 폼) 이식.
 /// 메뉴는 FormRegistry에 정의된 목록으로부터 자동 생성한다.
 /// </summary>
-public class MainForm : Form
+public partial class MainForm : Form
 {
-    private readonly MenuStrip menu = new();
-    private readonly StatusStrip statusBar = new();
-    private readonly ToolStripStatusLabel statusLeft = new();
-    private readonly ToolStripStatusLabel statusRight = new();
-
     public MainForm()
     {
-        Text = "재고관리 시스템_개발서버";
-        IsMdiContainer = true;
-        WindowState = FormWindowState.Maximized;
-        StartPosition = FormStartPosition.CenterScreen;
+        InitializeComponent();
 
         BuildMenu();
         BuildStatusBar();
-
-        MainMenuStrip = menu;
-        Controls.Add(menu);
-        Controls.Add(statusBar);
-
-        FormClosing += MainForm_FormClosing;
-        KeyDown += MainForm_KeyDown;
-        MdiChildActivate += MainForm_MdiChildActivate;
-        KeyPreview = true;
     }
 
     private void BuildMenu()

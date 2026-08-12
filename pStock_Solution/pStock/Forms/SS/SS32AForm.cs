@@ -8,83 +8,15 @@ namespace pStock.Forms.SS;
 /// <summary>
 /// 원본 SS32A.pas / SS32A.dfm (TfrmSS32A) 이식 — 수금 등록/수정(SUGMF).
 /// </summary>
-public class SS32AForm : Form
+public partial class SS32AForm : Form
 {
-    private readonly DateTimePicker dtpDate = new();
-    private readonly TextBox edtNo = new() { ReadOnly = true };
-    private readonly TextBox edtCode = new();
-    private readonly TextBox dspName = new() { ReadOnly = true };
-    private readonly ComboBox cboGu = new() { DropDownStyle = ComboBoxStyle.DropDownList };
-    private readonly NumericUpDown edtAmt = new() { Maximum = 999999999999, DecimalPlaces = 0 };
-    private readonly TextBox edtBigo = new();
-    private readonly Label lblMisu = new() { AutoSize = true };
-    private readonly Label lblJob = new() { AutoSize = true, Font = new Font(FontFamily.GenericSansSerif, 10, FontStyle.Bold) };
-
-    private readonly Button btnAdd = new() { Text = "연속저장(F2)" };
-    private readonly Button btnOne = new() { Text = "저장(F3)" };
-    private readonly Button btnClose = new() { Text = "닫기(Esc)" };
-
     public string Job { get; set; } = "I";
     public int OriginalAmt { get; set; }
     public bool Saved { get; private set; }
 
     public SS32AForm()
     {
-        Text = "수금 등록";
-        Width = 500;
-        Height = 350;
-        FormBorderStyle = FormBorderStyle.FixedDialog;
-        StartPosition = FormStartPosition.CenterParent;
-        KeyPreview = true;
-
-        BuildLayout();
-        Load += (_, _) => { if (cboGu.Items.Count == 0) ResetGuList(); };
-        KeyDown += SS32AForm_KeyDown;
-    }
-
-    private readonly ToolTip _tip = new();
-
-    private void BuildLayout()
-    {
-        PublicLib.MakeTypingFriendly(edtAmt);
-
-        lblJob.Left = 20; lblJob.Top = 10;
-        Controls.Add(lblJob);
-
-        var grid = new GridLayout(this, 20, 45, slotWidth: 220, labelWidth: 85, rowHeight: 30, slotsPerRow: 2);
-
-        grid.Add("수금일자", dtpDate);
-        dtpDate.Format = DateTimePickerFormat.Short;
-        grid.Add("전표번호", edtNo);
-
-        grid.Add("거래처코드", edtCode);
-        _tip.SetToolTip(edtCode, "Enter 키를 누르면 거래처를 검색합니다.");
-        edtCode.KeyDown += EdtCode_KeyDown;
-        grid.Add("거래처명", dspName);
-
-        grid.Add("수금구분", cboGu);
-        grid.Add("수금액", edtAmt);
-
-        grid.NewRow();
-        grid.Add("비고", edtBigo, span: 2);
-
-        int y = grid.Bottom(10);
-        var lblMisuCap = new Label { Text = "현재 미수잔액:", Left = 20, Top = y + 3, AutoSize = true };
-        lblMisu.Left = 130; lblMisu.Top = y + 3;
-        Controls.AddRange(new Control[] { lblMisuCap, lblMisu });
-        y += 30;
-
-        btnAdd.Left = 100; btnAdd.Top = y; btnAdd.Width = 120;
-        btnOne.Left = 230; btnOne.Top = y; btnOne.Width = 100;
-        btnClose.Left = 340; btnClose.Top = y; btnClose.Width = 100;
-        Controls.AddRange(new Control[] { btnAdd, btnOne, btnClose });
-
-        btnAdd.Click += (_, _) => { if (SaveEntry()) { Saved = true; ClearForm(); edtCode.Focus(); } };
-        btnOne.Click += (_, _) => { if (SaveEntry()) { Saved = true; Close(); } };
-        btnClose.Click += (_, _) => Close();
-
-        ClientSize = new Size(ClientSize.Width, y + 45);
-        ClearForm();
+        InitializeComponent();
     }
 
     private void SS32AForm_KeyDown(object? sender, KeyEventArgs e)

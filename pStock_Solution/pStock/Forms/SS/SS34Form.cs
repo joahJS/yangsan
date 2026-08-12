@@ -9,83 +9,16 @@ namespace pStock.Forms.SS;
 /// 원본 DFM 확인 SQL: SELECT A.*,CVNAM,OWNAM,TELNO FROM MISUF A
 ///                     LEFT OUTER JOIN CVMAST B ON A.CVCOD=B.CVCOD WHERE MYEAR=:YEAR
 /// </summary>
-public class SS34Form : Form
+public partial class SS34Form : Form
 {
     private const string BaseSql =
         "SELECT A.*,CVNAM,OWNAM,TELNO FROM MISUF A" +
         "  LEFT OUTER JOIN CVMAST B ON A.CVCOD=B.CVCOD" +
         " WHERE MYEAR=@YEAR";
 
-    private readonly FastDataGridView grid = new();
-    private readonly TextBox edtMonth = new();
-    private readonly TextBox edtCvcod = new();
-    private readonly TextBox dspName = new() { ReadOnly = true };
-    private readonly Label lblAmt = new() { AutoSize = true };
-
-    private readonly Button btnNew = new() { Text = "초기화(F1)" };
-    private readonly Button btnSearch = new() { Text = "조회(F5)" };
-    private readonly Button btnExcel = new() { Text = "엑셀저장" };
-    private readonly Button btnPrint = new() { Text = "인쇄" };
-    private readonly Button btnClose = new() { Text = "닫기(Esc)" };
-    private readonly Button btnMonthDown = new() { Text = "◀" };
-    private readonly Button btnMonthUp = new() { Text = "▶" };
-
     public SS34Form()
     {
-        Text = "미수금 조회";
-        Width = 1100;
-        Height = 600;
-        KeyPreview = true;
-
-        BuildLayout();
-
-        Load += (_, _) => { edtMonth.Text = DateTime.Now.ToString("yyyy-MM"); Search(); };
-        KeyDown += SS34Form_KeyDown;
-    }
-
-    private void BuildLayout()
-    {
-        var top = new Panel { Dock = DockStyle.Top, Height = 40 };
-        top.Controls.AddRange(new Control[] { btnNew, btnSearch, btnExcel, btnPrint, btnClose });
-        int bx = 5;
-        foreach (Control c in new Control[] { btnNew, btnSearch, btnExcel, btnPrint, btnClose })
-        { c.Left = bx; c.Top = 8; c.Width = 100; bx += 105; }
-        btnExcel.Click += (_, _) => pStock.Common.ExcelExporter.Export(grid, "미수금조회");
-        btnPrint.Click += (_, _) => pStock.Common.GridPrinter.Print(grid, "미수금조회");
-
-        var editPanel = new Panel { Dock = DockStyle.Top, Height = 40 };
-        var lblMonth = new Label { Text = "조회월(YYYY-MM)", Left = 10, Top = 12, AutoSize = true };
-        edtMonth.Left = 140; edtMonth.Top = 8; edtMonth.Width = 80;
-        edtMonth.KeyDown += (_, e) => { if (e.KeyCode == Keys.Enter) Search(); };
-        btnMonthDown.Left = 225; btnMonthDown.Top = 8; btnMonthDown.Width = 30;
-        btnMonthUp.Left = 258; btnMonthUp.Top = 8; btnMonthUp.Width = 30;
-        btnMonthDown.Click += (_, _) => { ShiftMonth(-1); Search(); };
-        btnMonthUp.Click += (_, _) => { ShiftMonth(1); Search(); };
-
-        var lblCvcod = new Label { Text = "거래처코드", Left = 320, Top = 12, AutoSize = true };
-        edtCvcod.Left = 400; edtCvcod.Top = 8; edtCvcod.Width = 80;
-        edtCvcod.KeyDown += EdtCvcod_KeyDown;
-        dspName.Left = 490; dspName.Top = 8; dspName.Width = 200;
-
-        var lblAmtCap = new Label { Text = "미수금합계:", Left = 720, Top = 12, AutoSize = true };
-        lblAmt.Left = 800; lblAmt.Top = 12;
-
-        editPanel.Controls.AddRange(new Control[]
-        {
-            lblMonth, edtMonth, btnMonthDown, btnMonthUp, lblCvcod, edtCvcod, dspName, lblAmtCap, lblAmt
-        });
-
-        grid.Dock = DockStyle.Fill;
-        grid.ReadOnly = true;
-        grid.AllowUserToAddRows = false;
-
-        Controls.Add(grid);
-        Controls.Add(editPanel);
-        Controls.Add(top);
-
-        btnNew.Click += (_, _) => { edtCvcod.Clear(); dspName.Clear(); edtCvcod.Focus(); };
-        btnSearch.Click += (_, _) => Search();
-        btnClose.Click += (_, _) => Close();
+        InitializeComponent();
     }
 
     private void SS34Form_KeyDown(object? sender, KeyEventArgs e)

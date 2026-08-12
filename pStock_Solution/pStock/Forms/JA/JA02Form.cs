@@ -13,84 +13,11 @@ namespace pStock.Forms.JA;
 /// ITNBR/HOUSE 조건만 추가한 것이라, JA01Form.BaseSql과 같은 쿼리를 재사용한다.
 /// 품목 검색 팝업(BA00D)은 아직 변환되지 않아 품번 직접입력만 지원한다.
 /// </summary>
-public class JA02Form : Form
+public partial class JA02Form : Form
 {
-    private readonly TextBox edtCode = new();   // 품번
-    private readonly TextBox dspName = new() { ReadOnly = true };
-    private readonly TextBox edtYear = new();
-    private readonly ComboBox cboHouse = new() { DropDownStyle = ComboBoxStyle.DropDownList };
-    private readonly FastDataGridView grid = new();
-
-    private readonly Button btnNew = new() { Text = "초기화(F1)" };
-    private readonly Button btnSearch = new() { Text = "조회(F5)" };
-    private readonly Button btnClose = new() { Text = "닫기(Esc)" };
-    private readonly Button btnYearDown = new() { Text = "◀" };
-    private readonly Button btnYearUp = new() { Text = "▶" };
-
     public JA02Form()
     {
-        Text = "재고관리-년간";
-        Width = 900;
-        Height = 600;
-        KeyPreview = true;
-
-        BuildLayout();
-
-        Load += (_, _) => { ResetHouseList(); ClearEdit(); };
-        KeyDown += JA02Form_KeyDown;
-    }
-
-    private void BuildLayout()
-    {
-        var top = new Panel { Dock = DockStyle.Top, Height = 40 };
-        top.Controls.AddRange(new Control[] { btnNew, btnSearch, btnClose });
-        int bx = 5;
-        foreach (Control c in new Control[] { btnNew, btnSearch, btnClose })
-        { c.Left = bx; c.Top = 8; c.Width = 100; bx += 105; }
-
-        var editPanel = new Panel { Dock = DockStyle.Top, Height = 40 };
-        var lblCode = new Label { Text = "품번", Left = 5, Top = 12, AutoSize = true };
-        edtCode.Left = 50; edtCode.Top = 8; edtCode.Width = 100;
-        edtCode.KeyDown += EdtCode_KeyDown;
-        dspName.Left = 160; dspName.Top = 8; dspName.Width = 250;
-
-        var lblYear = new Label { Text = "년도", Left = 420, Top = 12, AutoSize = true };
-        edtYear.Left = 460; edtYear.Top = 8; edtYear.Width = 60;
-        edtYear.KeyDown += (_, e) => { if (e.KeyCode == Keys.Enter) LoadYear(); };
-        btnYearDown.Left = 525; btnYearDown.Top = 8; btnYearDown.Width = 30;
-        btnYearUp.Left = 558; btnYearUp.Top = 8; btnYearUp.Width = 30;
-        btnYearDown.Click += (_, _) => { edtYear.Text = (PublicLib.StrToIntSafe(edtYear.Text) - 1).ToString(); LoadYear(); };
-        btnYearUp.Click += (_, _) => { edtYear.Text = (PublicLib.StrToIntSafe(edtYear.Text) + 1).ToString(); LoadYear(); };
-
-        var lblHouse = new Label { Text = "저장위치", Left = 600, Top = 12, AutoSize = true };
-        cboHouse.Left = 660; cboHouse.Top = 8; cboHouse.Width = 100;
-
-        editPanel.Controls.AddRange(new Control[]
-        {
-            lblCode, edtCode, dspName, lblYear, edtYear, btnYearDown, btnYearUp, lblHouse, cboHouse
-        });
-
-        grid.Dock = DockStyle.Fill;
-        grid.ReadOnly = true;
-        grid.AllowUserToAddRows = false;
-        grid.Columns.Add("MONTH", "월");
-        grid.Columns.Add("BQTY", "기초재고");
-        grid.Columns.Add("IQTY", "입고수량");
-        grid.Columns.Add("OQTY", "출고수량");
-        grid.Columns.Add("XQTY", "재고조정");
-        grid.Columns.Add("JQTY", "재고");
-        grid.Columns.Add("IAMT", "입고금액");
-        grid.Columns.Add("SAMT", "출고금액");
-        grid.Columns.Add("OAMT", "보관금액");
-        grid.Columns.Add("TAMT", "누계금액");
-
-        Controls.Add(grid);
-        Controls.Add(editPanel);
-        Controls.Add(top);
-
-        btnNew.Click += (_, _) => ClearEdit();
-        btnSearch.Click += (_, _) => LoadYear();
-        btnClose.Click += (_, _) => Close();
+        InitializeComponent();
     }
 
     private void JA02Form_KeyDown(object? sender, KeyEventArgs e)
@@ -230,4 +157,3 @@ public class JA02Form : Form
         }
     }
 }
-

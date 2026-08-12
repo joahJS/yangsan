@@ -13,61 +13,13 @@ namespace pStock.Forms.SS;
 /// 대상으로 실행되어 사실상 실행되지 않는(no-op) 코드가 있었다. 여기서는 그 죽은 코드는
 /// 제외하고 나머지 로직은 그대로 이식했다.
 /// </summary>
-public class SS23BForm : Form
+public partial class SS23BForm : Form
 {
-    private readonly DateTimePicker dtpDate = new();
-    private readonly Label lblTerm = new() { AutoSize = true };
-    private readonly ProgressBar progress = new();
-    private readonly Label lblStatus = new() { AutoSize = true };
-    private readonly Button btnOk = new() { Text = "실행(F2)" };
-    private readonly Button btnCancel = new() { Text = "취소(F3)" };
-
     public bool Executed { get; private set; }
 
     public SS23BForm()
     {
-        Text = "보관료 자동계산";
-        Width = 480;
-        Height = 260;
-        FormBorderStyle = FormBorderStyle.FixedDialog;
-        StartPosition = FormStartPosition.CenterParent;
-        KeyPreview = true;
-
-        BuildLayout();
-
-        Load += (_, _) =>
-        {
-            var now = DateTime.Now;
-            dtpDate.Value = now.Day < 16 ? new DateTime(now.Year, now.Month, 1) : new DateTime(now.Year, now.Month, 16);
-            UpdateTermLabel();
-        };
-        KeyDown += SS23BForm_KeyDown;
-    }
-
-    private void BuildLayout()
-    {
-        var lblDate = new Label { Text = "기준일(반월 시작일)", Left = 20, Top = 25, AutoSize = true };
-        dtpDate.Left = 180; dtpDate.Top = 20; dtpDate.Width = 120; dtpDate.Format = DateTimePickerFormat.Short;
-        dtpDate.ValueChanged += (_, _) => UpdateTermLabel();
-        lblTerm.Left = 310; lblTerm.Top = 25;
-
-        var lblHint = new Label
-        {
-            Text = "선택한 반월 구간의 자동 보관전표를 다시 생성합니다.\r\n" +
-                   "(기존 자동전표는 삭제 후 재계산됩니다)",
-            Left = 20, Top = 60, AutoSize = true
-        };
-
-        progress.Left = 20; progress.Top = 110; progress.Width = 420; progress.Visible = false;
-        lblStatus.Left = 20; lblStatus.Top = 140;
-
-        btnOk.Left = 130; btnOk.Top = 180; btnOk.Width = 100;
-        btnCancel.Left = 250; btnCancel.Top = 180; btnCancel.Width = 100;
-
-        Controls.AddRange(new Control[] { lblDate, dtpDate, lblTerm, lblHint, progress, lblStatus, btnOk, btnCancel });
-
-        btnOk.Click += (_, _) => RunBatch();
-        btnCancel.Click += (_, _) => Close();
+        InitializeComponent();
     }
 
     private void SS23BForm_KeyDown(object? sender, KeyEventArgs e)

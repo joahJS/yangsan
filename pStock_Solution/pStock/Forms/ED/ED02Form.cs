@@ -7,51 +7,11 @@ namespace pStock.Forms.ED;
 /// 원본 ED02.pas / ED02.dfm (TfrmED02) 이식 — 년마감 작업.
 /// 재고(ITEMBL)와 미수금(MISUF)을 다음 해로 이월한다.
 /// </summary>
-public class ED02Form : Form
+public partial class ED02Form : Form
 {
-    private readonly TextBox edtYear = new();
-    private readonly Button btnDown = new() { Text = "◀" };
-    private readonly Button btnUp = new() { Text = "▶" };
-    private readonly Button btnOk = new() { Text = "마감실행(F2)" };
-    private readonly Button btnCancel = new() { Text = "취소(Esc)" };
-
     public ED02Form()
     {
-        Text = "년마감 작업";
-        Width = 400;
-        Height = 220;
-        FormBorderStyle = FormBorderStyle.FixedDialog;
-        StartPosition = FormStartPosition.CenterParent;
-        KeyPreview = true;
-
-        BuildLayout();
-
-        Load += (_, _) => edtYear.Text = DateTime.Now.Year.ToString();
-        KeyDown += ED02Form_KeyDown;
-    }
-
-    private void BuildLayout()
-    {
-        var lblYear = new Label { Text = "마감년도", Left = 20, Top = 25, AutoSize = true };
-        edtYear.Left = 100; edtYear.Top = 20; edtYear.Width = 60;
-        btnDown.Left = 165; btnDown.Top = 19; btnDown.Width = 30;
-        btnUp.Left = 200; btnUp.Top = 19; btnUp.Width = 30;
-
-        var lblHint = new Label
-        {
-            Text = "선택한 년도의 재고/미수금을 다음 해로 이월합니다.",
-            Left = 20, Top = 60, AutoSize = true
-        };
-
-        btnOk.Left = 100; btnOk.Top = 130; btnOk.Width = 100;
-        btnCancel.Left = 210; btnCancel.Top = 130; btnCancel.Width = 100;
-
-        Controls.AddRange(new Control[] { lblYear, edtYear, btnDown, btnUp, lblHint, btnOk, btnCancel });
-
-        btnDown.Click += (_, _) => edtYear.Text = (PublicLib.StrToIntSafe(edtYear.Text) - 1).ToString();
-        btnUp.Click += (_, _) => edtYear.Text = (PublicLib.StrToIntSafe(edtYear.Text) + 1).ToString();
-        btnOk.Click += (_, _) => RunClose();
-        btnCancel.Click += (_, _) => Close();
+        InitializeComponent();
     }
 
     private void ED02Form_KeyDown(object? sender, KeyEventArgs e)

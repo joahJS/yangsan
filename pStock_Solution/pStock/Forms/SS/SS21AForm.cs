@@ -8,34 +8,8 @@ namespace pStock.Forms.SS;
 /// 원본 SS21A.pas / SS21A.dfm (TfrmSS21A) 이식 — 입고 등록/수정(IPGOF).
 /// 저장 시 재고파일(ITEMBL), 미수파일(MISUF) 갱신 + 보관전표(IPCHF) 자동생성까지 원본 그대로 수행한다.
 /// </summary>
-public class SS21AForm : Form
+public partial class SS21AForm : Form
 {
-    private readonly DateTimePicker dtpDate = new();
-    private readonly TextBox edtNo = new() { ReadOnly = true };
-    private readonly TextBox dspCvcod = new() { ReadOnly = true };
-    private readonly TextBox dspCvnam = new() { ReadOnly = true };
-    private readonly CheckBox chkCancel = new() { Text = "취소분(반품)" };
-    private readonly TextBox edtItnbr = new();
-    private readonly TextBox dspItdsc = new() { ReadOnly = true };
-    private readonly TextBox dspDanwi = new() { ReadOnly = true };
-    private readonly NumericUpDown edtIqty = new() { Maximum = 999999999, DecimalPlaces = 0 };
-    private readonly NumericUpDown edtIcost = new() { Maximum = 999999999, DecimalPlaces = 0 };
-    private readonly NumericUpDown edtIamt = new() { Maximum = 999999999999, DecimalPlaces = 0 };
-    private readonly NumericUpDown dspBcost = new() { Maximum = 999999999, DecimalPlaces = 0, ReadOnly = true };
-    private readonly NumericUpDown dspOcost = new() { Maximum = 999999999, DecimalPlaces = 0, ReadOnly = true };
-    private readonly NumericUpDown edtJamt1 = new() { Maximum = 999999999, DecimalPlaces = 0 };
-    private readonly NumericUpDown edtJamt2 = new() { Maximum = 999999999, DecimalPlaces = 0 };
-    private readonly NumericUpDown edtJamt3 = new() { Maximum = 999999999, DecimalPlaces = 0 };
-    private readonly ComboBox cboHouse = new() { DropDownStyle = ComboBoxStyle.DropDownList };
-    private readonly TextBox mskYdate = new();
-    private readonly TextBox edtBigo = new();
-    private readonly TextBox dspOqty = new() { ReadOnly = true, Text = "0" };
-    private readonly Label pnlJob = new() { AutoSize = true, Font = new Font(FontFamily.GenericSansSerif, 10, FontStyle.Bold) };
-
-    private readonly Button btnAdd = new() { Text = "연속저장(F2)" };
-    private readonly Button btnOne = new() { Text = "저장(F3)" };
-    private readonly Button btnClose = new() { Text = "닫기(Esc)" };
-
     /// <summary>원본 vJob: 'I'=신규, 'U'=수정.</summary>
     public string Job { get; set; } = "I";
     /// <summary>원본 vHouse: 수정 시 원래 저장위치(창고 변경 제한 검사용).</summary>
@@ -50,77 +24,7 @@ public class SS21AForm : Form
 
     public SS21AForm()
     {
-        Text = "입고 등록";
-        Width = 720;
-        Height = 560;
-        FormBorderStyle = FormBorderStyle.FixedDialog;
-        StartPosition = FormStartPosition.CenterParent;
-        KeyPreview = true;
-
-        BuildLayout();
-
-        Load += (_, _) => { if (cboHouse.Items.Count == 0) ResetHouseList(); };
-        KeyDown += SS21AForm_KeyDown;
-    }
-
-    private readonly ToolTip _tip = new();
-
-    private void BuildLayout()
-    {
-        foreach (var n in new[] { edtIqty, edtIcost, edtIamt, edtJamt1, edtJamt2, edtJamt3 })
-            PublicLib.MakeTypingFriendly(n);
-
-        pnlJob.Left = 20; pnlJob.Top = 10;
-        Controls.Add(pnlJob);
-
-        var grid = new GridLayout(this, 20, 45, slotWidth: 220, labelWidth: 75, rowHeight: 30, slotsPerRow: 3);
-
-        grid.Add("입고일자", dtpDate);
-        dtpDate.Format = DateTimePickerFormat.Short;
-        grid.Add("전표번호", edtNo);
-        grid.AddRaw(chkCancel, width: 100);
-
-        grid.Add("거래처코드", dspCvcod);
-        grid.Add("거래처명", dspCvnam, span: 2);
-
-        grid.Add("품번", edtItnbr);
-        _tip.SetToolTip(edtItnbr, "Enter 키를 누르면 품목을 검색합니다.");
-        edtItnbr.KeyDown += EdtItnbr_KeyDown;
-        grid.Add("품명", dspItdsc, span: 2);
-
-        grid.Add("단위", dspDanwi);
-        grid.Add("기준단가", dspBcost);
-        grid.Add("출고단가", dspOcost);
-
-        grid.Add("입고수량", edtIqty);
-        edtIqty.ValueChanged += (_, _) => RecalcAmt();
-        grid.Add("입고단가", edtIcost);
-        edtIcost.ValueChanged += (_, _) => RecalcAmt();
-        grid.Add("입고금액", edtIamt);
-
-        grid.Add("부가세1", edtJamt1);
-        grid.Add("부가세2", edtJamt2);
-        grid.Add("부가세3", edtJamt3);
-
-        grid.Add("저장위치", cboHouse);
-        grid.Add("만기일", mskYdate);
-        grid.Add("출고중수량", dspOqty);
-
-        grid.NewRow();
-        grid.Add("비고", edtBigo, span: 3);
-
-        int y = grid.Bottom(20);
-        btnAdd.Left = 150; btnAdd.Top = y; btnAdd.Width = 120;
-        btnOne.Left = 280; btnOne.Top = y; btnOne.Width = 100;
-        btnClose.Left = 390; btnClose.Top = y; btnClose.Width = 100;
-        Controls.AddRange(new Control[] { btnAdd, btnOne, btnClose });
-
-        btnAdd.Click += (_, _) => { if (SaveEntry()) { Saved = true; ClearForm(); edtItnbr.Focus(); } };
-        btnOne.Click += (_, _) => { if (SaveEntry()) { Saved = true; Close(); } };
-        btnClose.Click += (_, _) => Close();
-
-        ClientSize = new Size(ClientSize.Width, y + 45);
-        ClearForm();
+        InitializeComponent();
     }
 
     private void SS21AForm_KeyDown(object? sender, KeyEventArgs e)

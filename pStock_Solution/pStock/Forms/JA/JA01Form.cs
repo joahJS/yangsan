@@ -14,92 +14,13 @@ namespace pStock.Forms.JA;
 /// 원본 4번째 탭(Drum, qryDrum 별도 쿼리)은 DFM에서 SQL을 확인하지 못해 이번 단계에서는
 /// 3번째 탭과 동일한 조회로 대체해 두었다 — 원본 SQL을 확인되는 대로 갱신 필요.
 /// </summary>
-public class JA01Form : Form
+public partial class JA01Form : Form
 {
     private static readonly string BaseSql = pStock.Common.SqlFragments.ItemblBaseSql;
 
-    private readonly TabControl tabs = new();
-    private readonly TabPage tab1 = new("품목별");
-    private readonly TabPage tab2 = new("거래처별");
-    private readonly TabPage tab3 = new("저장위치별");
-
-    private readonly FastDataGridView grid = new();
-    private readonly TextBox edtMonth = new();   // yyyy-MM
-    private readonly TextBox edtNo = new();      // 품명 검색 (Tab1)
-    private readonly TextBox edtCvnam = new();   // 거래처명 검색 (Tab2)
-    private readonly ComboBox cboHouse = new() { DropDownStyle = ComboBoxStyle.DropDownList }; // 저장위치 (Tab3)
-
-    private readonly Button btnNew = new() { Text = "초기화(F1)" };
-    private readonly Button btnSearch = new() { Text = "조회(F5)" };
-    private readonly Button btnExcel = new() { Text = "엑셀저장" };
-    private readonly Button btnPrint = new() { Text = "인쇄" };
-    private readonly Button btnClose = new() { Text = "닫기(Esc)" };
-    private readonly Button btnMonthDown = new() { Text = "◀" };
-    private readonly Button btnMonthUp = new() { Text = "▶" };
-
     public JA01Form()
     {
-        Text = "재고관리";
-        Width = 1100;
-        Height = 650;
-        KeyPreview = true;
-
-        BuildLayout();
-
-        Load += (_, _) => { ResetHouseList(); edtMonth.Text = DateTime.Now.ToString("yyyy-MM"); ReloadList(); };
-        KeyDown += JA01Form_KeyDown;
-    }
-
-    private void BuildLayout()
-    {
-        var top = new Panel { Dock = DockStyle.Top, Height = 40 };
-        top.Controls.AddRange(new Control[] { btnNew, btnSearch, btnExcel, btnPrint, btnClose });
-        int bx = 5;
-        foreach (Control c in new Control[] { btnNew, btnSearch, btnExcel, btnPrint, btnClose })
-        { c.Left = bx; c.Top = 8; c.Width = 100; bx += 105; }
-        btnExcel.Click += (_, _) => pStock.Common.ExcelExporter.Export(grid, "재고관리");
-        btnPrint.Click += (_, _) => pStock.Common.GridPrinter.Print(grid, "재고관리");
-
-        var monthLbl = new Label { Text = "조회월(YYYY-MM)", Left = bx + 20, Top = 14, AutoSize = true };
-        edtMonth.Left = bx + 150; edtMonth.Top = 10; edtMonth.Width = 80;
-        edtMonth.KeyDown += (_, e) => { if (e.KeyCode == Keys.Enter) ReloadList(); };
-        btnMonthDown.Left = bx + 235; btnMonthDown.Top = 8; btnMonthDown.Width = 30;
-        btnMonthUp.Left = bx + 268; btnMonthUp.Top = 8; btnMonthUp.Width = 30;
-        btnMonthDown.Click += (_, _) => { ShiftMonth(-1); ReloadList(); };
-        btnMonthUp.Click += (_, _) => { ShiftMonth(1); ReloadList(); };
-        top.Controls.AddRange(new Control[] { monthLbl, edtMonth, btnMonthDown, btnMonthUp });
-
-        var lbl1 = new Label { Text = "품명검색", Left = 10, Top = 12, AutoSize = true };
-        edtNo.Left = 80; edtNo.Top = 8; edtNo.Width = 200;
-        edtNo.KeyUp += (_, _) => LocateInGrid("ITDSC", edtNo.Text);
-        tab1.Controls.AddRange(new Control[] { lbl1, edtNo });
-
-        var lbl2 = new Label { Text = "거래처검색", Left = 10, Top = 12, AutoSize = true };
-        edtCvnam.Left = 90; edtCvnam.Top = 8; edtCvnam.Width = 200;
-        edtCvnam.KeyUp += (_, _) => LocateInGrid("CVNAM", edtCvnam.Text);
-        tab2.Controls.AddRange(new Control[] { lbl2, edtCvnam });
-
-        var lbl3 = new Label { Text = "저장위치", Left = 10, Top = 12, AutoSize = true };
-        cboHouse.Left = 90; cboHouse.Top = 8; cboHouse.Width = 150;
-        cboHouse.SelectedIndexChanged += (_, _) => LocateInGrid("HOUSE", cboHouse.Text);
-        tab3.Controls.AddRange(new Control[] { lbl3, cboHouse });
-
-        tabs.Dock = DockStyle.Top;
-        tabs.Height = 40;
-        tabs.TabPages.AddRange(new[] { tab1, tab2, tab3 });
-        tabs.SelectedIndexChanged += (_, _) => ReloadList();
-
-        grid.Dock = DockStyle.Fill;
-        grid.ReadOnly = true;
-        grid.AllowUserToAddRows = false;
-
-        Controls.Add(grid);
-        Controls.Add(tabs);
-        Controls.Add(top);
-
-        btnNew.Click += (_, _) => { edtNo.Clear(); edtCvnam.Clear(); edtMonth.Text = DateTime.Now.ToString("yyyy-MM"); grid.DataSource = null; };
-        btnSearch.Click += (_, _) => ReloadList();
-        btnClose.Click += (_, _) => Close();
+        InitializeComponent();
     }
 
     private void JA01Form_KeyDown(object? sender, KeyEventArgs e)

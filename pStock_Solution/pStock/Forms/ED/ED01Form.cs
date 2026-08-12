@@ -7,74 +7,11 @@ namespace pStock.Forms.ED;
 /// 해당 월의 입고/보관/출고/수금 자료를 ITEMBL(재고)/MISUF(미수금) 파일에 반영(마감)한다.
 /// 진행률 게이지는 단순 ProgressBar로 대체했다.
 /// </summary>
-public class ED01Form : Form
+public partial class ED01Form : Form
 {
-    private readonly TextBox edtYear = new();
-    private readonly ComboBox cboMonth = new() { DropDownStyle = ComboBoxStyle.DropDownList };
-    private readonly CheckBox chk1 = new() { Text = "입고 마감" };
-    private readonly CheckBox chk2 = new() { Text = "보관 마감" };
-    private readonly CheckBox chk3 = new() { Text = "출고 마감" };
-    private readonly CheckBox chk4 = new() { Text = "수금 마감" };
-    private readonly CheckBox chk5 = new() { Text = "임시자료 정리" };
-    private readonly ProgressBar progress = new();
-    private readonly Button btnOk = new() { Text = "마감실행(F2)" };
-    private readonly Button btnCancel = new() { Text = "취소(Esc)" };
-
     public ED01Form()
     {
-        Text = "월마감 작업";
-        Width = 450;
-        Height = 400;
-        FormBorderStyle = FormBorderStyle.FixedDialog;
-        StartPosition = FormStartPosition.CenterParent;
-        KeyPreview = true;
-
-        BuildLayout();
-
-        Load += (_, _) =>
-        {
-            edtYear.Text = DateTime.Now.Year.ToString();
-            cboMonth.SelectedItem = DateTime.Now.Month.ToString();
-        };
-        KeyDown += ED01Form_KeyDown;
-    }
-
-    private void BuildLayout()
-    {
-        for (int i = 1; i <= 12; i++) cboMonth.Items.Add(i.ToString());
-
-        var lblYear = new Label { Text = "년도", Left = 20, Top = 20, AutoSize = true };
-        edtYear.Left = 70; edtYear.Top = 16; edtYear.Width = 60;
-        var lblMonth = new Label { Text = "월", Left = 150, Top = 20, AutoSize = true };
-        cboMonth.Left = 180; cboMonth.Top = 16; cboMonth.Width = 60;
-
-        int y = 60;
-        chk1.Left = 20; chk1.Top = y; chk1.AutoSize = true; y += 26;
-        chk2.Left = 20; chk2.Top = y; chk2.AutoSize = true; y += 26;
-        chk3.Left = 20; chk3.Top = y; chk3.AutoSize = true; y += 26;
-        chk4.Left = 20; chk4.Top = y; chk4.AutoSize = true; y += 26;
-        chk5.Left = 20; chk5.Top = y; chk5.AutoSize = true; y += 40;
-        foreach (var c in new[] { chk1, chk2, chk3, chk4, chk5 }) c.Checked = true;
-
-        progress.Left = 20; progress.Top = y; progress.Width = 390; y += 40;
-
-        btnOk.Left = 100; btnOk.Top = y; btnOk.Width = 100;
-        btnCancel.Left = 220; btnCancel.Top = y; btnCancel.Width = 100;
-
-        Controls.AddRange(new Control[]
-        {
-            lblYear, edtYear, lblMonth, cboMonth,
-            chk1, chk2, chk3, chk4, chk5, progress, btnOk, btnCancel
-        });
-
-        btnOk.Click += (_, _) => RunClose();
-        btnCancel.Click += (_, _) => Close();
-    }
-
-    private void ED01Form_KeyDown(object? sender, KeyEventArgs e)
-    {
-        if (e.KeyCode == Keys.F2) btnOk.PerformClick();
-        else if (e.KeyCode == Keys.Escape) Close();
+        InitializeComponent();
     }
 
     /// <summary>원본 btnOkClick.</summary>
@@ -138,6 +75,12 @@ public class ED01Form : Form
         MessageBox.Show($"{year}년 {int.Parse(month)}월 마감작업이 완료되었습니다.", "확인",
             MessageBoxButtons.OK, MessageBoxIcon.Information);
         Close();
+    }
+
+    private void ED01Form_KeyDown(object? sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.F2) btnOk.PerformClick();
+        else if (e.KeyCode == Keys.Escape) Close();
     }
 
     /// <summary>원본 fncInitJob: 당월 입출고/매출/수금 컬럼 0으로 초기화.</summary>
