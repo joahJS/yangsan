@@ -18,100 +18,43 @@ public partial class BA01Form : Form
     public BA01Form()
     {
         InitializeComponent();
-        BuildDynamicLayout();
     }
 
-    /// <summary>
-    /// 원본 BuildLayout() — GridLayout 헬퍼로 좌표를 동적으로 계산하기 때문에(지역변수 사용)
-    /// WinForms 디자이너가 InitializeComponent() 안에서는 처리하지 못해 이 메서드로 분리했다.
-    /// InitializeComponent() 호출 직후 생성자에서 실행되므로 동작은 이전과 동일하다.
-    /// </summary>
-    private void BuildDynamicLayout()
+    private void BtnExcel_Click(object? sender, EventArgs e) =>
+        pStock.Common.ExcelExporter.Export(this.grid, "거래처마스터");
+
+    private void BtnPrint_Click(object? sender, EventArgs e) =>
+        pStock.Common.GridPrinter.Print(this.grid, "거래처마스터");
+
+    private void EdtWord_KeyUp(object? sender, KeyEventArgs e) => LocateInGrid(this.edtWord.Text);
+
+    private void EdtPost_DoubleClick(object? sender, EventArgs e) => LookupPostalCode();
+
+    private void EdtAddr_DoubleClick(object? sender, EventArgs e) => LookupPostalCode();
+
+    private void ChkAuto_Click(object? sender, EventArgs e) => CodeToggle(!this.chkAuto.Checked);
+
+    private void Grid_CellDoubleClick(object? sender, DataGridViewCellEventArgs e) => SyncEditFromGrid();
+
+    private void Grid_KeyDown(object? sender, KeyEventArgs e)
     {
-        this.cboGu.Items.AddRange(new object[] { "1. 매입처", "2. 매출처", "3. 공통" });
-
-        this.panelTop.Dock = DockStyle.Top;
-        this.panelTop.Height = 40;
-        this.panelTop.Controls.Add(this.btnNew);
-        this.panelTop.Controls.Add(this.btnAdd);
-        this.panelTop.Controls.Add(this.btnOne);
-        this.panelTop.Controls.Add(this.btnDel);
-        this.panelTop.Controls.Add(this.btnExcel);
-        this.panelTop.Controls.Add(this.btnPrint);
-        this.panelTop.Controls.Add(this.btnClose);
-        this.panelTop.Controls.Add(this.lblDbCnt);
-        this.btnNew.Left = 5; this.btnNew.Top = 8; this.btnNew.Width = 90;
-        this.btnAdd.Left = 100; this.btnAdd.Top = 8; this.btnAdd.Width = 90;
-        this.btnOne.Left = 195; this.btnOne.Top = 8; this.btnOne.Width = 90;
-        this.btnDel.Left = 290; this.btnDel.Top = 8; this.btnDel.Width = 90;
-        this.btnExcel.Left = 385; this.btnExcel.Top = 8; this.btnExcel.Width = 90;
-        this.btnPrint.Left = 480; this.btnPrint.Top = 8; this.btnPrint.Width = 90;
-        this.btnClose.Left = 575; this.btnClose.Top = 8; this.btnClose.Width = 90;
-        this.lblDbCnt.Left = 690; this.lblDbCnt.Top = 14;
-        this.btnExcel.Click += (_, _) => pStock.Common.ExcelExporter.Export(this.grid, "거래처마스터");
-        this.btnPrint.Click += (_, _) => pStock.Common.GridPrinter.Print(this.grid, "거래처마스터");
-
-        this.searchPanel.Dock = DockStyle.Top;
-        this.searchPanel.Height = 35;
-        this.lblWord.Text = "검색어"; this.lblWord.Left = 5; this.lblWord.Top = 10; this.lblWord.AutoSize = true;
-        this.edtWord.Left = 60; this.edtWord.Top = 6; this.edtWord.Width = 200;
-        this.edtWord.KeyUp += (_, _) => LocateInGrid(this.edtWord.Text);
-        this.searchPanel.Controls.AddRange(new Control[] { this.lblWord, this.edtWord });
-
-        this.editPanel.Dock = DockStyle.Top;
-        this.editPanel.Height = 230;
-        this.editPanel.AutoScroll = true;
-        var layout = new GridLayout(this.editPanel, 5, 5, slotWidth: 250, labelWidth: 85, rowHeight: 30, slotsPerRow: 3);
-
-        layout.Add("구분", this.cboGu);
-        layout.Add("코드", this.edtCode);
-        layout.AddRaw(this.chkAuto, width: 100);
-
-        layout.Add("거래처명", this.edtName);
-        layout.Add("대표자", this.edtOwnam);
-
-        layout.Add("사업자번호", this.edtSano);
-        layout.Add("법인번호", this.edtCvno);
-
-        layout.Add("업태", this.edtUptae);
-        layout.Add("종목", this.edtJongk);
-
-        layout.Add("우편번호", this.edtPost);
-        layout.Add("주소", this.edtAddr, span: 2);
-
-        layout.Add("지역번호", this.edtDDD);
-        layout.Add("전화번호", this.edtTel);
-        layout.Add("팩스번호", this.edtFax);
-
-        layout.Add("시작일", this.edtSdate);
-        layout.Add("종료일", this.edtEdate);
-
-        layout.NewRow();
-        layout.Add("비고", this.edtBigo, span: 3);
-
-        this.editPanel.Height = layout.Bottom(15);
-
-        this.edtPost.DoubleClick += (_, _) => LookupPostalCode();
-        this.edtAddr.DoubleClick += (_, _) => LookupPostalCode();
-        this.chkAuto.Click += (_, _) => CodeToggle(!this.chkAuto.Checked);
-
-        this.grid.Dock = DockStyle.Fill;
-        this.grid.ReadOnly = true;
-        this.grid.AllowUserToAddRows = false;
-        this.grid.CellDoubleClick += (_, _) => SyncEditFromGrid();
-        this.grid.KeyDown += (_, e) => { if (e.KeyCode == Keys.Delete) this.btnDel.PerformClick(); };
-
-        this.Controls.Add(this.grid);
-        this.Controls.Add(this.editPanel);
-        this.Controls.Add(this.searchPanel);
-        this.Controls.Add(this.panelTop);
-
-        this.btnNew.Click += (_, _) => { ClearEdit(); CodeToggle(!this.chkAuto.Checked); this.cboGu.Focus(); };
-        this.btnAdd.Click += (_, _) => Save(isInsert: true);
-        this.btnOne.Click += (_, _) => Save(isInsert: false);
-        this.btnDel.Click += (_, _) => Delete();
-        this.btnClose.Click += (_, _) => Close();
+        if (e.KeyCode == Keys.Delete) this.btnDel.PerformClick();
     }
+
+    private void BtnNew_Click(object? sender, EventArgs e)
+    {
+        ClearEdit();
+        CodeToggle(!this.chkAuto.Checked);
+        this.cboGu.Focus();
+    }
+
+    private void BtnAdd_Click(object? sender, EventArgs e) => Save(isInsert: true);
+
+    private void BtnOne_Click(object? sender, EventArgs e) => Save(isInsert: false);
+
+    private void BtnDel_Click(object? sender, EventArgs e) => Delete();
+
+    private void BtnClose_Click(object? sender, EventArgs e) => Close();
 
     private void BA01Form_Load(object? sender, EventArgs e)
     {
