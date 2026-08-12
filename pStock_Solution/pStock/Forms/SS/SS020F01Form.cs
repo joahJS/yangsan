@@ -21,7 +21,43 @@ public partial class SS020F01Form : Form
     public SS020F01Form()
     {
         InitializeComponent();
+        BuildDynamicLayout();
         InitScreen();
+    }
+
+    /// <summary>
+    /// 원본 BuildLayout() 중 panelTop 내부 배치 — GridLayout 헬퍼로 좌표를 동적으로
+    /// 계산하기 때문에(지역변수 사용) WinForms 디자이너가 InitializeComponent() 안에서는
+    /// 처리하지 못해 이 메서드로 분리했다.
+    /// </summary>
+    private void BuildDynamicLayout()
+    {
+        PublicLib.MakeTypingFriendly(this.eSsamt);
+
+        var layout = new GridLayout(this.panelTop, 10, 5, slotWidth: 300, labelWidth: 85, rowHeight: 30, slotsPerRow: 3);
+
+        layout.Add("출고일자", this.eTdate);
+        layout.Add("전표번호", this.eNo);
+        layout.AddRaw(this.chkAuto, width: 100);
+
+        layout.Add("거래처코드", this.eCvcod);
+        this._tip.SetToolTip(this.eCvcod, "Enter 키를 누르면 거래처를 검색합니다.");
+        this.eCvcod.KeyDown += new KeyEventHandler(this.ECvcod_KeyDown);
+        layout.Add("거래처명", this.lCvnam);
+        layout.Add("전화번호", this.lTelno);
+
+        layout.Add("착지처코드", this.eLncod);
+        this.eLncod.KeyDown += new KeyEventHandler(this.ELncod_KeyDown);
+        layout.Add("착지처명", this.lLnnam);
+        layout.Add("착지처주소", this.lLnadr);
+
+        layout.Add("담당자", this.ePlncd);
+        layout.Add("운송비", this.eSsamt);
+
+        layout.NewRow();
+        layout.Add("비고", this.eMbigo, span: 3);
+
+        this.panelTop.Height = layout.Bottom();
     }
 
     private void SS020F01Form_KeyDown(object? sender, KeyEventArgs e)

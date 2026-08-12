@@ -17,6 +17,60 @@ public partial class SS32AForm : Form
     public SS32AForm()
     {
         InitializeComponent();
+        BuildDynamicLayout();
+    }
+
+    /// <summary>
+    /// 원본 BuildLayout() — GridLayout 헬퍼로 좌표를 동적으로 계산하기 때문에(지역변수 사용)
+    /// WinForms 디자이너가 InitializeComponent() 안에서는 처리하지 못해 이 메서드로 분리했다.
+    /// InitializeComponent() 호출 직후 생성자에서 실행되므로 동작은 이전과 동일하다.
+    /// </summary>
+    private void BuildDynamicLayout()
+    {
+        PublicLib.MakeTypingFriendly(this.edtAmt);
+
+        this.lblJob.Left = 20;
+        this.lblJob.Top = 10;
+        this.Controls.Add(this.lblJob);
+
+        var grid = new GridLayout(this, 20, 45, slotWidth: 220, labelWidth: 85, rowHeight: 30, slotsPerRow: 2);
+
+        grid.Add("수금일자", this.dtpDate);
+        this.dtpDate.Format = DateTimePickerFormat.Short;
+        grid.Add("전표번호", this.edtNo);
+
+        grid.Add("거래처코드", this.edtCode);
+        this._tip.SetToolTip(this.edtCode, "Enter 키를 누르면 거래처를 검색합니다.");
+        this.edtCode.KeyDown += new KeyEventHandler(this.EdtCode_KeyDown);
+        grid.Add("거래처명", this.dspName);
+
+        grid.Add("수금구분", this.cboGu);
+        grid.Add("수금액", this.edtAmt);
+
+        grid.NewRow();
+        grid.Add("비고", this.edtBigo, span: 2);
+
+        int y = grid.Bottom(10);
+        this.lblMisuCap.Text = "현재 미수잔액:";
+        this.lblMisuCap.Left = 20;
+        this.lblMisuCap.Top = y + 3;
+        this.lblMisuCap.AutoSize = true;
+        this.lblMisu.Left = 130;
+        this.lblMisu.Top = y + 3;
+        this.Controls.AddRange(new Control[] { this.lblMisuCap, this.lblMisu });
+        y += 30;
+
+        this.btnAdd.Left = 100; this.btnAdd.Top = y; this.btnAdd.Width = 120;
+        this.btnOne.Left = 230; this.btnOne.Top = y; this.btnOne.Width = 100;
+        this.btnClose.Left = 340; this.btnClose.Top = y; this.btnClose.Width = 100;
+        this.Controls.AddRange(new Control[] { this.btnAdd, this.btnOne, this.btnClose });
+
+        this.btnAdd.Click += (_, _) => { if (SaveEntry()) { Saved = true; ClearForm(); this.edtCode.Focus(); } };
+        this.btnOne.Click += (_, _) => { if (SaveEntry()) { Saved = true; Close(); } };
+        this.btnClose.Click += (_, _) => Close();
+
+        this.ClientSize = new Size(this.ClientSize.Width, y + 45);
+        ClearForm();
     }
 
     private void SS32AForm_KeyDown(object? sender, KeyEventArgs e)

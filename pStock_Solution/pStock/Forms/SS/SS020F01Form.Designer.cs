@@ -90,37 +90,13 @@ partial class SS020F01Form
         this.FormBorderStyle = FormBorderStyle.FixedDialog;
         this.StartPosition = FormStartPosition.CenterParent;
         this.KeyPreview = true;
-        //
-        // BuildLayout (원본 그대로 이동)
-        //
-        PublicLib.MakeTypingFriendly(this.eSsamt);
-
+        // panelTop 내부는 GridLayout 헬퍼(지역변수 기반 동적 좌표 계산)로 배치하기 때문에
+        // WinForms 디자이너가 InitializeComponent() 안에서 처리하지 못한다. 그 부분만
+        // BuildDynamicLayout()(SS020F01Form.cs)으로 분리해 생성자에서 InitializeComponent()
+        // 호출 직후 실행한다. 나머지(panelGrid/panelGridButtons/panelBottom 등, 전부 리터럴
+        // 좌표)는 그대로 여기 둔다.
         this.panelTop.Dock = DockStyle.Top;
         this.panelTop.Height = 180;
-        var layout = new GridLayout(this.panelTop, 10, 5, slotWidth: 300, labelWidth: 85, rowHeight: 30, slotsPerRow: 3);
-
-        layout.Add("출고일자", this.eTdate);
-        layout.Add("전표번호", this.eNo);
-        layout.AddRaw(this.chkAuto, width: 100);
-
-        layout.Add("거래처코드", this.eCvcod);
-        this._tip.SetToolTip(this.eCvcod, "Enter 키를 누르면 거래처를 검색합니다.");
-        this.eCvcod.KeyDown += new KeyEventHandler(this.ECvcod_KeyDown);
-        layout.Add("거래처명", this.lCvnam);
-        layout.Add("전화번호", this.lTelno);
-
-        layout.Add("착지처코드", this.eLncod);
-        this.eLncod.KeyDown += new KeyEventHandler(this.ELncod_KeyDown);
-        layout.Add("착지처명", this.lLnnam);
-        layout.Add("착지처주소", this.lLnadr);
-
-        layout.Add("담당자", this.ePlncd);
-        layout.Add("운송비", this.eSsamt);
-
-        layout.NewRow();
-        layout.Add("비고", this.eMbigo, span: 3);
-
-        this.panelTop.Height = layout.Bottom();
 
         this.rgListS.Dock = DockStyle.Fill;
         this.rgListS.AllowUserToAddRows = false;

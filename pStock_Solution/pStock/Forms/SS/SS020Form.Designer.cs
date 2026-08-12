@@ -23,6 +23,11 @@ partial class SS020Form
     private TextBox eSrwd;
     private Label lblCnt;
     private Label lblAmt;
+    private Label lblDate;
+    private Label lblTilde;
+    private Label lblSearch;
+    private Label lblCntCap;
+    private Label lblAmtCap;
 
     private Button btnNew;
     private Button btnDel;
@@ -90,21 +95,21 @@ partial class SS020Form
 
         this.panelEdit.Dock = DockStyle.Top;
         this.panelEdit.Height = 40;
-        var lblDate = new Label { Text = "기간", Left = 5, Top = 12, AutoSize = true };
+        this.lblDate = new Label { Text = "기간", Left = 5, Top = 12, AutoSize = true };
         this.eDate1.Left = 50; this.eDate1.Top = 8; this.eDate1.Width = 90;
-        var lblTilde = new Label { Text = "~", Left = 145, Top = 12, AutoSize = true };
+        this.lblTilde = new Label { Text = "~", Left = 145, Top = 12, AutoSize = true };
         this.eDate2.Left = 160; this.eDate2.Top = 8; this.eDate2.Width = 90;
-        var lblSearch = new Label { Text = "검색조건", Left = 270, Top = 12, AutoSize = true };
+        this.lblSearch = new Label { Text = "검색조건", Left = 270, Top = 12, AutoSize = true };
         this.cSrcd.Left = 330; this.cSrcd.Top = 8; this.cSrcd.Width = 100;
         this.eSrwd.Left = 440; this.eSrwd.Top = 8; this.eSrwd.Width = 180;
-        var lblCntCap = new Label { Text = "선택건수:", Left = 650, Top = 12, AutoSize = true };
+        this.lblCntCap = new Label { Text = "선택건수:", Left = 650, Top = 12, AutoSize = true };
         this.lblCnt.Left = 720; this.lblCnt.Top = 12;
-        var lblAmtCap = new Label { Text = "선택금액:", Left = 800, Top = 12, AutoSize = true };
+        this.lblAmtCap = new Label { Text = "선택금액:", Left = 800, Top = 12, AutoSize = true };
         this.lblAmt.Left = 870; this.lblAmt.Top = 12;
 
         this.panelEdit.Controls.AddRange(new Control[]
         {
-            lblDate, this.eDate1, lblTilde, this.eDate2, lblSearch, this.cSrcd, this.eSrwd, lblCntCap, this.lblCnt, lblAmtCap, this.lblAmt
+            this.lblDate, this.eDate1, this.lblTilde, this.eDate2, this.lblSearch, this.cSrcd, this.eSrwd, this.lblCntCap, this.lblCnt, this.lblAmtCap, this.lblAmt
         });
 
         this.split.Dock = DockStyle.Fill;

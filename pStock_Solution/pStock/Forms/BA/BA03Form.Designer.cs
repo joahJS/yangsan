@@ -82,92 +82,10 @@ partial class BA03Form
         this.Width = 1100;
         this.Height = 650;
         this.KeyPreview = true;
-        //
-        // 원본 BuildLayout()
-        //
-        PublicLib.MakeTypingFriendly(this.eItwgt);
-        PublicLib.MakeTypingFriendly(this.edtIcost);
-        PublicLib.MakeTypingFriendly(this.edtBcost);
-        PublicLib.MakeTypingFriendly(this.edtOcost);
-
-        this.panelTop.Dock = DockStyle.Top;
-        this.panelTop.Height = 40;
-        this.panelTop.Controls.Add(this.btnNew);
-        this.panelTop.Controls.Add(this.btnAdd);
-        this.panelTop.Controls.Add(this.btnOne);
-        this.panelTop.Controls.Add(this.btnDel);
-        this.panelTop.Controls.Add(this.btnExcel);
-        this.panelTop.Controls.Add(this.btnPrint);
-        this.panelTop.Controls.Add(this.btnClose);
-        this.panelTop.Controls.Add(this.lblDbCnt);
-        this.btnNew.Left = 5; this.btnNew.Top = 8; this.btnNew.Width = 100;
-        this.btnAdd.Left = 110; this.btnAdd.Top = 8; this.btnAdd.Width = 100;
-        this.btnOne.Left = 215; this.btnOne.Top = 8; this.btnOne.Width = 100;
-        this.btnDel.Left = 320; this.btnDel.Top = 8; this.btnDel.Width = 100;
-        this.btnExcel.Left = 425; this.btnExcel.Top = 8; this.btnExcel.Width = 100;
-        this.btnPrint.Left = 530; this.btnPrint.Top = 8; this.btnPrint.Width = 100;
-        this.btnClose.Left = 635; this.btnClose.Top = 8; this.btnClose.Width = 100;
-        this.lblDbCnt.Left = 760; this.lblDbCnt.Top = 14;
-        this.btnExcel.Click += (_, _) => pStock.Common.ExcelExporter.Export(this.grid, "품목단가마스터");
-        this.btnPrint.Click += (_, _) => pStock.Common.GridPrinter.Print(this.grid, "품목단가마스터");
-
-        this.searchPanel.Dock = DockStyle.Top;
-        this.searchPanel.Height = 35;
-        this.lblWord.Text = "검색어"; this.lblWord.Left = 5; this.lblWord.Top = 10; this.lblWord.AutoSize = true;
-        this.edtWord.Left = 60; this.edtWord.Top = 6; this.edtWord.Width = 200;
-        this.edtWord.KeyUp += (_, _) => LocateInGrid(this.edtWord.Text);
-        this.searchPanel.Controls.AddRange(new Control[] { this.lblWord, this.edtWord });
-
-        this.editPanel.Dock = DockStyle.Top;
-        this.editPanel.Height = 250;
-        this.editPanel.AutoScroll = true;
-        var layout = new GridLayout(this.editPanel, 5, 5, slotWidth: 250, labelWidth: 85, rowHeight: 30, slotsPerRow: 3);
-
-        layout.Add("거래처코드", this.edtCvcod);
-        this.edtCvnam.ReadOnly = true;
-        layout.Add("거래처명", this.edtCvnam, span: 2);
-
-        layout.Add("품번", this.edtCode);
-        layout.AddRaw(this.chkAuto, width: 100);
-
-        layout.NewRow();
-        layout.Add("품명", this.edtItdsc, span: 2);
-
-        layout.Add("규격", this.edtSpec);
-        layout.Add("단위", this.cboDanwi);
-
-        layout.Add("중량", this.eItwgt);
-        layout.Add("저장위치", this.cboSavLoc);
-
-        layout.NewRow();
-        layout.Add("입고단가", this.edtIcost);
-        layout.Add("기준단가", this.edtBcost);
-        layout.Add("출고단가", this.edtOcost);
-
-        layout.NewRow();
-        layout.Add("비고", this.edtBigo, span: 3);
-
-        this.editPanel.Height = layout.Bottom(15);
-
-        this.edtCvcod.KeyDown += new KeyEventHandler(this.EdtCvcod_KeyDown);
-        this.chkAuto.Click += (_, _) => CodeToggle(!this.chkAuto.Checked);
-
-        this.grid.Dock = DockStyle.Fill;
-        this.grid.ReadOnly = true;
-        this.grid.AllowUserToAddRows = false;
-        this.grid.CellDoubleClick += (_, _) => SyncEditFromGrid();
-        this.grid.KeyDown += (_, e) => { if (e.KeyCode == Keys.Delete) this.btnDel.PerformClick(); };
-
-        this.Controls.Add(this.grid);
-        this.Controls.Add(this.editPanel);
-        this.Controls.Add(this.searchPanel);
-        this.Controls.Add(this.panelTop);
-
-        this.btnNew.Click += (_, _) => { ClearEdit(); this.edtCvcod.Focus(); };
-        this.btnAdd.Click += (_, _) => { if (Save()) { ClearEdit(); this.edtCvcod.Focus(); } };
-        this.btnOne.Click += (_, _) => Save();
-        this.btnDel.Click += (_, _) => Delete();
-        this.btnClose.Click += (_, _) => Close();
+        // 원본 BuildLayout()은 GridLayout 헬퍼(지역변수 기반 동적 좌표 계산)를 쓰기 때문에
+        // WinForms 디자이너가 InitializeComponent() 안에서 파싱할 수 없다. 그래서
+        // BuildDynamicLayout()(BA03Form.cs)으로 분리해 생성자에서 InitializeComponent()
+        // 호출 직후에 실행한다 — 동작은 100% 동일하다.
 
         this.Load += (_, _) => { ResetDanwiList(); ResetSavLocList(); this._vSort = "Code"; ReloadList(); };
         this.KeyDown += new KeyEventHandler(this.BA03Form_KeyDown);

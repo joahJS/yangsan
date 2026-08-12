@@ -21,6 +21,11 @@ partial class SS21Form
     private TextBox edtCvcd1;
     private Label lblAmt2;
     private Label lblAmt3;
+    private Label lblDate;
+    private Label lblTilde;
+    private Label lblCvcod;
+    private Label lblAmtCap2;
+    private Label lblAmtCap3;
 
     private Button btnNew;
     private Button btnDel;
@@ -75,22 +80,22 @@ partial class SS21Form
 
         this.panelEdit.Dock = DockStyle.Top;
         this.panelEdit.Height = 40;
-        var lblDate = new Label { Text = "기간", Left = 5, Top = 12, AutoSize = true };
+        this.lblDate = new Label { Text = "기간", Left = 5, Top = 12, AutoSize = true };
         this.dtpDate1.Left = 50; this.dtpDate1.Top = 8; this.dtpDate1.Width = 110; this.dtpDate1.Format = DateTimePickerFormat.Short;
-        var lblTilde = new Label { Text = "~", Left = 165, Top = 12, AutoSize = true };
+        this.lblTilde = new Label { Text = "~", Left = 165, Top = 12, AutoSize = true };
         this.dtpDate2.Left = 180; this.dtpDate2.Top = 8; this.dtpDate2.Width = 110; this.dtpDate2.Format = DateTimePickerFormat.Short;
-        var lblCvcod = new Label { Text = "거래처코드", Left = 310, Top = 12, AutoSize = true };
+        this.lblCvcod = new Label { Text = "거래처코드", Left = 310, Top = 12, AutoSize = true };
         this.edtCvcd1.Left = 380; this.edtCvcd1.Top = 8; this.edtCvcd1.Width = 80;
 
-        var lblAmtCap2 = new Label { Text = "입고금액:", Left = 480, Top = 12, AutoSize = true };
+        this.lblAmtCap2 = new Label { Text = "입고금액:", Left = 480, Top = 12, AutoSize = true };
         this.lblAmt2.Left = 550; this.lblAmt2.Top = 12;
-        var lblAmtCap3 = new Label { Text = "부가세:", Left = 650, Top = 12, AutoSize = true };
+        this.lblAmtCap3 = new Label { Text = "부가세:", Left = 650, Top = 12, AutoSize = true };
         this.lblAmt3.Left = 710; this.lblAmt3.Top = 12;
 
         this.panelEdit.Controls.AddRange(new Control[]
         {
-            lblDate, this.dtpDate1, lblTilde, this.dtpDate2, lblCvcod, this.edtCvcd1,
-            lblAmtCap2, this.lblAmt2, lblAmtCap3, this.lblAmt3
+            this.lblDate, this.dtpDate1, this.lblTilde, this.dtpDate2, this.lblCvcod, this.edtCvcd1,
+            this.lblAmtCap2, this.lblAmt2, this.lblAmtCap3, this.lblAmt3
         });
 
         this.grid.Dock = DockStyle.Fill;

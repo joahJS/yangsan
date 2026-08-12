@@ -18,7 +18,74 @@ public partial class SS23AForm : Form
     public SS23AForm()
     {
         InitializeComponent();
+        BuildDynamicLayout();
         ClearForm();
+    }
+
+    /// <summary>
+    /// 원본 BuildLayout() — GridLayout 헬퍼로 좌표를 동적으로 계산하기 때문에(지역변수 사용)
+    /// WinForms 디자이너가 InitializeComponent() 안에서는 처리하지 못해 이 메서드로 분리했다.
+    /// </summary>
+    private void BuildDynamicLayout()
+    {
+        PublicLib.MakeTypingFriendly(this.edtOqty);
+        PublicLib.MakeTypingFriendly(this.edtOcost);
+        PublicLib.MakeTypingFriendly(this.edtOamt);
+        PublicLib.MakeTypingFriendly(this.edtJamt1);
+        PublicLib.MakeTypingFriendly(this.edtJamt2);
+        PublicLib.MakeTypingFriendly(this.edtJamt3);
+
+        this.pnlJob.Left = 20; this.pnlJob.Top = 10;
+        this.Controls.Add(this.pnlJob);
+
+        var layout = new GridLayout(this, 20, 45, slotWidth: 220, labelWidth: 75, rowHeight: 30, slotsPerRow: 3);
+
+        layout.Add("산정일자", this.dtpDate);
+        this.dtpDate.Format = DateTimePickerFormat.Short;
+        this.dtpDate.ValueChanged += (_, _) => this.lblNo.Text = TermLabel(this.dtpDate.Value);
+        layout.AddRaw(this.lblNo);
+        layout.Add("전표번호", this.edtNo);
+
+        layout.Add("거래처코드", this.dspCvcod);
+        this._tip.SetToolTip(this.dspCvcod, "Enter 키를 누르면 거래처를 검색합니다.");
+        this.dspCvcod.KeyDown += new KeyEventHandler(this.DspCvcod_KeyDown);
+        layout.Add("거래처명", this.dspCvnam, span: 2);
+
+        layout.Add("품번", this.edtItnbr);
+        this._tip.SetToolTip(this.edtItnbr, "Enter 키를 누르면 품목을 검색합니다.");
+        this.edtItnbr.KeyDown += new KeyEventHandler(this.EdtItnbr_KeyDown);
+        layout.Add("품명", this.dspItdsc, span: 2);
+
+        layout.Add("단위", this.dspDanwi);
+        layout.Add("보관수량", this.edtOqty);
+        this.edtOqty.ValueChanged += (_, _) => RecalcAmt();
+        layout.Add("보관단가", this.edtOcost);
+        this.edtOcost.ValueChanged += (_, _) => RecalcAmt();
+
+        layout.Add("보관금액", this.edtOamt);
+        layout.Add("부가세1", this.edtJamt1);
+        this.edtJamt1.ValueChanged += (_, _) => RecalcTotal();
+        layout.Add("부가세2", this.edtJamt2);
+        this.edtJamt2.ValueChanged += (_, _) => RecalcTotal();
+
+        layout.Add("부가세3", this.edtJamt3);
+        this.edtJamt3.ValueChanged += (_, _) => RecalcTotal();
+        layout.Add("합계금액", this.dspTamt);
+
+        layout.NewRow();
+        layout.Add("비고", this.edtBigo, span: 3);
+
+        int y = layout.Bottom(20);
+        this.btnAdd.Left = 150; this.btnAdd.Top = y; this.btnAdd.Width = 120;
+        this.btnOne.Left = 280; this.btnOne.Top = y; this.btnOne.Width = 100;
+        this.btnClose.Left = 390; this.btnClose.Top = y; this.btnClose.Width = 100;
+        this.Controls.AddRange(new Control[] { this.btnAdd, this.btnOne, this.btnClose });
+
+        this.btnAdd.Click += (_, _) => { if (SaveEntry()) { Saved = true; ClearForm(); this.edtItnbr.Focus(); } };
+        this.btnOne.Click += (_, _) => { if (SaveEntry()) { Saved = true; Close(); } };
+        this.btnClose.Click += (_, _) => Close();
+
+        this.ClientSize = new Size(this.ClientSize.Width, y + 45);
     }
 
     private void SS23AForm_KeyDown(object? sender, KeyEventArgs e)

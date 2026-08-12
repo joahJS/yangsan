@@ -42,55 +42,11 @@ partial class BA00EForm
         this.panelTop = new Panel();
         this.panelEdit = new Panel();
         this.SuspendLayout();
-        //
-        // panelTop (원본 BuildLayout()의 top 패널)
-        //
-        this.panelTop.Dock = DockStyle.Top;
-        this.panelTop.Height = 40;
-        this.btnNew.Left = 5;
-        this.btnNew.Top = 8;
-        this.btnNew.Width = 90;
-        this.panelTop.Controls.Add(this.btnNew);
-        this.btnSave.Left = 100;
-        this.btnSave.Top = 8;
-        this.btnSave.Width = 90;
-        this.panelTop.Controls.Add(this.btnSave);
-        this.btnClose.Left = 195;
-        this.btnClose.Top = 8;
-        this.btnClose.Width = 90;
-        this.panelTop.Controls.Add(this.btnClose);
-        //
-        // panelEdit (원본 BuildLayout()의 editPanel: GridLayout 헬퍼로 라벨/입력란 배치)
-        //
-        this.panelEdit.Dock = DockStyle.Top;
-        this.panelEdit.Height = 100;
-        var layout = new GridLayout(this.panelEdit, 10, 5, slotWidth: 250, labelWidth: 90, rowHeight: 30, slotsPerRow: 2);
-        layout.Add("사용자 ID", this.edtCode);
-        layout.Add("성명", this.edtName);
-        layout.Add("비밀번호", this.edtPass);
-        layout.Add("사용시작일", this.edtDate1);
-        layout.Add("사용종료일", this.edtDate2);
-        this.panelEdit.Height = layout.Bottom();
-        //
-        // grid
-        //
-        this.grid.Dock = DockStyle.Fill;
-        this.grid.ReadOnly = true;
-        this.grid.AllowUserToAddRows = false;
-        this.grid.CellClick += (_, _) => SyncEditFromGrid();
-        this.grid.KeyDown += new KeyEventHandler(this.Grid_KeyDown);
-        //
-        // Controls.Add 순서 (원본 BuildLayout())
-        //
-        this.Controls.Add(this.grid);
-        this.Controls.Add(this.panelEdit);
-        this.Controls.Add(this.panelTop);
-        //
-        // 이벤트 배선
-        //
-        this.btnNew.Click += (_, _) => { ClearEdit(); edtCode.Focus(); };
-        this.btnSave.Click += (_, _) => Save();
-        this.btnClose.Click += (_, _) => Close();
+        // 원본 BuildLayout()은 GridLayout 헬퍼(지역변수 기반 동적 좌표 계산)를 쓰기 때문에
+        // WinForms 디자이너가 InitializeComponent() 안에서 파싱할 수 없다. 그래서
+        // BuildDynamicLayout()(BA00EForm.cs)으로 분리해 생성자에서 InitializeComponent()
+        // 호출 직후에 실행한다 — 동작은 100% 동일하다(panelTop/panelEdit/grid 구성,
+        // Controls.Add 순서, 이벤트 배선 전부 포함).
         //
         // BA00EForm
         //

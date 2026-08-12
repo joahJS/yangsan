@@ -69,93 +69,93 @@ partial class SS33AForm
         this.StartPosition = FormStartPosition.CenterParent;
         this.KeyPreview = true;
         //
-        // BuildLayout() (원본 AddRow 헬퍼 호출 2회 포함 인라인)
+        // BuildLayout() (원본 AddRow 헬퍼 호출 2회 포함 — y=20에서 시작해 30,30,30,40,50씩
+        // 증가하던 지역변수 누적 계산을 손으로 검산한 리터럴 값으로 치환)
         //
-        int y = 20, col1 = 20;
 
-        // AddRow("집계기간", dtpDate1, col1, ref y, 130)
+        // AddRow("집계기간", dtpDate1, col1=20, ref y=20, 130)
         this.lblDate1.Text = "집계기간";
-        this.lblDate1.Left = col1;
-        this.lblDate1.Top = y + 3;
+        this.lblDate1.Left = 20;
+        this.lblDate1.Top = 23;
         this.lblDate1.AutoSize = true;
-        this.dtpDate1.Left = col1 + 150;
-        this.dtpDate1.Top = y;
+        this.dtpDate1.Left = 170;
+        this.dtpDate1.Top = 20;
         this.dtpDate1.Width = 130;
         this.dtpDate1.Format = DateTimePickerFormat.Short;
         this.Controls.Add(this.lblDate1);
         this.Controls.Add(this.dtpDate1);
-        y += 30;
+        // y = 50
 
         this.lblTilde1.Text = "~";
-        this.lblTilde1.Left = col1 + 300;
-        this.lblTilde1.Top = y - 26 + 3;
+        this.lblTilde1.Left = 320;
+        this.lblTilde1.Top = 27;
         this.lblTilde1.AutoSize = true;
-        this.dtpDate2.Left = col1 + 320;
-        this.dtpDate2.Top = y - 26;
+        this.dtpDate2.Left = 340;
+        this.dtpDate2.Top = 24;
         this.dtpDate2.Width = 130;
         this.dtpDate2.Format = DateTimePickerFormat.Short;
         this.Controls.AddRange(new Control[] { this.lblTilde1, this.dtpDate2 });
 
-        // AddRow("발행일자", dtpDate, col1, ref y, 130)
+        // AddRow("발행일자", dtpDate, col1=20, ref y=50, 130)
         this.lblDate.Text = "발행일자";
-        this.lblDate.Left = col1;
-        this.lblDate.Top = y + 3;
+        this.lblDate.Left = 20;
+        this.lblDate.Top = 53;
         this.lblDate.AutoSize = true;
-        this.dtpDate.Left = col1 + 150;
-        this.dtpDate.Top = y;
+        this.dtpDate.Left = 170;
+        this.dtpDate.Top = 50;
         this.dtpDate.Width = 130;
         this.dtpDate.Format = DateTimePickerFormat.Short;
         this.Controls.Add(this.lblDate);
         this.Controls.Add(this.dtpDate);
-        y += 30;
+        // y = 80
 
         this.lblCd.Text = "거래처코드 범위";
-        this.lblCd.Left = col1;
-        this.lblCd.Top = y + 3;
+        this.lblCd.Left = 20;
+        this.lblCd.Top = 83;
         this.lblCd.AutoSize = true;
-        this.edtCd1.Left = col1 + 150;
-        this.edtCd1.Top = y;
+        this.edtCd1.Left = 170;
+        this.edtCd1.Top = 80;
         this.edtCd1.Width = 80;
         this.lblTilde2.Text = "~";
-        this.lblTilde2.Left = col1 + 235;
-        this.lblTilde2.Top = y + 3;
+        this.lblTilde2.Left = 255;
+        this.lblTilde2.Top = 83;
         this.lblTilde2.AutoSize = true;
-        this.edtCd2.Left = col1 + 255;
-        this.edtCd2.Top = y;
+        this.edtCd2.Left = 275;
+        this.edtCd2.Top = 80;
         this.edtCd2.Width = 80;
         this.btnLookup.Text = "검색";
-        this.btnLookup.Left = col1 + 340;
-        this.btnLookup.Top = y - 2;
+        this.btnLookup.Left = 360;
+        this.btnLookup.Top = 78;
         this.btnLookup.Width = 60;
         this.btnLookup.Click += (_, _) => LookupCvcod();
         this.Controls.AddRange(new Control[] { this.lblCd, this.edtCd1, this.edtCd2, this.lblTilde2, this.btnLookup });
-        y += 30;
+        // y = 110
 
-        this.rdo1.Left = col1 + 150;
-        this.rdo1.Top = y;
+        this.rdo1.Left = 170;
+        this.rdo1.Top = 110;
         this.rdo1.AutoSize = true;
-        this.rdo2.Left = col1 + 230;
-        this.rdo2.Top = y;
+        this.rdo2.Left = 250;
+        this.rdo2.Top = 110;
         this.rdo2.AutoSize = true;
         this.lblGu.Text = "발행구분";
-        this.lblGu.Left = col1;
-        this.lblGu.Top = y + 3;
+        this.lblGu.Left = 20;
+        this.lblGu.Top = 113;
         this.lblGu.AutoSize = true;
         this.Controls.AddRange(new Control[] { this.lblGu, this.rdo1, this.rdo2 });
-        y += 40;
+        // y = 150
 
         this.lblHint.Text = "선택한 발행일자에 이미 자동생성된(TNO1='A') 계산서가 있으면\r\n" +
                              "해당 거래처코드 범위 내에서 삭제 후 다시 생성합니다.";
-        this.lblHint.Left = col1;
-        this.lblHint.Top = y;
+        this.lblHint.Left = 20;
+        this.lblHint.Top = 150;
         this.lblHint.AutoSize = true;
-        y += 50;
+        // y = 200
 
         this.btnYes.Left = 130;
-        this.btnYes.Top = y;
+        this.btnYes.Top = 200;
         this.btnYes.Width = 100;
         this.btnClose.Left = 250;
-        this.btnClose.Top = y;
+        this.btnClose.Top = 200;
         this.btnClose.Width = 100;
         this.Controls.AddRange(new Control[] { this.lblHint, this.btnYes, this.btnClose });
 

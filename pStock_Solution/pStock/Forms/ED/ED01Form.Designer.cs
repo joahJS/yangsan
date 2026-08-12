@@ -58,22 +58,37 @@ partial class ED01Form
         this.lblMonth = new Label { Text = "월", Left = 150, Top = 20, AutoSize = true };
         this.cboMonth.Left = 180; this.cboMonth.Top = 16; this.cboMonth.Width = 60;
 
-        int y = 60;
-        this.chk1.Left = 20; this.chk1.Top = y; this.chk1.AutoSize = true; y += 26;
-        this.chk2.Left = 20; this.chk2.Top = y; this.chk2.AutoSize = true; y += 26;
-        this.chk3.Left = 20; this.chk3.Top = y; this.chk3.AutoSize = true; y += 26;
-        this.chk4.Left = 20; this.chk4.Top = y; this.chk4.AutoSize = true; y += 26;
-        this.chk5.Left = 20; this.chk5.Top = y; this.chk5.AutoSize = true; y += 40;
+        this.chk1.Left = 20;
+        this.chk1.Top = 60;
+        this.chk1.AutoSize = true;
+        this.chk2.Left = 20;
+        this.chk2.Top = 86;
+        this.chk2.AutoSize = true;
+        this.chk3.Left = 20;
+        this.chk3.Top = 112;
+        this.chk3.AutoSize = true;
+        this.chk4.Left = 20;
+        this.chk4.Top = 138;
+        this.chk4.AutoSize = true;
+        this.chk5.Left = 20;
+        this.chk5.Top = 164;
+        this.chk5.AutoSize = true;
         this.chk1.Checked = true;
         this.chk2.Checked = true;
         this.chk3.Checked = true;
         this.chk4.Checked = true;
         this.chk5.Checked = true;
 
-        this.progress.Left = 20; this.progress.Top = y; this.progress.Width = 390; y += 40;
+        this.progress.Left = 20;
+        this.progress.Top = 204;
+        this.progress.Width = 390;
 
-        this.btnOk.Left = 100; this.btnOk.Top = y; this.btnOk.Width = 100;
-        this.btnCancel.Left = 220; this.btnCancel.Top = y; this.btnCancel.Width = 100;
+        this.btnOk.Left = 100;
+        this.btnOk.Top = 244;
+        this.btnOk.Width = 100;
+        this.btnCancel.Left = 220;
+        this.btnCancel.Top = 244;
+        this.btnCancel.Width = 100;
 
         this.Controls.AddRange(new Control[]
         {
