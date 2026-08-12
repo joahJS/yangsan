@@ -82,16 +82,11 @@ partial class VersionListForm
         this.Controls.Add(this.editPanel);
         this.Controls.Add(this.panelTop);
 
-        this.btnAdd.Click += (_, _) => OpenUpload();
-        this.btnSearch.Click += (_, _) => Search();
-        this.btnClose.Click += (_, _) => Close();
+        this.btnAdd.Click += new EventHandler(this.BtnAdd_Click);
+        this.btnSearch.Click += new EventHandler(this.BtnSearch_Click);
+        this.btnClose.Click += new EventHandler(this.BtnClose_Click);
 
-        this.Shown += (_, _) =>
-        {
-            this.dtpFrom.Value = DateTime.Now.AddMonths(-3);
-            this.dtpTo.Value = DateTime.Now;
-            Search();
-        };
+        this.Shown += new EventHandler(this.VersionListForm_Shown);
         this.KeyDown += new KeyEventHandler(this.VersionListForm_KeyDown);
         this.ResumeLayout(false);
     }

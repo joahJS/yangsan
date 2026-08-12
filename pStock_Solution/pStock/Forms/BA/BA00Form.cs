@@ -87,6 +87,11 @@ public partial class BA00Form : Form
         this.btnClose.Click += (_, _) => Close();
     }
 
+    private void BA00Form_Load(object? sender, EventArgs e)
+    {
+        LoadCompanyInfo();
+    }
+
     private void BA00Form_KeyDown(object? sender, KeyEventArgs e)
     {
         switch (e.KeyCode)

@@ -83,8 +83,8 @@ partial class SS21Form
         this.btnPrint.Left = 385; this.btnPrint.Top = 8; this.btnPrint.Width = 90;
         this.btnClose.Left = 480; this.btnClose.Top = 8; this.btnClose.Width = 90;
         this.panelTop.Controls.AddRange(new Control[] { this.btnNew, this.btnDel, this.btnSearch, this.btnExcel, this.btnPrint, this.btnClose });
-        this.btnExcel.Click += (_, _) => pStock.Common.ExcelExporter.Export(this.grid, "입고관리");
-        this.btnPrint.Click += (_, _) => pStock.Common.GridPrinter.Print(this.grid, "입고관리");
+        this.btnExcel.Click += new EventHandler(this.BtnExcel_Click);
+        this.btnPrint.Click += new EventHandler(this.BtnPrint_Click);
 
         this.panelEdit.Dock = DockStyle.Top;
         this.panelEdit.Height = 40;
@@ -129,18 +129,18 @@ partial class SS21Form
         this.grid.Dock = DockStyle.Fill;
         this.grid.ReadOnly = true;
         this.grid.AllowUserToAddRows = false;
-        this.grid.CellDoubleClick += (_, _) => OpenEntry(isNew: false);
+        this.grid.CellDoubleClick += new DataGridViewCellEventHandler(this.Grid_CellDoubleClick);
 
         this.Controls.Add(this.grid);
         this.Controls.Add(this.panelEdit);
         this.Controls.Add(this.panelTop);
 
-        this.btnNew.Click += (_, _) => OpenEntry(isNew: true);
-        this.btnDel.Click += (_, _) => Delete();
-        this.btnSearch.Click += (_, _) => Search();
-        this.btnClose.Click += (_, _) => Close();
+        this.btnNew.Click += new EventHandler(this.BtnNew_Click);
+        this.btnDel.Click += new EventHandler(this.BtnDel_Click);
+        this.btnSearch.Click += new EventHandler(this.BtnSearch_Click);
+        this.btnClose.Click += new EventHandler(this.BtnClose_Click);
 
-        this.Load += (_, _) => { this.dtpDate1.Value = DateTime.Now; this.dtpDate2.Value = DateTime.Now; Search(); };
+        this.Load += new EventHandler(this.SS21Form_Load);
         this.KeyDown += new KeyEventHandler(this.SS21Form_KeyDown);
 
         this.panelTop.ResumeLayout(false);

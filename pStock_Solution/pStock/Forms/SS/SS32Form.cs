@@ -25,6 +25,46 @@ public partial class SS32Form : Form
         }
     }
 
+    private void BtnExcel_Click(object? sender, EventArgs e)
+    {
+        pStock.Common.ExcelExporter.Export(this.gridList, "수금관리");
+    }
+
+    private void BtnPrint_Click(object? sender, EventArgs e)
+    {
+        pStock.Common.GridPrinter.Print(this.gridList, "수금관리");
+    }
+
+    private void GridList_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
+    {
+        OpenEntry(isNew: false);
+    }
+
+    private void BtnNew_Click(object? sender, EventArgs e)
+    {
+        OpenEntry(isNew: true);
+    }
+
+    private void BtnDel_Click(object? sender, EventArgs e)
+    {
+        Delete();
+    }
+
+    private void BtnSearch_Click(object? sender, EventArgs e)
+    {
+        Search();
+    }
+
+    private void BtnClose_Click(object? sender, EventArgs e)
+    {
+        Close();
+    }
+
+    private void SS32Form_Load(object? sender, EventArgs e)
+    {
+        this.dtpDate1.Value = DateTime.Now; this.dtpDate2.Value = DateTime.Now; Search();
+    }
+
     /// <summary>원본 btnSearchClick + qryListAfterOpen(qrySum) + prcDbSum.</summary>
     private void Search()
     {

@@ -69,4 +69,39 @@ public partial class JA05Form : Form
         }
         lblSum.Text = "합계금액: " + sum.ToString("#,0") + " 원";
     }
+
+    private void EdtMonth_KeyDown(object? sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.Enter) ReloadList();
+    }
+
+    private void BtnMonthDown_Click(object? sender, EventArgs e)
+    {
+        ShiftMonth(-1); ReloadList();
+    }
+
+    private void BtnMonthUp_Click(object? sender, EventArgs e)
+    {
+        ShiftMonth(1); ReloadList();
+    }
+
+    private void BtnNew_Click(object? sender, EventArgs e)
+    {
+        this.cSrcd.SelectedIndex = 1; this.eSrwd.Clear(); this.grid.Rows.Clear(); this.lblSum.Text = string.Empty; this.eSrwd.Focus();
+    }
+
+    private void BtnSearch_Click(object? sender, EventArgs e)
+    {
+        ReloadList();
+    }
+
+    private void BtnClose_Click(object? sender, EventArgs e)
+    {
+        Close();
+    }
+
+    private void JA05Form_Load(object? sender, EventArgs e)
+    {
+        this.edtMonth.Text = DateTime.Now.ToString("yyyy-MM"); this.cSrcd.SelectedIndex = 1;
+    }
 }

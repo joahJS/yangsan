@@ -25,6 +25,53 @@ public partial class SS23Form : Form
         }
     }
 
+    private void BtnExcel_Click(object? sender, EventArgs e)
+    {
+        pStock.Common.ExcelExporter.Export(this.grid, "보관료관리");
+    }
+
+    private void BtnPrint_Click(object? sender, EventArgs e)
+    {
+        pStock.Common.GridPrinter.Print(this.grid, "보관료관리");
+    }
+
+    private void Grid_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
+    {
+        OpenEntry(isNew: false);
+    }
+
+    private void BtnNew_Click(object? sender, EventArgs e)
+    {
+        OpenEntry(isNew: true);
+    }
+
+    private void BtnDel_Click(object? sender, EventArgs e)
+    {
+        Delete();
+    }
+
+    private void BtnCompute_Click(object? sender, EventArgs e)
+    {
+        using var dlg = new SS23BForm();
+        dlg.ShowDialog(this);
+        if (dlg.Executed) Search();
+    }
+
+    private void BtnSearch_Click(object? sender, EventArgs e)
+    {
+        Search();
+    }
+
+    private void BtnClose_Click(object? sender, EventArgs e)
+    {
+        Close();
+    }
+
+    private void SS23Form_Load(object? sender, EventArgs e)
+    {
+        this.dtpDate1.Value = DateTime.Now; this.dtpDate2.Value = DateTime.Now; Search();
+    }
+
     /// <summary>원본 btnSearchClick.</summary>
     private void Search()
     {

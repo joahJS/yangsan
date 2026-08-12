@@ -85,8 +85,8 @@ partial class SS23Form
         this.btnExcel.Left = 385; this.btnExcel.Top = 8; this.btnExcel.Width = 90;
         this.btnPrint.Left = 480; this.btnPrint.Top = 8; this.btnPrint.Width = 90;
         this.btnClose.Left = 575; this.btnClose.Top = 8; this.btnClose.Width = 90;
-        this.btnExcel.Click += (_, _) => pStock.Common.ExcelExporter.Export(this.grid, "보관료관리");
-        this.btnPrint.Click += (_, _) => pStock.Common.GridPrinter.Print(this.grid, "보관료관리");
+        this.btnExcel.Click += new EventHandler(this.BtnExcel_Click);
+        this.btnPrint.Click += new EventHandler(this.BtnPrint_Click);
         //
         // panelEdit (원본 BuildLayout()의 editPanel: 기간 두 DateTimePicker + 보관금액/부가세 표시)
         //
@@ -128,20 +128,15 @@ partial class SS23Form
         this.grid.Dock = DockStyle.Fill;
         this.grid.ReadOnly = true;
         this.grid.AllowUserToAddRows = false;
-        this.grid.CellDoubleClick += (_, _) => OpenEntry(isNew: false);
+        this.grid.CellDoubleClick += new DataGridViewCellEventHandler(this.Grid_CellDoubleClick);
         //
         // 이벤트 배선 (원본 BuildLayout() 나머지)
         //
-        this.btnNew.Click += (_, _) => OpenEntry(isNew: true);
-        this.btnDel.Click += (_, _) => Delete();
-        this.btnCompute.Click += (_, _) =>
-        {
-            using var dlg = new SS23BForm();
-            dlg.ShowDialog(this);
-            if (dlg.Executed) Search();
-        };
-        this.btnSearch.Click += (_, _) => Search();
-        this.btnClose.Click += (_, _) => Close();
+        this.btnNew.Click += new EventHandler(this.BtnNew_Click);
+        this.btnDel.Click += new EventHandler(this.BtnDel_Click);
+        this.btnCompute.Click += new EventHandler(this.BtnCompute_Click);
+        this.btnSearch.Click += new EventHandler(this.BtnSearch_Click);
+        this.btnClose.Click += new EventHandler(this.BtnClose_Click);
         //
         // SS23Form
         //
@@ -152,7 +147,7 @@ partial class SS23Form
         this.Controls.Add(this.grid);
         this.Controls.Add(this.panelEdit);
         this.Controls.Add(this.panelTop);
-        this.Load += (_, _) => { this.dtpDate1.Value = DateTime.Now; this.dtpDate2.Value = DateTime.Now; Search(); };
+        this.Load += new EventHandler(this.SS23Form_Load);
         this.KeyDown += new KeyEventHandler(this.SS23Form_KeyDown);
         this.panelTop.ResumeLayout(false);
         this.panelEdit.ResumeLayout(false);

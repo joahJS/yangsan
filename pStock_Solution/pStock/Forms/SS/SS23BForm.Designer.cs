@@ -60,7 +60,7 @@ partial class SS23BForm
         this.dtpDate.Top = 20;
         this.dtpDate.Width = 120;
         this.dtpDate.Format = DateTimePickerFormat.Short;
-        this.dtpDate.ValueChanged += (_, _) => UpdateTermLabel();
+        this.dtpDate.ValueChanged += new EventHandler(this.DtpDate_ValueChanged);
         this.lblTerm.Left = 310;
         this.lblTerm.Top = 25;
 
@@ -86,15 +86,10 @@ partial class SS23BForm
 
         this.Controls.AddRange(new Control[] { this.lblDate, this.dtpDate, this.lblTerm, this.lblHint, this.progress, this.lblStatus, this.btnOk, this.btnCancel });
 
-        this.btnOk.Click += (_, _) => RunBatch();
-        this.btnCancel.Click += (_, _) => Close();
+        this.btnOk.Click += new EventHandler(this.BtnOk_Click);
+        this.btnCancel.Click += new EventHandler(this.BtnCancel_Click);
 
-        this.Load += (_, _) =>
-        {
-            var now = DateTime.Now;
-            this.dtpDate.Value = now.Day < 16 ? new DateTime(now.Year, now.Month, 1) : new DateTime(now.Year, now.Month, 16);
-            UpdateTermLabel();
-        };
+        this.Load += new EventHandler(this.SS23BForm_Load);
         this.KeyDown += new KeyEventHandler(this.SS23BForm_KeyDown);
 
         this.ResumeLayout(false);

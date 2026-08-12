@@ -25,6 +25,35 @@ public partial class SS35Form : Form
         }
     }
 
+    private void BtnExcel_Click(object? sender, EventArgs e) => pStock.Common.ExcelExporter.Export(
+        this.tabs.SelectedTab == this.tab1 ? this.grid1 : this.grid2,
+        this.tabs.SelectedTab == this.tab1 ? "거래처별원장" : "품목별입출고");
+
+    private void BtnPrint_Click(object? sender, EventArgs e) => pStock.Common.GridPrinter.Print(
+        this.tabs.SelectedTab == this.tab1 ? this.grid1 : this.grid2,
+        this.tabs.SelectedTab == this.tab1 ? "거래처별원장" : "품목별입출고");
+
+    private void BtnNew_Click(object? sender, EventArgs e)
+    {
+        this.edtCvcod.Clear(); this.dspName.Clear(); this.edtCd2.Clear(); this.dspNm2.Clear();
+        this.grid1.DataSource = null; this.grid2.DataSource = null;
+        this.lblAmt.Text = "0"; this.lblQty1.Text = "0"; this.lblQty2.Text = "0";
+    }
+
+    private void BtnSearch_Click(object? sender, EventArgs e)
+    {
+        if (this.tabs.SelectedTab == this.tab1) this.LoadCustLedger(); else this.LoadItemIO();
+    }
+
+    private void BtnClose_Click(object? sender, EventArgs e) => this.Close();
+
+    private void SS35Form_Load(object? sender, EventArgs e)
+    {
+        var now = DateTime.Now;
+        this.dtpDate1.Value = new DateTime(now.Year, now.Month, 1);
+        this.dtpDate2.Value = now;
+    }
+
     private void EdtCvcod_KeyDown(object? sender, KeyEventArgs e) => LookupCvcod(e, edtCvcod, dspName);
     private void EdtCd2_KeyDown(object? sender, KeyEventArgs e) => LookupCvcod(e, edtCd2, dspNm2);
 

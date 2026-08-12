@@ -113,6 +113,14 @@ public partial class BA03Form : Form
         this.btnClose.Click += (_, _) => Close();
     }
 
+    private void BA03Form_Load(object? sender, EventArgs e)
+    {
+        ResetDanwiList();
+        ResetSavLocList();
+        this._vSort = "Code";
+        ReloadList();
+    }
+
     private void BA03Form_KeyDown(object? sender, KeyEventArgs e)
     {
         switch (e.KeyCode)

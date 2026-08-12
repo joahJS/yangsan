@@ -16,6 +16,28 @@ public partial class VersionListForm : Form
         InitializeComponent();
     }
 
+    private void BtnAdd_Click(object? sender, EventArgs e)
+    {
+        OpenUpload();
+    }
+
+    private void BtnSearch_Click(object? sender, EventArgs e)
+    {
+        Search();
+    }
+
+    private void BtnClose_Click(object? sender, EventArgs e)
+    {
+        Close();
+    }
+
+    private void VersionListForm_Shown(object? sender, EventArgs e)
+    {
+        this.dtpFrom.Value = DateTime.Now.AddMonths(-3);
+        this.dtpTo.Value = DateTime.Now;
+        Search();
+    }
+
     private void VersionListForm_KeyDown(object? sender, KeyEventArgs e)
     {
         switch (e.KeyCode)

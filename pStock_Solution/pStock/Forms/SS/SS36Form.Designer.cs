@@ -80,8 +80,8 @@ partial class SS36Form
         this.btnExcel.Left = 215; this.btnExcel.Top = 8; this.btnExcel.Width = 100;
         this.btnPrint.Left = 320; this.btnPrint.Top = 8; this.btnPrint.Width = 100;
         this.btnClose.Left = 425; this.btnClose.Top = 8; this.btnClose.Width = 100;
-        this.btnExcel.Click += (_, _) => pStock.Common.ExcelExporter.Export(this.grid, "품목원장조회");
-        this.btnPrint.Click += (_, _) => pStock.Common.GridPrinter.Print(this.grid, "품목원장조회");
+        this.btnExcel.Click += new EventHandler(this.BtnExcel_Click);
+        this.btnPrint.Click += new EventHandler(this.BtnPrint_Click);
 
         this.editPanel = new Panel();
         this.editPanel.Dock = DockStyle.Top;
@@ -129,16 +129,11 @@ partial class SS36Form
         this.Controls.Add(this.editPanel);
         this.Controls.Add(this.panelTop);
 
-        this.btnNew.Click += (_, _) => { this.edtCode.Clear(); this.dspName.Clear(); this.dspDanwi.Clear(); this.lblCvnam.Text = ""; this.grid.Rows.Clear(); this.edtCode.Focus(); };
-        this.btnSearch.Click += (_, _) => this.Search();
-        this.btnClose.Click += (_, _) => this.Close();
+        this.btnNew.Click += new EventHandler(this.BtnNew_Click);
+        this.btnSearch.Click += new EventHandler(this.BtnSearch_Click);
+        this.btnClose.Click += new EventHandler(this.BtnClose_Click);
 
-        this.Load += (_, _) =>
-        {
-            var now = DateTime.Now;
-            this.dtpDate1.Value = new DateTime(now.Year, now.Month, 1);
-            this.dtpDate2.Value = now;
-        };
+        this.Load += new EventHandler(this.SS36Form_Load);
         this.KeyDown += new KeyEventHandler(this.SS36Form_KeyDown);
 
         this.ResumeLayout(false);

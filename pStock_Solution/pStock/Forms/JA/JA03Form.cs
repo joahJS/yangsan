@@ -262,4 +262,39 @@ public partial class JA03Form : Form
             PublicLib.MoneyToStr((long)sum), PublicLib.MoneyToStr((long)Math.Truncate(sum / 10)),
             PublicLib.MoneyToStr((long)sugm), "");
     }
+
+    private void EdtMonth_KeyDown(object? sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.Enter) ReloadList();
+    }
+
+    private void BtnMonthDown_Click(object? sender, EventArgs e)
+    {
+        ShiftMonth(-1); ReloadList();
+    }
+
+    private void BtnMonthUp_Click(object? sender, EventArgs e)
+    {
+        ShiftMonth(1); ReloadList();
+    }
+
+    private void BtnNew_Click(object? sender, EventArgs e)
+    {
+        this.edtCvcod.Clear(); this.dspName.Clear(); this.grid.Rows.Clear(); this.edtCvcod.Focus();
+    }
+
+    private void BtnSearch_Click(object? sender, EventArgs e)
+    {
+        ReloadList();
+    }
+
+    private void BtnClose_Click(object? sender, EventArgs e)
+    {
+        Close();
+    }
+
+    private void JA03Form_Load(object? sender, EventArgs e)
+    {
+        this.edtMonth.Text = DateTime.Now.ToString("yyyy-MM"); ReloadList();
+    }
 }

@@ -102,11 +102,11 @@ partial class ED03Form
         this.lblYear.Top = 12;
         this.lblYear.AutoSize = true;
         this.edtYear.Left = 45; this.edtYear.Top = 8; this.edtYear.Width = 60;
-        this.edtYear.KeyDown += (_, e) => { if (e.KeyCode == Keys.Enter) Search(); };
+        this.edtYear.KeyDown += new KeyEventHandler(this.EdtYear_KeyDown);
         this.btnYearDown.Left = 110; this.btnYearDown.Top = 8; this.btnYearDown.Width = 30;
         this.btnYearUp.Left = 143; this.btnYearUp.Top = 8; this.btnYearUp.Width = 30;
-        this.btnYearDown.Click += (_, _) => { edtYear.Text = (PublicLib.StrToIntSafe(edtYear.Text) - 1).ToString(); Search(); };
-        this.btnYearUp.Click += (_, _) => { edtYear.Text = (PublicLib.StrToIntSafe(edtYear.Text) + 1).ToString(); Search(); };
+        this.btnYearDown.Click += new EventHandler(this.BtnYearDown_Click);
+        this.btnYearUp.Click += new EventHandler(this.BtnYearUp_Click);
 
         this.lblCode.Text = "거래처코드";
         this.lblCode.Left = 190;
@@ -131,21 +131,21 @@ partial class ED03Form
         this.grid.Dock = DockStyle.Fill;
         this.grid.ReadOnly = true;
         this.grid.AllowUserToAddRows = false;
-        this.grid.CellDoubleClick += (_, _) => SyncEditFromGrid();
+        this.grid.CellDoubleClick += new DataGridViewCellEventHandler(this.Grid_CellDoubleClick);
 
         this.Controls.Add(this.grid);
         this.Controls.Add(this.panelEdit);
         this.Controls.Add(this.panelTop);
 
-        this.btnNew.Click += (_, _) => { ClearEdit(); edtCode.Focus(); };
-        this.btnAdd.Click += (_, _) => Save();
-        this.btnDel.Click += (_, _) => Delete();
-        this.btnSearch.Click += (_, _) => Search();
-        this.btnClose.Click += (_, _) => Close();
+        this.btnNew.Click += new EventHandler(this.BtnNew_Click);
+        this.btnAdd.Click += new EventHandler(this.BtnAdd_Click);
+        this.btnDel.Click += new EventHandler(this.BtnDel_Click);
+        this.btnSearch.Click += new EventHandler(this.BtnSearch_Click);
+        this.btnClose.Click += new EventHandler(this.BtnClose_Click);
         //
         // Load / KeyDown
         //
-        this.Load += (_, _) => { this.edtYear.Text = DateTime.Now.Year.ToString(); Search(); };
+        this.Load += new EventHandler(this.ED03Form_Load);
         this.KeyDown += new KeyEventHandler(this.ED03Form_KeyDown);
         ((System.ComponentModel.ISupportInitialize)(this.edtBamt)).EndInit();
         this.panelTop.ResumeLayout(false);

@@ -21,6 +21,46 @@ public partial class SS21Form : Form
         InitializeComponent();
     }
 
+    private void BtnExcel_Click(object? sender, EventArgs e)
+    {
+        pStock.Common.ExcelExporter.Export(this.grid, "입고관리");
+    }
+
+    private void BtnPrint_Click(object? sender, EventArgs e)
+    {
+        pStock.Common.GridPrinter.Print(this.grid, "입고관리");
+    }
+
+    private void Grid_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
+    {
+        OpenEntry(isNew: false);
+    }
+
+    private void BtnNew_Click(object? sender, EventArgs e)
+    {
+        OpenEntry(isNew: true);
+    }
+
+    private void BtnDel_Click(object? sender, EventArgs e)
+    {
+        Delete();
+    }
+
+    private void BtnSearch_Click(object? sender, EventArgs e)
+    {
+        Search();
+    }
+
+    private void BtnClose_Click(object? sender, EventArgs e)
+    {
+        Close();
+    }
+
+    private void SS21Form_Load(object? sender, EventArgs e)
+    {
+        this.dtpDate1.Value = DateTime.Now; this.dtpDate2.Value = DateTime.Now; Search();
+    }
+
     private void SS21Form_KeyDown(object? sender, KeyEventArgs e)
     {
         switch (e.KeyCode)

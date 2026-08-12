@@ -84,8 +84,8 @@ partial class SS32Form
         this.btnExcel.Left = 290; this.btnExcel.Top = 8; this.btnExcel.Width = 90;
         this.btnPrint.Left = 385; this.btnPrint.Top = 8; this.btnPrint.Width = 90;
         this.btnClose.Left = 480; this.btnClose.Top = 8; this.btnClose.Width = 90;
-        this.btnExcel.Click += (_, _) => pStock.Common.ExcelExporter.Export(this.gridList, "수금관리");
-        this.btnPrint.Click += (_, _) => pStock.Common.GridPrinter.Print(this.gridList, "수금관리");
+        this.btnExcel.Click += new EventHandler(this.BtnExcel_Click);
+        this.btnPrint.Click += new EventHandler(this.BtnPrint_Click);
         //
         // panelEdit (원본 BuildLayout()의 editPanel)
         //
@@ -122,7 +122,7 @@ partial class SS32Form
         this.gridList.Dock = DockStyle.Fill;
         this.gridList.ReadOnly = true;
         this.gridList.AllowUserToAddRows = false;
-        this.gridList.CellDoubleClick += (_, _) => OpenEntry(isNew: false);
+        this.gridList.CellDoubleClick += new DataGridViewCellEventHandler(this.GridList_CellDoubleClick);
 
         this.gridSum.Dock = DockStyle.Fill;
         this.gridSum.ReadOnly = true;
@@ -144,12 +144,12 @@ partial class SS32Form
         this.Controls.Add(this.panelEdit);
         this.Controls.Add(this.panelTop);
 
-        this.btnNew.Click += (_, _) => OpenEntry(isNew: true);
-        this.btnDel.Click += (_, _) => Delete();
-        this.btnSearch.Click += (_, _) => Search();
-        this.btnClose.Click += (_, _) => Close();
+        this.btnNew.Click += new EventHandler(this.BtnNew_Click);
+        this.btnDel.Click += new EventHandler(this.BtnDel_Click);
+        this.btnSearch.Click += new EventHandler(this.BtnSearch_Click);
+        this.btnClose.Click += new EventHandler(this.BtnClose_Click);
 
-        this.Load += (_, _) => { this.dtpDate1.Value = DateTime.Now; this.dtpDate2.Value = DateTime.Now; Search(); };
+        this.Load += new EventHandler(this.SS32Form_Load);
         this.KeyDown += new KeyEventHandler(this.SS32Form_KeyDown);
 
         this.splitContainer.Panel1.ResumeLayout(false);

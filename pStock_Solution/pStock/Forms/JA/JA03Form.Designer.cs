@@ -76,11 +76,11 @@ partial class JA03Form
         this.lblMonth.Text = "조회월(YYYY-MM)";
         this.lblMonth.Left = 10; this.lblMonth.Top = 12; this.lblMonth.AutoSize = true;
         this.edtMonth.Left = 140; this.edtMonth.Top = 8; this.edtMonth.Width = 80;
-        this.edtMonth.KeyDown += (_, e) => { if (e.KeyCode == Keys.Enter) ReloadList(); };
+        this.edtMonth.KeyDown += new KeyEventHandler(this.EdtMonth_KeyDown);
         this.btnMonthDown.Left = 225; this.btnMonthDown.Top = 8; this.btnMonthDown.Width = 30;
         this.btnMonthUp.Left = 258; this.btnMonthUp.Top = 8; this.btnMonthUp.Width = 30;
-        this.btnMonthDown.Click += (_, _) => { ShiftMonth(-1); ReloadList(); };
-        this.btnMonthUp.Click += (_, _) => { ShiftMonth(1); ReloadList(); };
+        this.btnMonthDown.Click += new EventHandler(this.BtnMonthDown_Click);
+        this.btnMonthUp.Click += new EventHandler(this.BtnMonthUp_Click);
 
         this.lblCvcod.Text = "거래처코드";
         this.lblCvcod.Left = 320; this.lblCvcod.Top = 12; this.lblCvcod.AutoSize = true;
@@ -113,9 +113,9 @@ partial class JA03Form
         //
         // 이벤트 배선
         //
-        this.btnNew.Click += (_, _) => { this.edtCvcod.Clear(); this.dspName.Clear(); this.grid.Rows.Clear(); this.edtCvcod.Focus(); };
-        this.btnSearch.Click += (_, _) => ReloadList();
-        this.btnClose.Click += (_, _) => Close();
+        this.btnNew.Click += new EventHandler(this.BtnNew_Click);
+        this.btnSearch.Click += new EventHandler(this.BtnSearch_Click);
+        this.btnClose.Click += new EventHandler(this.BtnClose_Click);
         //
         // JA03Form
         //
@@ -126,7 +126,7 @@ partial class JA03Form
         this.Controls.Add(this.grid);
         this.Controls.Add(this.panelEdit);
         this.Controls.Add(this.panelTop);
-        this.Load += (_, _) => { this.edtMonth.Text = DateTime.Now.ToString("yyyy-MM"); ReloadList(); };
+        this.Load += new EventHandler(this.JA03Form_Load);
         this.KeyDown += new KeyEventHandler(this.JA03Form_KeyDown);
         this.panelTop.ResumeLayout(false);
         this.panelEdit.ResumeLayout(false);

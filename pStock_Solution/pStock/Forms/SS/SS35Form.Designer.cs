@@ -107,12 +107,8 @@ partial class SS35Form
         this.btnExcel.Left = 215; this.btnExcel.Top = 8; this.btnExcel.Width = 100;
         this.btnPrint.Left = 320; this.btnPrint.Top = 8; this.btnPrint.Width = 100;
         this.btnClose.Left = 425; this.btnClose.Top = 8; this.btnClose.Width = 100;
-        this.btnExcel.Click += (_, _) => pStock.Common.ExcelExporter.Export(
-            this.tabs.SelectedTab == this.tab1 ? this.grid1 : this.grid2,
-            this.tabs.SelectedTab == this.tab1 ? "거래처별원장" : "품목별입출고");
-        this.btnPrint.Click += (_, _) => pStock.Common.GridPrinter.Print(
-            this.tabs.SelectedTab == this.tab1 ? this.grid1 : this.grid2,
-            this.tabs.SelectedTab == this.tab1 ? "거래처별원장" : "품목별입출고");
+        this.btnExcel.Click += new EventHandler(this.BtnExcel_Click);
+        this.btnPrint.Click += new EventHandler(this.BtnPrint_Click);
 
         this.dateLbl1 = new Label();
         this.dateLbl1.Text = "기간";
@@ -194,21 +190,11 @@ partial class SS35Form
         this.Controls.Add(this.tabs);
         this.Controls.Add(this.panelTop);
 
-        this.btnNew.Click += (_, _) =>
-        {
-            this.edtCvcod.Clear(); this.dspName.Clear(); this.edtCd2.Clear(); this.dspNm2.Clear();
-            this.grid1.DataSource = null; this.grid2.DataSource = null;
-            this.lblAmt.Text = "0"; this.lblQty1.Text = "0"; this.lblQty2.Text = "0";
-        };
-        this.btnSearch.Click += (_, _) => { if (this.tabs.SelectedTab == this.tab1) this.LoadCustLedger(); else this.LoadItemIO(); };
-        this.btnClose.Click += (_, _) => this.Close();
+        this.btnNew.Click += new EventHandler(this.BtnNew_Click);
+        this.btnSearch.Click += new EventHandler(this.BtnSearch_Click);
+        this.btnClose.Click += new EventHandler(this.BtnClose_Click);
 
-        this.Load += (_, _) =>
-        {
-            var now = DateTime.Now;
-            this.dtpDate1.Value = new DateTime(now.Year, now.Month, 1);
-            this.dtpDate2.Value = now;
-        };
+        this.Load += new EventHandler(this.SS35Form_Load);
         this.KeyDown += new KeyEventHandler(this.SS35Form_KeyDown);
 
         this.ResumeLayout(false);

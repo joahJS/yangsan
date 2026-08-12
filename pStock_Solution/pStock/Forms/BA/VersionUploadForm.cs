@@ -67,6 +67,11 @@ public partial class VersionUploadForm : Form
         this.btnClose.Click += (_, _) => Close();
     }
 
+    private void VersionUploadForm_Shown(object? sender, EventArgs e)
+    {
+        this.edtVersionId.Focus();
+    }
+
     private void VersionUploadForm_KeyDown(object? sender, KeyEventArgs e)
     {
         if (e.KeyCode == Keys.F3) btnSave.PerformClick();

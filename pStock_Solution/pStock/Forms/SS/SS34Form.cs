@@ -31,6 +31,37 @@ public partial class SS34Form : Form
         }
     }
 
+    private void BtnExcel_Click(object? sender, EventArgs e) => pStock.Common.ExcelExporter.Export(this.grid, "미수금조회");
+    private void BtnPrint_Click(object? sender, EventArgs e) => pStock.Common.GridPrinter.Print(this.grid, "미수금조회");
+
+    private void EdtMonth_KeyDown(object? sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.Enter) this.Search();
+    }
+
+    private void BtnMonthDown_Click(object? sender, EventArgs e)
+    {
+        this.ShiftMonth(-1); this.Search();
+    }
+
+    private void BtnMonthUp_Click(object? sender, EventArgs e)
+    {
+        this.ShiftMonth(1); this.Search();
+    }
+
+    private void BtnNew_Click(object? sender, EventArgs e)
+    {
+        this.edtCvcod.Clear(); this.dspName.Clear(); this.edtCvcod.Focus();
+    }
+
+    private void BtnSearch_Click(object? sender, EventArgs e) => this.Search();
+    private void BtnClose_Click(object? sender, EventArgs e) => this.Close();
+
+    private void SS34Form_Load(object? sender, EventArgs e)
+    {
+        this.edtMonth.Text = DateTime.Now.ToString("yyyy-MM"); this.Search();
+    }
+
     private void ShiftMonth(int delta)
     {
         if (!DateTime.TryParseExact(edtMonth.Text + "-01", "yyyy-MM-dd",

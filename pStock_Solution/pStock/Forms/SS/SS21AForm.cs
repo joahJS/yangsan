@@ -94,6 +94,11 @@ public partial class SS21AForm : Form
         ClearForm();
     }
 
+    private void SS21AForm_Load(object? sender, EventArgs e)
+    {
+        if (this.cboHouse.Items.Count == 0) ResetHouseList();
+    }
+
     private void SS21AForm_KeyDown(object? sender, KeyEventArgs e)
     {
         switch (e.KeyCode)

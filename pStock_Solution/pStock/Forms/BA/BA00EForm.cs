@@ -78,6 +78,11 @@ public partial class BA00EForm : Form
         this.btnClose.Click += (_, _) => Close();
     }
 
+    private void BA00EForm_Load(object? sender, EventArgs e)
+    {
+        ReloadList();
+    }
+
     private void BA00EForm_KeyDown(object? sender, KeyEventArgs e)
     {
         switch (e.KeyCode)

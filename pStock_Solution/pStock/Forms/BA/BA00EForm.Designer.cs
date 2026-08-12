@@ -61,7 +61,7 @@ partial class BA00EForm
         this.Height = 500;
         this.KeyPreview = true;
         this.StartPosition = FormStartPosition.CenterParent;
-        this.Load += (_, _) => ReloadList();
+        this.Load += new EventHandler(this.BA00EForm_Load);
         this.KeyDown += new KeyEventHandler(this.BA00EForm_KeyDown);
         this.ResumeLayout(false);
     }

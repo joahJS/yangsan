@@ -77,8 +77,8 @@ partial class JA04Form
         this.btnExcel.Left = 215; this.btnExcel.Top = 8; this.btnExcel.Width = 100;
         this.btnPrint.Left = 320; this.btnPrint.Top = 8; this.btnPrint.Width = 100;
         this.btnClose.Left = 425; this.btnClose.Top = 8; this.btnClose.Width = 100;
-        this.btnExcel.Click += (_, _) => pStock.Common.ExcelExporter.Export(this.grid, "재고관리-품목");
-        this.btnPrint.Click += (_, _) => pStock.Common.GridPrinter.Print(this.grid, "재고관리-품목");
+        this.btnExcel.Click += new EventHandler(this.BtnExcel_Click);
+        this.btnPrint.Click += new EventHandler(this.BtnPrint_Click);
         //
         // panelEdit
         //
@@ -87,11 +87,11 @@ partial class JA04Form
         this.lblMonth.Text = "조회월(YYYY-MM)";
         this.lblMonth.Left = 10; this.lblMonth.Top = 12; this.lblMonth.AutoSize = true;
         this.edtMonth.Left = 140; this.edtMonth.Top = 8; this.edtMonth.Width = 80;
-        this.edtMonth.KeyDown += (_, e) => { if (e.KeyCode == Keys.Enter) ReloadList(); };
+        this.edtMonth.KeyDown += new KeyEventHandler(this.EdtMonth_KeyDown);
         this.btnMonthDown.Left = 225; this.btnMonthDown.Top = 8; this.btnMonthDown.Width = 30;
         this.btnMonthUp.Left = 258; this.btnMonthUp.Top = 8; this.btnMonthUp.Width = 30;
-        this.btnMonthDown.Click += (_, _) => { ShiftMonth(-1); ReloadList(); };
-        this.btnMonthUp.Click += (_, _) => { ShiftMonth(1); ReloadList(); };
+        this.btnMonthDown.Click += new EventHandler(this.BtnMonthDown_Click);
+        this.btnMonthUp.Click += new EventHandler(this.BtnMonthUp_Click);
 
         this.lblSearch.Text = "검색조건";
         this.lblSearch.Left = 320; this.lblSearch.Top = 12; this.lblSearch.AutoSize = true;
@@ -125,9 +125,9 @@ partial class JA04Form
         //
         // 이벤트 배선
         //
-        this.btnNew.Click += (_, _) => { this.cSrcd.SelectedIndex = 1; this.eSrwd.Clear(); this.grid.Rows.Clear(); this.eSrwd.Focus(); };
-        this.btnSearch.Click += (_, _) => ReloadList();
-        this.btnClose.Click += (_, _) => Close();
+        this.btnNew.Click += new EventHandler(this.BtnNew_Click);
+        this.btnSearch.Click += new EventHandler(this.BtnSearch_Click);
+        this.btnClose.Click += new EventHandler(this.BtnClose_Click);
         //
         // JA04Form
         //
@@ -138,11 +138,7 @@ partial class JA04Form
         this.Controls.Add(this.grid);
         this.Controls.Add(this.panelEdit);
         this.Controls.Add(this.panelTop);
-        this.Load += (_, _) =>
-        {
-            this.edtMonth.Text = DateTime.Now.ToString("yyyy-MM");
-            this.cSrcd.SelectedIndex = 1;
-        };
+        this.Load += new EventHandler(this.JA04Form_Load);
         this.KeyDown += new KeyEventHandler(this.JA04Form_KeyDown);
         this.panelTop.ResumeLayout(false);
         this.panelEdit.ResumeLayout(false);

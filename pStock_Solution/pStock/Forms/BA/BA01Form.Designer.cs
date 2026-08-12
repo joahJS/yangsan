@@ -108,7 +108,7 @@ partial class BA01Form
         // BuildDynamicLayout()(BA01Form.cs)으로 분리해 생성자에서 InitializeComponent()
         // 호출 직후에 실행한다 — 동작은 100% 동일하다.
 
-        this.Load += (_, _) => { this._vSort = "Code"; ReloadList(); };
+        this.Load += new EventHandler(this.BA01Form_Load);
         this.KeyDown += new KeyEventHandler(this.BA01Form_KeyDown);
         this.ResumeLayout(false);
     }

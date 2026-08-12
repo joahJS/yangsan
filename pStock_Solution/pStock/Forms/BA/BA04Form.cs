@@ -92,6 +92,12 @@ public partial class BA04Form : Form
         this.btnClose.Click += (_, _) => Close();
     }
 
+    private void BA04Form_Load(object? sender, EventArgs e)
+    {
+        this._vSort = "Code";
+        ReloadList();
+    }
+
     private void BA04Form_KeyDown(object? sender, KeyEventArgs e)
     {
         switch (e.KeyCode)

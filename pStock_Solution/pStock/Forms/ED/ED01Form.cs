@@ -77,6 +77,22 @@ public partial class ED01Form : Form
         Close();
     }
 
+    private void BtnOk_Click(object? sender, EventArgs e)
+    {
+        RunClose();
+    }
+
+    private void BtnCancel_Click(object? sender, EventArgs e)
+    {
+        Close();
+    }
+
+    private void ED01Form_Load(object? sender, EventArgs e)
+    {
+        this.edtYear.Text = DateTime.Now.Year.ToString();
+        this.cboMonth.SelectedItem = DateTime.Now.Month.ToString();
+    }
+
     private void ED01Form_KeyDown(object? sender, KeyEventArgs e)
     {
         if (e.KeyCode == Keys.F2) btnOk.PerformClick();

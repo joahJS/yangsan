@@ -22,6 +22,28 @@ public partial class SS23BForm : Form
         InitializeComponent();
     }
 
+    private void DtpDate_ValueChanged(object? sender, EventArgs e)
+    {
+        UpdateTermLabel();
+    }
+
+    private void BtnOk_Click(object? sender, EventArgs e)
+    {
+        RunBatch();
+    }
+
+    private void BtnCancel_Click(object? sender, EventArgs e)
+    {
+        Close();
+    }
+
+    private void SS23BForm_Load(object? sender, EventArgs e)
+    {
+        var now = DateTime.Now;
+        this.dtpDate.Value = now.Day < 16 ? new DateTime(now.Year, now.Month, 1) : new DateTime(now.Year, now.Month, 16);
+        UpdateTermLabel();
+    }
+
     private void SS23BForm_KeyDown(object? sender, KeyEventArgs e)
     {
         if (e.KeyCode == Keys.F2) btnOk.PerformClick();

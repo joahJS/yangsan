@@ -15,6 +15,60 @@ public partial class ED03Form : Form
         InitializeComponent();
     }
 
+    private void EdtYear_KeyDown(object? sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.Enter) Search();
+    }
+
+    private void BtnYearDown_Click(object? sender, EventArgs e)
+    {
+        edtYear.Text = (PublicLib.StrToIntSafe(edtYear.Text) - 1).ToString();
+        Search();
+    }
+
+    private void BtnYearUp_Click(object? sender, EventArgs e)
+    {
+        edtYear.Text = (PublicLib.StrToIntSafe(edtYear.Text) + 1).ToString();
+        Search();
+    }
+
+    private void Grid_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
+    {
+        SyncEditFromGrid();
+    }
+
+    private void BtnNew_Click(object? sender, EventArgs e)
+    {
+        ClearEdit();
+        edtCode.Focus();
+    }
+
+    private void BtnAdd_Click(object? sender, EventArgs e)
+    {
+        Save();
+    }
+
+    private void BtnDel_Click(object? sender, EventArgs e)
+    {
+        Delete();
+    }
+
+    private void BtnSearch_Click(object? sender, EventArgs e)
+    {
+        Search();
+    }
+
+    private void BtnClose_Click(object? sender, EventArgs e)
+    {
+        Close();
+    }
+
+    private void ED03Form_Load(object? sender, EventArgs e)
+    {
+        this.edtYear.Text = DateTime.Now.Year.ToString();
+        Search();
+    }
+
     private void ED03Form_KeyDown(object? sender, KeyEventArgs e)
     {
         switch (e.KeyCode)

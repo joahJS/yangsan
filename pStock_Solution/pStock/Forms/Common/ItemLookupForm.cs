@@ -24,6 +24,43 @@ public partial class ItemLookupForm : Form
         InitializeComponent();
     }
 
+    private void CboSort_SelectedIndexChanged(object? sender, EventArgs e)
+    {
+        Search();
+    }
+
+    private void EdtSearch_KeyDown(object? sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.Enter) LocateInGrid();
+    }
+
+    private void Grid_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
+    {
+        Confirm();
+    }
+
+    private void BtnConfirm_Click(object? sender, EventArgs e)
+    {
+        Confirm();
+    }
+
+    private void BtnClose_Click(object? sender, EventArgs e)
+    {
+        DialogResult = DialogResult.Cancel;
+        Close();
+    }
+
+    private void ItemLookupForm_Load(object? sender, EventArgs e)
+    {
+        cboSort.SelectedIndex = 1;
+        Search();
+    }
+
+    private void ItemLookupForm_KeyDown(object? sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.Escape) Close();
+    }
+
     private void Search()
     {
         using var q = new DbQuery();

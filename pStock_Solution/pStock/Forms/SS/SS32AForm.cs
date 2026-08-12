@@ -73,6 +73,11 @@ public partial class SS32AForm : Form
         ClearForm();
     }
 
+    private void SS32AForm_Load(object? sender, EventArgs e)
+    {
+        if (this.cboGu.Items.Count == 0) ResetGuList();
+    }
+
     private void SS32AForm_KeyDown(object? sender, KeyEventArgs e)
     {
         switch (e.KeyCode)

@@ -87,11 +87,11 @@ partial class JA02Form
         this.lblYear.Text = "년도";
         this.lblYear.Left = 420; this.lblYear.Top = 12; this.lblYear.AutoSize = true;
         this.edtYear.Left = 460; this.edtYear.Top = 8; this.edtYear.Width = 60;
-        this.edtYear.KeyDown += (_, e) => { if (e.KeyCode == Keys.Enter) LoadYear(); };
+        this.edtYear.KeyDown += new KeyEventHandler(this.EdtYear_KeyDown);
         this.btnYearDown.Left = 525; this.btnYearDown.Top = 8; this.btnYearDown.Width = 30;
         this.btnYearUp.Left = 558; this.btnYearUp.Top = 8; this.btnYearUp.Width = 30;
-        this.btnYearDown.Click += (_, _) => { this.edtYear.Text = (PublicLib.StrToIntSafe(this.edtYear.Text) - 1).ToString(); LoadYear(); };
-        this.btnYearUp.Click += (_, _) => { this.edtYear.Text = (PublicLib.StrToIntSafe(this.edtYear.Text) + 1).ToString(); LoadYear(); };
+        this.btnYearDown.Click += new EventHandler(this.BtnYearDown_Click);
+        this.btnYearUp.Click += new EventHandler(this.BtnYearUp_Click);
 
         this.lblHouse.Text = "저장위치";
         this.lblHouse.Left = 600; this.lblHouse.Top = 12; this.lblHouse.AutoSize = true;
@@ -120,9 +120,9 @@ partial class JA02Form
         //
         // 이벤트 배선
         //
-        this.btnNew.Click += (_, _) => ClearEdit();
-        this.btnSearch.Click += (_, _) => LoadYear();
-        this.btnClose.Click += (_, _) => Close();
+        this.btnNew.Click += new EventHandler(this.BtnNew_Click);
+        this.btnSearch.Click += new EventHandler(this.BtnSearch_Click);
+        this.btnClose.Click += new EventHandler(this.BtnClose_Click);
         //
         // JA02Form
         //
@@ -133,7 +133,7 @@ partial class JA02Form
         this.Controls.Add(this.grid);
         this.Controls.Add(this.panelEdit);
         this.Controls.Add(this.panelTop);
-        this.Load += (_, _) => { ResetHouseList(); ClearEdit(); };
+        this.Load += new EventHandler(this.JA02Form_Load);
         this.KeyDown += new KeyEventHandler(this.JA02Form_KeyDown);
         this.panelTop.ResumeLayout(false);
         this.panelEdit.ResumeLayout(false);

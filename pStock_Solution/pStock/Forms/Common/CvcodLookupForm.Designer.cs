@@ -90,11 +90,11 @@ partial class CvcodLookupForm
         //
         // 이벤트 배선 (원본 BuildLayout()에서 그대로 이동)
         //
-        this.cboSort.SelectedIndexChanged += (_, _) => Search();
-        this.edtSearch.KeyDown += (_, e) => { if (e.KeyCode == Keys.Enter) LocateInGrid(); };
-        this.grid.CellDoubleClick += (_, _) => Confirm();
-        this.btnConfirm.Click += (_, _) => Confirm();
-        this.btnClose.Click += (_, _) => { DialogResult = DialogResult.Cancel; Close(); };
+        this.cboSort.SelectedIndexChanged += new EventHandler(this.CboSort_SelectedIndexChanged);
+        this.edtSearch.KeyDown += new KeyEventHandler(this.EdtSearch_KeyDown);
+        this.grid.CellDoubleClick += new DataGridViewCellEventHandler(this.Grid_CellDoubleClick);
+        this.btnConfirm.Click += new EventHandler(this.BtnConfirm_Click);
+        this.btnClose.Click += new EventHandler(this.BtnClose_Click);
         //
         // CvcodLookupForm
         //
@@ -107,8 +107,8 @@ partial class CvcodLookupForm
         this.Controls.Add(this.grid);
         this.Controls.Add(this.panelBottom);
         this.Controls.Add(this.panelTop);
-        this.Load += (_, _) => { cboSort.SelectedIndex = 1; Search(); };
-        this.KeyDown += (_, e) => { if (e.KeyCode == Keys.Escape) Close(); };
+        this.Load += new EventHandler(this.CvcodLookupForm_Load);
+        this.KeyDown += new KeyEventHandler(this.CvcodLookupForm_KeyDown);
         this.panelTop.ResumeLayout(false);
         this.panelTop.PerformLayout();
         this.panelBottom.ResumeLayout(false);

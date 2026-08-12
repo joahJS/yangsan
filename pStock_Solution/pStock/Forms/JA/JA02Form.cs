@@ -156,4 +156,39 @@ public partial class JA02Form : Form
             return (iamt, samt, oamt);
         }
     }
+
+    private void EdtYear_KeyDown(object? sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.Enter) LoadYear();
+    }
+
+    private void BtnYearDown_Click(object? sender, EventArgs e)
+    {
+        this.edtYear.Text = (PublicLib.StrToIntSafe(this.edtYear.Text) - 1).ToString(); LoadYear();
+    }
+
+    private void BtnYearUp_Click(object? sender, EventArgs e)
+    {
+        this.edtYear.Text = (PublicLib.StrToIntSafe(this.edtYear.Text) + 1).ToString(); LoadYear();
+    }
+
+    private void BtnNew_Click(object? sender, EventArgs e)
+    {
+        ClearEdit();
+    }
+
+    private void BtnSearch_Click(object? sender, EventArgs e)
+    {
+        LoadYear();
+    }
+
+    private void BtnClose_Click(object? sender, EventArgs e)
+    {
+        Close();
+    }
+
+    private void JA02Form_Load(object? sender, EventArgs e)
+    {
+        ResetHouseList(); ClearEdit();
+    }
 }

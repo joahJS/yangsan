@@ -115,16 +115,12 @@ partial class ED01Form
             this.chk1, this.chk2, this.chk3, this.chk4, this.chk5, this.progress, this.btnOk, this.btnCancel
         });
 
-        this.btnOk.Click += (_, _) => RunClose();
-        this.btnCancel.Click += (_, _) => Close();
+        this.btnOk.Click += new EventHandler(this.BtnOk_Click);
+        this.btnCancel.Click += new EventHandler(this.BtnCancel_Click);
         //
         // Load / KeyDown
         //
-        this.Load += (_, _) =>
-        {
-            this.edtYear.Text = DateTime.Now.Year.ToString();
-            this.cboMonth.SelectedItem = DateTime.Now.Month.ToString();
-        };
+        this.Load += new EventHandler(this.ED01Form_Load);
         this.KeyDown += new KeyEventHandler(this.ED01Form_KeyDown);
         this.ResumeLayout(false);
     }

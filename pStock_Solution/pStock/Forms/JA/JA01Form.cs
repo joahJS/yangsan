@@ -167,4 +167,69 @@ public partial class JA01Form : Form
             }
         }
     }
+
+    private void BtnExcel_Click(object? sender, EventArgs e)
+    {
+        pStock.Common.ExcelExporter.Export(this.grid, "재고관리");
+    }
+
+    private void BtnPrint_Click(object? sender, EventArgs e)
+    {
+        pStock.Common.GridPrinter.Print(this.grid, "재고관리");
+    }
+
+    private void EdtMonth_KeyDown(object? sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.Enter) ReloadList();
+    }
+
+    private void BtnMonthDown_Click(object? sender, EventArgs e)
+    {
+        ShiftMonth(-1); ReloadList();
+    }
+
+    private void BtnMonthUp_Click(object? sender, EventArgs e)
+    {
+        ShiftMonth(1); ReloadList();
+    }
+
+    private void EdtNo_KeyUp(object? sender, KeyEventArgs e)
+    {
+        LocateInGrid("ITDSC", this.edtNo.Text);
+    }
+
+    private void EdtCvnam_KeyUp(object? sender, KeyEventArgs e)
+    {
+        LocateInGrid("CVNAM", this.edtCvnam.Text);
+    }
+
+    private void CboHouse_SelectedIndexChanged(object? sender, EventArgs e)
+    {
+        LocateInGrid("HOUSE", this.cboHouse.Text);
+    }
+
+    private void Tabs_SelectedIndexChanged(object? sender, EventArgs e)
+    {
+        ReloadList();
+    }
+
+    private void BtnNew_Click(object? sender, EventArgs e)
+    {
+        this.edtNo.Clear(); this.edtCvnam.Clear(); this.edtMonth.Text = DateTime.Now.ToString("yyyy-MM"); this.grid.DataSource = null;
+    }
+
+    private void BtnSearch_Click(object? sender, EventArgs e)
+    {
+        ReloadList();
+    }
+
+    private void BtnClose_Click(object? sender, EventArgs e)
+    {
+        Close();
+    }
+
+    private void JA01Form_Load(object? sender, EventArgs e)
+    {
+        ResetHouseList(); this.edtMonth.Text = DateTime.Now.ToString("yyyy-MM"); ReloadList();
+    }
 }

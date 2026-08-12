@@ -100,8 +100,8 @@ partial class SS020Form
         this.btnPrint.Left = 480; this.btnPrint.Top = 8; this.btnPrint.Width = 90;
         this.btnClose.Left = 575; this.btnClose.Top = 8; this.btnClose.Width = 90;
         this.panelTop.Controls.AddRange(new Control[] { this.btnNew, this.btnDel, this.btnCut, this.btnSearch, this.btnExcel, this.btnPrint, this.btnClose });
-        this.btnExcel.Click += (_, _) => pStock.Common.ExcelExporter.Export(this.gridList, "출고관리");
-        this.btnPrint.Click += (_, _) => pStock.Common.GridPrinter.Print(this.gridList, "출고관리");
+        this.btnExcel.Click += new EventHandler(this.BtnExcel_Click);
+        this.btnPrint.Click += new EventHandler(this.BtnPrint_Click);
 
         this.panelEdit.Dock = DockStyle.Top;
         this.panelEdit.Height = 40;
@@ -148,8 +148,8 @@ partial class SS020Form
         this.gridList.Dock = DockStyle.Fill;
         this.gridList.ReadOnly = true;
         this.gridList.AllowUserToAddRows = false;
-        this.gridList.SelectionChanged += (_, _) => LoadDetail();
-        this.gridList.CellDoubleClick += (_, _) => OpenEditForSelected();
+        this.gridList.SelectionChanged += new EventHandler(this.GridList_SelectionChanged);
+        this.gridList.CellDoubleClick += new DataGridViewCellEventHandler(this.GridList_CellDoubleClick);
 
         this.gridDetail.Dock = DockStyle.Fill;
         this.gridDetail.ReadOnly = true;
@@ -162,24 +162,13 @@ partial class SS020Form
         this.Controls.Add(this.panelEdit);
         this.Controls.Add(this.panelTop);
 
-        this.btnNew.Click += (_, _) =>
-        {
-            using var dlg = new SS020F01Form();
-            dlg.ShowDialog(this);
-            if (dlg.Saved) Search();
-        };
-        this.btnDel.Click += (_, _) => DeleteMaster();
-        this.btnCut.Click += (_, _) => DeleteDetail();
-        this.btnSearch.Click += (_, _) => Search();
-        this.btnClose.Click += (_, _) => Close();
+        this.btnNew.Click += new EventHandler(this.BtnNew_Click);
+        this.btnDel.Click += new EventHandler(this.BtnDel_Click);
+        this.btnCut.Click += new EventHandler(this.BtnCut_Click);
+        this.btnSearch.Click += new EventHandler(this.BtnSearch_Click);
+        this.btnClose.Click += new EventHandler(this.BtnClose_Click);
 
-        this.Load += (_, _) =>
-        {
-            this.eDate2.Text = DateTime.Now.ToString("yyyy-MM-dd");
-            this.eDate1.Text = this.eDate2.Text;
-            this.cSrcd.SelectedIndex = 2;
-            Search();
-        };
+        this.Load += new EventHandler(this.SS020Form_Load);
         this.KeyDown += new KeyEventHandler(this.SS020Form_KeyDown);
 
         this.split.Panel1.ResumeLayout(false);

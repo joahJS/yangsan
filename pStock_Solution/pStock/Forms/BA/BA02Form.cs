@@ -113,6 +113,67 @@ public partial class BA02Form : Form
         }
     }
 
+    private void BA02Form_Load(object? sender, EventArgs e)
+    {
+        LoadGroup();
+        // 생성자 시점에는 splitContainer가 실제 화면 크기를 아직 갖지 못해 SplitterDistance를
+        // 픽셀값으로 바로 지정하면 이후 폼이 리사이즈될 때 비율이 깨지면서(작은 초기값 기준으로
+        // 재계산되어) 오른쪽에 큰 빈 여백이 생기는 문제가 있었다. 폼이 실제 크기를 가진 뒤인
+        // Load 시점에 왼쪽(그룹) 그리드 컬럼들이 다 보일 정도로만 폭을 잡아준다.
+        this.splitContainer.SplitterDistance = 560;
+    }
+
+    private void RadModeGroup_CheckedChanged(object? sender, EventArgs e)
+    {
+        ApplyMode();
+    }
+
+    private void RadModeCode_CheckedChanged(object? sender, EventArgs e)
+    {
+        ApplyMode();
+    }
+
+    private void GridGroup_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
+    {
+        SyncEditFromGroup();
+    }
+
+    private void GridCode_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
+    {
+        SyncEditFromCode();
+    }
+
+    private void BtnNew_Click(object? sender, EventArgs e)
+    {
+        ClearEdit();
+        (radModeCode.Checked ? edtCode : edtRcdtp).Focus();
+    }
+
+    private void BtnSave_Click(object? sender, EventArgs e)
+    {
+        Save(isInsert: true);
+    }
+
+    private void BtnUpd_Click(object? sender, EventArgs e)
+    {
+        Save(isInsert: false);
+    }
+
+    private void BtnDel_Click(object? sender, EventArgs e)
+    {
+        Delete();
+    }
+
+    private void BtnSearch_Click(object? sender, EventArgs e)
+    {
+        Search();
+    }
+
+    private void BtnClose_Click(object? sender, EventArgs e)
+    {
+        Close();
+    }
+
     private void BA02Form_KeyDown(object? sender, KeyEventArgs e)
     {
         switch (e.KeyCode)

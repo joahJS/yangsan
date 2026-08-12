@@ -24,6 +24,26 @@ public partial class SS33AForm : Form
         else if (e.KeyCode == Keys.Escape) Close();
     }
 
+    private void BtnLookup_Click(object? sender, EventArgs e)
+    {
+        LookupCvcod();
+    }
+
+    private void BtnYes_Click(object? sender, EventArgs e)
+    {
+        RunBatch();
+    }
+
+    private void BtnClose_Click(object? sender, EventArgs e)
+    {
+        Close();
+    }
+
+    private void SS33AForm_Load(object? sender, EventArgs e)
+    {
+        ClearForm();
+    }
+
     /// <summary>원본 prcClear.</summary>
     private void ClearForm()
     {

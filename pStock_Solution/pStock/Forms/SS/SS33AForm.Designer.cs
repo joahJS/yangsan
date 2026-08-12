@@ -127,7 +127,7 @@ partial class SS33AForm
         this.btnLookup.Left = 360;
         this.btnLookup.Top = 78;
         this.btnLookup.Width = 60;
-        this.btnLookup.Click += (_, _) => LookupCvcod();
+        this.btnLookup.Click += new EventHandler(this.BtnLookup_Click);
         this.Controls.AddRange(new Control[] { this.lblCd, this.edtCd1, this.edtCd2, this.lblTilde2, this.btnLookup });
         // y = 110
 
@@ -159,10 +159,10 @@ partial class SS33AForm
         this.btnClose.Width = 100;
         this.Controls.AddRange(new Control[] { this.lblHint, this.btnYes, this.btnClose });
 
-        this.btnYes.Click += (_, _) => RunBatch();
-        this.btnClose.Click += (_, _) => Close();
+        this.btnYes.Click += new EventHandler(this.BtnYes_Click);
+        this.btnClose.Click += new EventHandler(this.BtnClose_Click);
 
-        this.Load += (_, _) => ClearForm();
+        this.Load += new EventHandler(this.SS33AForm_Load);
         this.KeyDown += new KeyEventHandler(this.SS33AForm_KeyDown);
 
         this.ResumeLayout(false);

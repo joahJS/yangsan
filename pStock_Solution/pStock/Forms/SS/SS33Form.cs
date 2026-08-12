@@ -24,6 +24,66 @@ public partial class SS33Form : Form
         }
     }
 
+    private void BtnAuto_Click(object? sender, EventArgs e)
+    {
+        using var dlg = new SS33AForm();
+        dlg.ShowDialog(this);
+        if (dlg.Executed) this.Search();
+    }
+
+    private void BtnExcel_Click(object? sender, EventArgs e)
+    {
+        pStock.Common.ExcelExporter.Export(this.gridList, "계산서관리");
+    }
+
+    private void BtnPrint_Click(object? sender, EventArgs e)
+    {
+        pStock.Common.GridPrinter.Print(this.gridList, "계산서관리");
+    }
+
+    private void GridList_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
+    {
+        this.OpenEntry(isNew: false);
+    }
+
+    private void Tabs_SelectedIndexChanged(object? sender, EventArgs e)
+    {
+        this.Search();
+    }
+
+    private void BtnNew_Click(object? sender, EventArgs e)
+    {
+        this.OpenEntry(isNew: true);
+    }
+
+    private void BtnDel_Click(object? sender, EventArgs e)
+    {
+        this.Delete();
+    }
+
+    private void BtnSum_Click(object? sender, EventArgs e)
+    {
+        pStock.Common.GridPrinter.Print(this.gridList, "매출계산서 합계표");
+    }
+
+    private void BtnSearch_Click(object? sender, EventArgs e)
+    {
+        this.Search();
+    }
+
+    private void BtnClose_Click(object? sender, EventArgs e)
+    {
+        this.Close();
+    }
+
+    private void SS33Form_Load(object? sender, EventArgs e)
+    {
+        var monthStart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+        this.dtpDate1.Value = monthStart; this.dtpDate2.Value = DateTime.Now;
+        this.dtpDate3.Value = monthStart; this.dtpDate4.Value = DateTime.Now;
+        this.Search();
+    }
+
     /// <summary>원본 prcDBopen + qryListAfterOpen(qrySum/qrySum1).</summary>
     private void Search()
     {

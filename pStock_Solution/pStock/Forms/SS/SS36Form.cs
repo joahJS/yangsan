@@ -24,6 +24,24 @@ public partial class SS36Form : Form
         }
     }
 
+    private void BtnExcel_Click(object? sender, EventArgs e) => pStock.Common.ExcelExporter.Export(this.grid, "품목원장조회");
+    private void BtnPrint_Click(object? sender, EventArgs e) => pStock.Common.GridPrinter.Print(this.grid, "품목원장조회");
+
+    private void BtnNew_Click(object? sender, EventArgs e)
+    {
+        this.edtCode.Clear(); this.dspName.Clear(); this.dspDanwi.Clear(); this.lblCvnam.Text = ""; this.grid.Rows.Clear(); this.edtCode.Focus();
+    }
+
+    private void BtnSearch_Click(object? sender, EventArgs e) => this.Search();
+    private void BtnClose_Click(object? sender, EventArgs e) => this.Close();
+
+    private void SS36Form_Load(object? sender, EventArgs e)
+    {
+        var now = DateTime.Now;
+        this.dtpDate1.Value = new DateTime(now.Year, now.Month, 1);
+        this.dtpDate2.Value = now;
+    }
+
     /// <summary>원본 edtCodeKeyDown.</summary>
     private void EdtCode_KeyDown(object? sender, KeyEventArgs e)
     {

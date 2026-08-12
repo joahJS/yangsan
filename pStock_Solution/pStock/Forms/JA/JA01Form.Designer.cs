@@ -90,19 +90,19 @@ partial class JA01Form
         this.btnExcel.Left = 215; this.btnExcel.Top = 8; this.btnExcel.Width = 100;
         this.btnPrint.Left = 320; this.btnPrint.Top = 8; this.btnPrint.Width = 100;
         this.btnClose.Left = 425; this.btnClose.Top = 8; this.btnClose.Width = 100;
-        this.btnExcel.Click += (_, _) => pStock.Common.ExcelExporter.Export(this.grid, "재고관리");
-        this.btnPrint.Click += (_, _) => pStock.Common.GridPrinter.Print(this.grid, "재고관리");
+        this.btnExcel.Click += new EventHandler(this.BtnExcel_Click);
+        this.btnPrint.Click += new EventHandler(this.BtnPrint_Click);
 
         this.lblMonth.Text = "조회월(YYYY-MM)";
         this.lblMonth.Left = 550;
         this.lblMonth.Top = 14;
         this.lblMonth.AutoSize = true;
         this.edtMonth.Left = 680; this.edtMonth.Top = 10; this.edtMonth.Width = 80;
-        this.edtMonth.KeyDown += (_, e) => { if (e.KeyCode == Keys.Enter) ReloadList(); };
+        this.edtMonth.KeyDown += new KeyEventHandler(this.EdtMonth_KeyDown);
         this.btnMonthDown.Left = 765; this.btnMonthDown.Top = 8; this.btnMonthDown.Width = 30;
         this.btnMonthUp.Left = 798; this.btnMonthUp.Top = 8; this.btnMonthUp.Width = 30;
-        this.btnMonthDown.Click += (_, _) => { ShiftMonth(-1); ReloadList(); };
-        this.btnMonthUp.Click += (_, _) => { ShiftMonth(1); ReloadList(); };
+        this.btnMonthDown.Click += new EventHandler(this.BtnMonthDown_Click);
+        this.btnMonthUp.Click += new EventHandler(this.BtnMonthUp_Click);
         this.panelTop.Controls.AddRange(new Control[] { this.lblMonth, this.edtMonth, this.btnMonthDown, this.btnMonthUp });
         //
         // tab1 (품목별)
@@ -110,7 +110,7 @@ partial class JA01Form
         this.lblNo.Text = "품명검색";
         this.lblNo.Left = 10; this.lblNo.Top = 12; this.lblNo.AutoSize = true;
         this.edtNo.Left = 80; this.edtNo.Top = 8; this.edtNo.Width = 200;
-        this.edtNo.KeyUp += (_, _) => LocateInGrid("ITDSC", this.edtNo.Text);
+        this.edtNo.KeyUp += new KeyEventHandler(this.EdtNo_KeyUp);
         this.tab1.Controls.AddRange(new Control[] { this.lblNo, this.edtNo });
         //
         // tab2 (거래처별)
@@ -118,7 +118,7 @@ partial class JA01Form
         this.lblCvnam.Text = "거래처검색";
         this.lblCvnam.Left = 10; this.lblCvnam.Top = 12; this.lblCvnam.AutoSize = true;
         this.edtCvnam.Left = 90; this.edtCvnam.Top = 8; this.edtCvnam.Width = 200;
-        this.edtCvnam.KeyUp += (_, _) => LocateInGrid("CVNAM", this.edtCvnam.Text);
+        this.edtCvnam.KeyUp += new KeyEventHandler(this.EdtCvnam_KeyUp);
         this.tab2.Controls.AddRange(new Control[] { this.lblCvnam, this.edtCvnam });
         //
         // tab3 (저장위치별)
@@ -126,7 +126,7 @@ partial class JA01Form
         this.lblHouse.Text = "저장위치";
         this.lblHouse.Left = 10; this.lblHouse.Top = 12; this.lblHouse.AutoSize = true;
         this.cboHouse.Left = 90; this.cboHouse.Top = 8; this.cboHouse.Width = 150;
-        this.cboHouse.SelectedIndexChanged += (_, _) => LocateInGrid("HOUSE", this.cboHouse.Text);
+        this.cboHouse.SelectedIndexChanged += new EventHandler(this.CboHouse_SelectedIndexChanged);
         this.tab3.Controls.AddRange(new Control[] { this.lblHouse, this.cboHouse });
         //
         // tabs
@@ -134,7 +134,7 @@ partial class JA01Form
         this.tabs.Dock = DockStyle.Top;
         this.tabs.Height = 40;
         this.tabs.TabPages.AddRange(new[] { this.tab1, this.tab2, this.tab3 });
-        this.tabs.SelectedIndexChanged += (_, _) => ReloadList();
+        this.tabs.SelectedIndexChanged += new EventHandler(this.Tabs_SelectedIndexChanged);
         //
         // grid
         //
@@ -144,9 +144,9 @@ partial class JA01Form
         //
         // 이벤트 배선 (원본 BuildLayout() 끝부분)
         //
-        this.btnNew.Click += (_, _) => { this.edtNo.Clear(); this.edtCvnam.Clear(); this.edtMonth.Text = DateTime.Now.ToString("yyyy-MM"); this.grid.DataSource = null; };
-        this.btnSearch.Click += (_, _) => ReloadList();
-        this.btnClose.Click += (_, _) => Close();
+        this.btnNew.Click += new EventHandler(this.BtnNew_Click);
+        this.btnSearch.Click += new EventHandler(this.BtnSearch_Click);
+        this.btnClose.Click += new EventHandler(this.BtnClose_Click);
         //
         // JA01Form
         //
@@ -157,7 +157,7 @@ partial class JA01Form
         this.Controls.Add(this.grid);
         this.Controls.Add(this.tabs);
         this.Controls.Add(this.panelTop);
-        this.Load += (_, _) => { ResetHouseList(); this.edtMonth.Text = DateTime.Now.ToString("yyyy-MM"); ReloadList(); };
+        this.Load += new EventHandler(this.JA01Form_Load);
         this.KeyDown += new KeyEventHandler(this.JA01Form_KeyDown);
         this.tab1.ResumeLayout(false);
         this.tab1.PerformLayout();

@@ -30,6 +30,61 @@ public partial class SS020Form : Form
         if (dlg.Saved) Search();
     }
 
+    private void BtnExcel_Click(object? sender, EventArgs e)
+    {
+        pStock.Common.ExcelExporter.Export(this.gridList, "출고관리");
+    }
+
+    private void BtnPrint_Click(object? sender, EventArgs e)
+    {
+        pStock.Common.GridPrinter.Print(this.gridList, "출고관리");
+    }
+
+    private void GridList_SelectionChanged(object? sender, EventArgs e)
+    {
+        LoadDetail();
+    }
+
+    private void GridList_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
+    {
+        OpenEditForSelected();
+    }
+
+    private void BtnNew_Click(object? sender, EventArgs e)
+    {
+        using var dlg = new SS020F01Form();
+        dlg.ShowDialog(this);
+        if (dlg.Saved) Search();
+    }
+
+    private void BtnDel_Click(object? sender, EventArgs e)
+    {
+        DeleteMaster();
+    }
+
+    private void BtnCut_Click(object? sender, EventArgs e)
+    {
+        DeleteDetail();
+    }
+
+    private void BtnSearch_Click(object? sender, EventArgs e)
+    {
+        Search();
+    }
+
+    private void BtnClose_Click(object? sender, EventArgs e)
+    {
+        Close();
+    }
+
+    private void SS020Form_Load(object? sender, EventArgs e)
+    {
+        this.eDate2.Text = DateTime.Now.ToString("yyyy-MM-dd");
+        this.eDate1.Text = this.eDate2.Text;
+        this.cSrcd.SelectedIndex = 2;
+        Search();
+    }
+
     private void SS020Form_KeyDown(object? sender, KeyEventArgs e)
     {
         switch (e.KeyCode)

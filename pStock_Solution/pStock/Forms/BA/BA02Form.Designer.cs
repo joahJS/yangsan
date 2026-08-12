@@ -181,17 +181,17 @@ partial class BA02Form
         //
         // 이벤트 배선 (원본 BuildLayout()에서 그대로 이동)
         //
-        this.radModeGroup.CheckedChanged += (_, _) => ApplyMode();
-        this.radModeCode.CheckedChanged += (_, _) => ApplyMode();
+        this.radModeGroup.CheckedChanged += new EventHandler(this.RadModeGroup_CheckedChanged);
+        this.radModeCode.CheckedChanged += new EventHandler(this.RadModeCode_CheckedChanged);
         this.gridGroup.SelectionChanged += new System.EventHandler(this.GridGroup_SelectionChanged);
-        this.gridGroup.CellDoubleClick += (_, _) => SyncEditFromGroup();
-        this.gridCode.CellDoubleClick += (_, _) => SyncEditFromCode();
-        this.btnNew.Click += (_, _) => { ClearEdit(); (radModeCode.Checked ? edtCode : edtRcdtp).Focus(); };
-        this.btnSave.Click += (_, _) => Save(isInsert: true);
-        this.btnUpd.Click += (_, _) => Save(isInsert: false);
-        this.btnDel.Click += (_, _) => Delete();
-        this.btnSearch.Click += (_, _) => Search();
-        this.btnClose.Click += (_, _) => Close();
+        this.gridGroup.CellDoubleClick += new DataGridViewCellEventHandler(this.GridGroup_CellDoubleClick);
+        this.gridCode.CellDoubleClick += new DataGridViewCellEventHandler(this.GridCode_CellDoubleClick);
+        this.btnNew.Click += new EventHandler(this.BtnNew_Click);
+        this.btnSave.Click += new EventHandler(this.BtnSave_Click);
+        this.btnUpd.Click += new EventHandler(this.BtnUpd_Click);
+        this.btnDel.Click += new EventHandler(this.BtnDel_Click);
+        this.btnSearch.Click += new EventHandler(this.BtnSearch_Click);
+        this.btnClose.Click += new EventHandler(this.BtnClose_Click);
         //
         // BA02Form
         //
@@ -202,15 +202,7 @@ partial class BA02Form
         this.Controls.Add(this.splitContainer);
         this.Controls.Add(this.panelEdit);
         this.Controls.Add(this.panelTop);
-        this.Load += (_, _) =>
-        {
-            LoadGroup();
-            // 생성자 시점에는 splitContainer가 실제 화면 크기를 아직 갖지 못해 SplitterDistance를
-            // 픽셀값으로 바로 지정하면 이후 폼이 리사이즈될 때 비율이 깨지면서(작은 초기값 기준으로
-            // 재계산되어) 오른쪽에 큰 빈 여백이 생기는 문제가 있었다. 폼이 실제 크기를 가진 뒤인
-            // Load 시점에 왼쪽(그룹) 그리드 컬럼들이 다 보일 정도로만 폭을 잡아준다.
-            this.splitContainer.SplitterDistance = 560;
-        };
+        this.Load += new EventHandler(this.BA02Form_Load);
         this.KeyDown += new KeyEventHandler(this.BA02Form_KeyDown);
         this.splitContainer.Panel1.ResumeLayout(false);
         this.splitContainer.Panel2.ResumeLayout(false);

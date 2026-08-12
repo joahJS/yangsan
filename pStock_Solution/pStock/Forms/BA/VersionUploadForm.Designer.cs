@@ -59,7 +59,7 @@ partial class VersionUploadForm
         // InitializeComponent() 호출 직후에 실행한다 — 동작은 100% 동일하다.
 
         this.KeyDown += new KeyEventHandler(this.VersionUploadForm_KeyDown);
-        this.Shown += (_, _) => this.edtVersionId.Focus();
+        this.Shown += new EventHandler(this.VersionUploadForm_Shown);
         this.ResumeLayout(false);
     }
 }

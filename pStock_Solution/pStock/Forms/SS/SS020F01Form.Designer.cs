@@ -142,7 +142,7 @@ partial class SS020F01Form
         this.rgListS.Columns["DANWI"]!.ReadOnly = true;
         this.rgListS.Columns["HOUSE"]!.ReadOnly = true;
         this.rgListS.CellDoubleClick += new DataGridViewCellEventHandler(this.RgListS_CellDoubleClick);
-        this.rgListS.CellEndEdit += (_, _) => RecalcRowAndTotal();
+        this.rgListS.CellEndEdit += new DataGridViewCellEventHandler(this.RgListS_CellEndEdit);
 
         // 원본 BuildLayout()에서 gridPanel은 rgListS를 담아뒀지만 정작 Controls에는 추가되지
         // 않고(Controls.Add(rgListS)가 폼에 직접 호출됨) 버려지는 패널이었다. rgListS의 최종
@@ -156,8 +156,8 @@ partial class SS020F01Form
         this.btnAddRow.Left = 5; this.btnAddRow.Top = 5; this.btnAddRow.Width = 90;
         this.btnDelRow.Left = 100; this.btnDelRow.Top = 5; this.btnDelRow.Width = 100;
         this.panelGridButtons.Controls.AddRange(new Control[] { this.btnAddRow, this.btnDelRow });
-        this.btnAddRow.Click += (_, _) => { this.rgListS.Rows.Add("", "", "", "", "", 0, 0, 0, 0, 0, 0, ""); };
-        this.btnDelRow.Click += (_, _) => { if (this.rgListS.CurrentRow != null) { this.rgListS.Rows.Remove(this.rgListS.CurrentRow); RecalcTotal(); } };
+        this.btnAddRow.Click += new EventHandler(this.BtnAddRow_Click);
+        this.btnDelRow.Click += new EventHandler(this.BtnDelRow_Click);
 
         this.panelBottom.Dock = DockStyle.Bottom;
         this.panelBottom.Height = 80;
@@ -180,36 +180,10 @@ partial class SS020F01Form
         this.Controls.Add(this.panelBottom);
         this.Controls.Add(this.panelTop);
 
-        this.bAdd.Click += (_, _) =>
-        {
-            if (SaveEntry(out var savedNo))
-            {
-                Saved = true;
-                if (this.ckPrint.Checked) pStock.Common.DeliverySlipPrinter.Print(savedNo);
-                InitScreen();
-                this.eCvcod.Focus();
-            }
-        };
-        this.bOne.Click += (_, _) =>
-        {
-            if (SaveEntry(out var savedNo))
-            {
-                Saved = true;
-                if (this.ckPrint.Checked) pStock.Common.DeliverySlipPrinter.Print(savedNo);
-                Close();
-            }
-        };
-        this.btnPrintNow.Click += (_, _) =>
-        {
-            if (string.IsNullOrWhiteSpace(this.eNo.Text))
-            {
-                MessageBox.Show("저장된 출고번호가 없습니다. 먼저 저장하세요.", "확인",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            pStock.Common.DeliverySlipPrinter.Print(this.eNo.Text.Trim());
-        };
-        this.btnClose.Click += (_, _) => Close();
+        this.bAdd.Click += new EventHandler(this.BAdd_Click);
+        this.bOne.Click += new EventHandler(this.BOne_Click);
+        this.btnPrintNow.Click += new EventHandler(this.BtnPrintNow_Click);
+        this.btnClose.Click += new EventHandler(this.BtnClose_Click);
 
         this.KeyDown += new KeyEventHandler(this.SS020F01Form_KeyDown);
         this.ResumeLayout(false);

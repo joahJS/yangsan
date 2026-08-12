@@ -89,11 +89,11 @@ partial class PostalLookupForm
         //
         // 이벤트 배선 (원본 BuildLayout()에서 그대로 이동)
         //
-        this.edtSearch.KeyDown += (_, e) => { if (e.KeyCode == Keys.Enter) Search(); };
-        this.btnSearch.Click += (_, _) => Search();
-        this.grid.CellDoubleClick += (_, _) => Confirm();
-        this.btnConfirm.Click += (_, _) => Confirm();
-        this.btnClose.Click += (_, _) => { DialogResult = DialogResult.Cancel; Close(); };
+        this.edtSearch.KeyDown += new KeyEventHandler(this.EdtSearch_KeyDown);
+        this.btnSearch.Click += new EventHandler(this.BtnSearch_Click);
+        this.grid.CellDoubleClick += new DataGridViewCellEventHandler(this.Grid_CellDoubleClick);
+        this.btnConfirm.Click += new EventHandler(this.BtnConfirm_Click);
+        this.btnClose.Click += new EventHandler(this.BtnClose_Click);
         //
         // PostalLookupForm
         //
@@ -106,8 +106,8 @@ partial class PostalLookupForm
         this.Controls.Add(this.grid);
         this.Controls.Add(this.panelBottom);
         this.Controls.Add(this.panelTop);
-        this.Load += (_, _) => Search();
-        this.KeyDown += (_, e) => { if (e.KeyCode == Keys.Escape) Close(); };
+        this.Load += new EventHandler(this.PostalLookupForm_Load);
+        this.KeyDown += new KeyEventHandler(this.PostalLookupForm_KeyDown);
         this.panelTop.ResumeLayout(false);
         this.panelTop.PerformLayout();
         this.panelBottom.ResumeLayout(false);

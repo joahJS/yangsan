@@ -78,7 +78,7 @@ partial class SS32AForm
         // 호출 직후에 실행한다 — 동작은 100% 동일하고 디자이너가 이 메서드 밖의 정적인
         // 부분만 인식하면 되므로 로드가 가능해진다.
 
-        this.Load += (_, _) => { if (this.cboGu.Items.Count == 0) ResetGuList(); };
+        this.Load += new EventHandler(this.SS32AForm_Load);
         this.KeyDown += new KeyEventHandler(this.SS32AForm_KeyDown);
 
         ((System.ComponentModel.ISupportInitialize)(this.edtAmt)).EndInit();

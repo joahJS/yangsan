@@ -21,6 +21,42 @@ public partial class PostalLookupForm : Form
         edtSearch.Text = initialWord;
     }
 
+    private void EdtSearch_KeyDown(object? sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.Enter) Search();
+    }
+
+    private void BtnSearch_Click(object? sender, EventArgs e)
+    {
+        Search();
+    }
+
+    private void Grid_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
+    {
+        Confirm();
+    }
+
+    private void BtnConfirm_Click(object? sender, EventArgs e)
+    {
+        Confirm();
+    }
+
+    private void BtnClose_Click(object? sender, EventArgs e)
+    {
+        DialogResult = DialogResult.Cancel;
+        Close();
+    }
+
+    private void PostalLookupForm_Load(object? sender, EventArgs e)
+    {
+        Search();
+    }
+
+    private void PostalLookupForm_KeyDown(object? sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.Escape) Close();
+    }
+
     /// <summary>원본 up_Srch / gp_CallNamePOSTF의 검색 SQL.</summary>
     private void Search()
     {

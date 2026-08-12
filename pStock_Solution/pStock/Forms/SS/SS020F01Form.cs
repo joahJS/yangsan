@@ -60,6 +60,58 @@ public partial class SS020F01Form : Form
         this.panelTop.Height = layout.Bottom();
     }
 
+    private void RgListS_CellEndEdit(object? sender, DataGridViewCellEventArgs e)
+    {
+        RecalcRowAndTotal();
+    }
+
+    private void BtnAddRow_Click(object? sender, EventArgs e)
+    {
+        this.rgListS.Rows.Add("", "", "", "", "", 0, 0, 0, 0, 0, 0, "");
+    }
+
+    private void BtnDelRow_Click(object? sender, EventArgs e)
+    {
+        if (this.rgListS.CurrentRow != null) { this.rgListS.Rows.Remove(this.rgListS.CurrentRow); RecalcTotal(); }
+    }
+
+    private void BAdd_Click(object? sender, EventArgs e)
+    {
+        if (SaveEntry(out var savedNo))
+        {
+            Saved = true;
+            if (this.ckPrint.Checked) pStock.Common.DeliverySlipPrinter.Print(savedNo);
+            InitScreen();
+            this.eCvcod.Focus();
+        }
+    }
+
+    private void BOne_Click(object? sender, EventArgs e)
+    {
+        if (SaveEntry(out var savedNo))
+        {
+            Saved = true;
+            if (this.ckPrint.Checked) pStock.Common.DeliverySlipPrinter.Print(savedNo);
+            Close();
+        }
+    }
+
+    private void BtnPrintNow_Click(object? sender, EventArgs e)
+    {
+        if (string.IsNullOrWhiteSpace(this.eNo.Text))
+        {
+            MessageBox.Show("저장된 출고번호가 없습니다. 먼저 저장하세요.", "확인",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return;
+        }
+        pStock.Common.DeliverySlipPrinter.Print(this.eNo.Text.Trim());
+    }
+
+    private void BtnClose_Click(object? sender, EventArgs e)
+    {
+        Close();
+    }
+
     private void SS020F01Form_KeyDown(object? sender, KeyEventArgs e)
     {
         switch (e.KeyCode)

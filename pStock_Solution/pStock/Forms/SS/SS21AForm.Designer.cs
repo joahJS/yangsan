@@ -118,7 +118,7 @@ partial class SS21AForm
         // WinForms 디자이너가 InitializeComponent() 안에서 파싱할 수 없다. BuildDynamicLayout()
         // (SS21AForm.cs)으로 분리해 생성자에서 InitializeComponent() 호출 직후 실행한다.
 
-        this.Load += (_, _) => { if (this.cboHouse.Items.Count == 0) ResetHouseList(); };
+        this.Load += new EventHandler(this.SS21AForm_Load);
         this.KeyDown += new KeyEventHandler(this.SS21AForm_KeyDown);
         this.ResumeLayout(false);
     }

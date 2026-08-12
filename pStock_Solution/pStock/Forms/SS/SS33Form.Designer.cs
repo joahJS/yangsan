@@ -110,14 +110,9 @@ partial class SS33Form
         this.btnExcel.Left = 480; this.btnExcel.Top = 8; this.btnExcel.Width = 90;
         this.btnPrint.Left = 575; this.btnPrint.Top = 8; this.btnPrint.Width = 90;
         this.btnClose.Left = 670; this.btnClose.Top = 8; this.btnClose.Width = 90;
-        this.btnAuto.Click += (_, _) =>
-        {
-            using var dlg = new SS33AForm();
-            dlg.ShowDialog(this);
-            if (dlg.Executed) this.Search();
-        };
-        this.btnExcel.Click += (_, _) => pStock.Common.ExcelExporter.Export(this.gridList, "계산서관리");
-        this.btnPrint.Click += (_, _) => pStock.Common.GridPrinter.Print(this.gridList, "계산서관리");
+        this.btnAuto.Click += new EventHandler(this.BtnAuto_Click);
+        this.btnExcel.Click += new EventHandler(this.BtnExcel_Click);
+        this.btnPrint.Click += new EventHandler(this.BtnPrint_Click);
 
         this.panel1 = new Panel();
         this.panel1.Dock = DockStyle.Top;
@@ -139,7 +134,7 @@ partial class SS33Form
         this.split1.Dock = DockStyle.Fill;
         this.split1.SplitterDistance = 900;
         this.gridList.Dock = DockStyle.Fill; this.gridList.ReadOnly = true; this.gridList.AllowUserToAddRows = false;
-        this.gridList.CellDoubleClick += (_, _) => this.OpenEntry(isNew: false);
+        this.gridList.CellDoubleClick += new DataGridViewCellEventHandler(this.GridList_CellDoubleClick);
         this.gridSum.Dock = DockStyle.Fill; this.gridSum.ReadOnly = true; this.gridSum.AllowUserToAddRows = false;
         this.gridSum.Columns.Add("KEY", "구분");
         this.gridSum.Columns.Add("CNT", "건수");
@@ -183,24 +178,18 @@ partial class SS33Form
 
         this.tabs.Dock = DockStyle.Fill;
         this.tabs.TabPages.AddRange(new[] { this.tab1, this.tab2 });
-        this.tabs.SelectedIndexChanged += (_, _) => this.Search();
+        this.tabs.SelectedIndexChanged += new EventHandler(this.Tabs_SelectedIndexChanged);
 
         this.Controls.Add(this.tabs);
         this.Controls.Add(this.panelTop);
 
-        this.btnNew.Click += (_, _) => this.OpenEntry(isNew: true);
-        this.btnDel.Click += (_, _) => this.Delete();
-        this.btnSum.Click += (_, _) => pStock.Common.GridPrinter.Print(this.gridList, "매출계산서 합계표");
-        this.btnSearch.Click += (_, _) => this.Search();
-        this.btnClose.Click += (_, _) => this.Close();
+        this.btnNew.Click += new EventHandler(this.BtnNew_Click);
+        this.btnDel.Click += new EventHandler(this.BtnDel_Click);
+        this.btnSum.Click += new EventHandler(this.BtnSum_Click);
+        this.btnSearch.Click += new EventHandler(this.BtnSearch_Click);
+        this.btnClose.Click += new EventHandler(this.BtnClose_Click);
 
-        this.Load += (_, _) =>
-        {
-            var monthStart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            this.dtpDate1.Value = monthStart; this.dtpDate2.Value = DateTime.Now;
-            this.dtpDate3.Value = monthStart; this.dtpDate4.Value = DateTime.Now;
-            this.Search();
-        };
+        this.Load += new EventHandler(this.SS33Form_Load);
         this.KeyDown += new KeyEventHandler(this.SS33Form_KeyDown);
 
         this.split1.Panel1.ResumeLayout(false);
