@@ -1,0 +1,11 @@
+# 빌드 산출물
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio 캐시/사용자별 설정
+.vs/
+*.user
+*.suo
+
+# 로그/임시 파일
+*.log
