@@ -51,7 +51,7 @@ partial class ED01Form
         //
         // BuildLayout (원본 그대로 이동)
         //
-        for (int i = 1; i <= 12; i++) this.cboMonth.Items.Add(i.ToString());
+        this.cboMonth.Items.AddRange(new object[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" });
 
         this.lblYear = new Label { Text = "년도", Left = 20, Top = 20, AutoSize = true };
         this.edtYear.Left = 70; this.edtYear.Top = 16; this.edtYear.Width = 60;
@@ -64,7 +64,11 @@ partial class ED01Form
         this.chk3.Left = 20; this.chk3.Top = y; this.chk3.AutoSize = true; y += 26;
         this.chk4.Left = 20; this.chk4.Top = y; this.chk4.AutoSize = true; y += 26;
         this.chk5.Left = 20; this.chk5.Top = y; this.chk5.AutoSize = true; y += 40;
-        foreach (var c in new[] { this.chk1, this.chk2, this.chk3, this.chk4, this.chk5 }) c.Checked = true;
+        this.chk1.Checked = true;
+        this.chk2.Checked = true;
+        this.chk3.Checked = true;
+        this.chk4.Checked = true;
+        this.chk5.Checked = true;
 
         this.progress.Left = 20; this.progress.Top = y; this.progress.Width = 390; y += 40;
 

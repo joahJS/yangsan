@@ -78,11 +78,12 @@ partial class SS32Form
         this.panelTop.Dock = DockStyle.Top;
         this.panelTop.Height = 40;
         this.panelTop.Controls.AddRange(new Control[] { this.btnNew, this.btnDel, this.btnSearch, this.btnExcel, this.btnPrint, this.btnClose });
-        {
-            int bx = 5;
-            foreach (Control c in new Control[] { this.btnNew, this.btnDel, this.btnSearch, this.btnExcel, this.btnPrint, this.btnClose })
-            { c.Left = bx; c.Top = 8; c.Width = 90; bx += 95; }
-        }
+        this.btnNew.Left = 5; this.btnNew.Top = 8; this.btnNew.Width = 90;
+        this.btnDel.Left = 100; this.btnDel.Top = 8; this.btnDel.Width = 90;
+        this.btnSearch.Left = 195; this.btnSearch.Top = 8; this.btnSearch.Width = 90;
+        this.btnExcel.Left = 290; this.btnExcel.Top = 8; this.btnExcel.Width = 90;
+        this.btnPrint.Left = 385; this.btnPrint.Top = 8; this.btnPrint.Width = 90;
+        this.btnClose.Left = 480; this.btnClose.Top = 8; this.btnClose.Width = 90;
         this.btnExcel.Click += (_, _) => pStock.Common.ExcelExporter.Export(this.gridList, "수금관리");
         this.btnPrint.Click += (_, _) => pStock.Common.GridPrinter.Print(this.gridList, "수금관리");
         //

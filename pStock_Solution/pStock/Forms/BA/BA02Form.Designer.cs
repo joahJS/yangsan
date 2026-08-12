@@ -97,22 +97,30 @@ partial class BA02Form
         //
         this.panelTop.Dock = DockStyle.Top;
         this.panelTop.Height = 40;
+        this.btnNew.Left = 5;
+        this.btnNew.Top = 8;
+        this.btnNew.Width = 90;
         this.panelTop.Controls.Add(this.btnNew);
+        this.btnSave.Left = 100;
+        this.btnSave.Top = 8;
+        this.btnSave.Width = 90;
         this.panelTop.Controls.Add(this.btnSave);
+        this.btnUpd.Left = 195;
+        this.btnUpd.Top = 8;
+        this.btnUpd.Width = 90;
         this.panelTop.Controls.Add(this.btnUpd);
+        this.btnDel.Left = 290;
+        this.btnDel.Top = 8;
+        this.btnDel.Width = 90;
         this.panelTop.Controls.Add(this.btnDel);
+        this.btnSearch.Left = 385;
+        this.btnSearch.Top = 8;
+        this.btnSearch.Width = 90;
         this.panelTop.Controls.Add(this.btnSearch);
+        this.btnClose.Left = 480;
+        this.btnClose.Top = 8;
+        this.btnClose.Width = 90;
         this.panelTop.Controls.Add(this.btnClose);
-        {
-            int bx = 5;
-            foreach (Control c in this.panelTop.Controls)
-            {
-                c.Left = bx;
-                c.Top = 8;
-                c.Width = 90;
-                bx += 95;
-            }
-        }
         //
         // panelEdit (원본 BuildLayout()의 editPanel: 라디오버튼 2개 + 라벨/입력란 4쌍을
         // 이전 컨트롤의 오른쪽 끝(Right) 기준으로 이어붙이던 좌표 계산을 그대로 유지)

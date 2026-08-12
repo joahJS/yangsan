@@ -85,20 +85,22 @@ partial class JA01Form
         this.panelTop.Dock = DockStyle.Top;
         this.panelTop.Height = 40;
         this.panelTop.Controls.AddRange(new Control[] { this.btnNew, this.btnSearch, this.btnExcel, this.btnPrint, this.btnClose });
-        int bx = 5;
-        foreach (Control c in new Control[] { this.btnNew, this.btnSearch, this.btnExcel, this.btnPrint, this.btnClose })
-        { c.Left = bx; c.Top = 8; c.Width = 100; bx += 105; }
+        this.btnNew.Left = 5; this.btnNew.Top = 8; this.btnNew.Width = 100;
+        this.btnSearch.Left = 110; this.btnSearch.Top = 8; this.btnSearch.Width = 100;
+        this.btnExcel.Left = 215; this.btnExcel.Top = 8; this.btnExcel.Width = 100;
+        this.btnPrint.Left = 320; this.btnPrint.Top = 8; this.btnPrint.Width = 100;
+        this.btnClose.Left = 425; this.btnClose.Top = 8; this.btnClose.Width = 100;
         this.btnExcel.Click += (_, _) => pStock.Common.ExcelExporter.Export(this.grid, "재고관리");
         this.btnPrint.Click += (_, _) => pStock.Common.GridPrinter.Print(this.grid, "재고관리");
 
         this.lblMonth.Text = "조회월(YYYY-MM)";
-        this.lblMonth.Left = bx + 20;
+        this.lblMonth.Left = 550;
         this.lblMonth.Top = 14;
         this.lblMonth.AutoSize = true;
-        this.edtMonth.Left = bx + 150; this.edtMonth.Top = 10; this.edtMonth.Width = 80;
+        this.edtMonth.Left = 680; this.edtMonth.Top = 10; this.edtMonth.Width = 80;
         this.edtMonth.KeyDown += (_, e) => { if (e.KeyCode == Keys.Enter) ReloadList(); };
-        this.btnMonthDown.Left = bx + 235; this.btnMonthDown.Top = 8; this.btnMonthDown.Width = 30;
-        this.btnMonthUp.Left = bx + 268; this.btnMonthUp.Top = 8; this.btnMonthUp.Width = 30;
+        this.btnMonthDown.Left = 765; this.btnMonthDown.Top = 8; this.btnMonthDown.Width = 30;
+        this.btnMonthUp.Left = 798; this.btnMonthUp.Top = 8; this.btnMonthUp.Width = 30;
         this.btnMonthDown.Click += (_, _) => { ShiftMonth(-1); ReloadList(); };
         this.btnMonthUp.Click += (_, _) => { ShiftMonth(1); ReloadList(); };
         this.panelTop.Controls.AddRange(new Control[] { this.lblMonth, this.edtMonth, this.btnMonthDown, this.btnMonthUp });

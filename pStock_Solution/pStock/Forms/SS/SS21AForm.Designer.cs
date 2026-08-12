@@ -85,8 +85,12 @@ partial class SS21AForm
         //
         // BuildLayout (원본 그대로 이동)
         //
-        foreach (var n in new[] { this.edtIqty, this.edtIcost, this.edtIamt, this.edtJamt1, this.edtJamt2, this.edtJamt3 })
-            PublicLib.MakeTypingFriendly(n);
+        PublicLib.MakeTypingFriendly(this.edtIqty);
+        PublicLib.MakeTypingFriendly(this.edtIcost);
+        PublicLib.MakeTypingFriendly(this.edtIamt);
+        PublicLib.MakeTypingFriendly(this.edtJamt1);
+        PublicLib.MakeTypingFriendly(this.edtJamt2);
+        PublicLib.MakeTypingFriendly(this.edtJamt3);
 
         this.pnlJob.Left = 20; this.pnlJob.Top = 10;
         this.Controls.Add(this.pnlJob);

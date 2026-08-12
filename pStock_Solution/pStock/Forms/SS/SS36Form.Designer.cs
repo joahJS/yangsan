@@ -65,9 +65,11 @@ partial class SS36Form
         //
         this.panelTop = new Panel { Dock = DockStyle.Top, Height = 40 };
         this.panelTop.Controls.AddRange(new Control[] { this.btnNew, this.btnSearch, this.btnExcel, this.btnPrint, this.btnClose });
-        int bx = 5;
-        foreach (Control c in new Control[] { this.btnNew, this.btnSearch, this.btnExcel, this.btnPrint, this.btnClose })
-        { c.Left = bx; c.Top = 8; c.Width = 100; bx += 105; }
+        this.btnNew.Left = 5; this.btnNew.Top = 8; this.btnNew.Width = 100;
+        this.btnSearch.Left = 110; this.btnSearch.Top = 8; this.btnSearch.Width = 100;
+        this.btnExcel.Left = 215; this.btnExcel.Top = 8; this.btnExcel.Width = 100;
+        this.btnPrint.Left = 320; this.btnPrint.Top = 8; this.btnPrint.Width = 100;
+        this.btnClose.Left = 425; this.btnClose.Top = 8; this.btnClose.Width = 100;
         this.btnExcel.Click += (_, _) => pStock.Common.ExcelExporter.Export(this.grid, "품목원장조회");
         this.btnPrint.Click += (_, _) => pStock.Common.GridPrinter.Print(this.grid, "품목원장조회");
 

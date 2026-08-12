@@ -75,9 +75,9 @@ partial class JA05Form
         this.panelTop.Dock = DockStyle.Top;
         this.panelTop.Height = 40;
         this.panelTop.Controls.AddRange(new Control[] { this.btnNew, this.btnSearch, this.btnClose });
-        int bx = 5;
-        foreach (Control c in new Control[] { this.btnNew, this.btnSearch, this.btnClose })
-        { c.Left = bx; c.Top = 8; c.Width = 100; bx += 105; }
+        this.btnNew.Left = 5; this.btnNew.Top = 8; this.btnNew.Width = 100;
+        this.btnSearch.Left = 110; this.btnSearch.Top = 8; this.btnSearch.Width = 100;
+        this.btnClose.Left = 215; this.btnClose.Top = 8; this.btnClose.Width = 100;
         //
         // panelEdit
         //
