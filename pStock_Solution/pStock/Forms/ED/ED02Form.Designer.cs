@@ -59,14 +59,14 @@ partial class ED02Form
 
         this.Controls.AddRange(new Control[] { this.lblYear, this.edtYear, this.btnDown, this.btnUp, this.lblHint, this.btnOk, this.btnCancel });
 
-        this.btnDown.Click += (_, _) => edtYear.Text = (PublicLib.StrToIntSafe(edtYear.Text) - 1).ToString();
-        this.btnUp.Click += (_, _) => edtYear.Text = (PublicLib.StrToIntSafe(edtYear.Text) + 1).ToString();
+        this.btnDown.Click += (_, _) => { edtYear.Text = (PublicLib.StrToIntSafe(edtYear.Text) - 1).ToString(); };
+        this.btnUp.Click += (_, _) => { edtYear.Text = (PublicLib.StrToIntSafe(edtYear.Text) + 1).ToString(); };
         this.btnOk.Click += (_, _) => RunClose();
         this.btnCancel.Click += (_, _) => Close();
         //
         // Load / KeyDown
         //
-        this.Load += (_, _) => this.edtYear.Text = DateTime.Now.Year.ToString();
+        this.Load += (_, _) => { this.edtYear.Text = DateTime.Now.Year.ToString(); };
         this.KeyDown += new KeyEventHandler(this.ED02Form_KeyDown);
         this.ResumeLayout(false);
     }
