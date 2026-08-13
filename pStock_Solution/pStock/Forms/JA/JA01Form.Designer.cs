@@ -141,6 +141,9 @@ partial class JA01Form
         this.grid.Dock = DockStyle.Fill;
         this.grid.ReadOnly = true;
         this.grid.AllowUserToAddRows = false;
+        this.grid.DataSource = System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime
+            ? JA01Form.BuildDesignTimeSample()
+            : null;
         //
         // 이벤트 배선 (원본 BuildLayout() 끝부분)
         //
