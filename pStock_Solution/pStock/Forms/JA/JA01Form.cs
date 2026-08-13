@@ -23,36 +23,6 @@ public partial class JA01Form : Form
         InitializeComponent();
     }
 
-    /// <summary>
-    /// VS 디자이너에서 그리드에 실제 데이터가 채워진 모습을 미리 볼 수 있도록 디자인 타임
-    /// 전용 샘플을 만든다. LicenseManager.UsageMode 체크로 감싸져 있어 실제 프로그램
-    /// 실행(런타임)에는 절대 실행되지 않으며, 화면 동작에는 전혀 영향이 없다.
-    /// </summary>
-    private static DataTable BuildDesignTimeSample()
-    {
-        var t = new DataTable();
-        t.Columns.Add("ITNBR", typeof(string)).Caption = "품번";
-        t.Columns.Add("HOUSE", typeof(string)).Caption = "저장위치";
-        t.Columns.Add("ITDSC", typeof(string)).Caption = "품명";
-        t.Columns.Add("ISPEC", typeof(string)).Caption = "규격";
-        t.Columns.Add("DANWI", typeof(string)).Caption = "단위";
-        t.Columns.Add("ICOST", typeof(int)).Caption = "입고단가";
-        t.Columns.Add("BCOST", typeof(int)).Caption = "기준단가";
-        t.Columns.Add("OCOST", typeof(int)).Caption = "출고단가";
-        t.Columns.Add("CVCOD", typeof(string)).Caption = "거래처코드";
-        t.Columns.Add("CVNAM", typeof(string)).Caption = "거래처명";
-        t.Columns.Add("BQTY", typeof(double)).Caption = "기초";
-        t.Columns.Add("IQTY", typeof(double)).Caption = "입고";
-        t.Columns.Add("OQTY", typeof(double)).Caption = "출고";
-        t.Columns.Add("XQTY", typeof(double)).Caption = "조정";
-        t.Columns.Add("JQTY", typeof(double)).Caption = "재고";
-
-        t.Rows.Add("2091690", "A01", "*ALC00149-R05", "833KG", "P/T", 5000, 5000, 5000, "2091", "길산에스에스", 10, 5, 3, 0, 12);
-        t.Rows.Add("2094698", "A01", "0.4T*130W-대", "100KG", "P/T", 5000, 5000, 5000, "2094", "길산에스에스", 20, 0, 10, 0, 10);
-        t.Rows.Add("1050147", "A01", "10% NI-OCT", "900KG", "P/T", 8000, 0, 8000, "1050", "제너럴케미칼", 5, 8, 0, -2, 11);
-        return t;
-    }
-
     private void JA01Form_KeyDown(object? sender, KeyEventArgs e)
     {
         switch (e.KeyCode)
