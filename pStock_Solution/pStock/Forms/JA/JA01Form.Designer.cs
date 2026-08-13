@@ -132,7 +132,7 @@ partial class JA01Form
         // tabs
         //
         this.tabs.Dock = DockStyle.Top;
-        this.tabs.Height = 40;
+        this.tabs.Height = 70;
         this.tabs.TabPages.AddRange(new TabPage[] { this.tab1, this.tab2, this.tab3 });
         this.tabs.SelectedIndexChanged += new EventHandler(this.Tabs_SelectedIndexChanged);
         //
