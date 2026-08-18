@@ -214,17 +214,17 @@ partial class BA02Form
 
         this.lblRcdtp.Text = "구분:";
         this.lblRcdtp.Left = this.radModeCode.Right + 30; this.lblRcdtp.Top = 60;
-        this.edtRcdtp.Left = this.lblRcdtp.Right + 8; this.edtRcdtp.Top = 54; this.edtRcdtp.Width = 130;
+        this.edtRcdtp.Left = this.lblRcdtp.Right + 4; this.edtRcdtp.Top = 54; this.edtRcdtp.Width = 130;
 
         this.lblRetxf.Text = "전체명:";
         this.lblRetxf.Left = this.edtRcdtp.Right + 24; this.lblRetxf.Top = 60;
-        this.edtRetxf.Left = this.lblRetxf.Right + 8; this.edtRetxf.Top = 54; this.edtRetxf.Width = 160;
+        this.edtRetxf.Left = this.lblRetxf.Right + 4; this.edtRetxf.Top = 54; this.edtRetxf.Width = 160;
 
         this.lblCode.Left = this.edtRetxf.Right + 24; this.lblCode.Top = 60;
-        this.edtCode.Left = this.lblCode.Right + 8; this.edtCode.Top = 54; this.edtCode.Width = 110;
+        this.edtCode.Left = this.lblCode.Right + 4; this.edtCode.Top = 54; this.edtCode.Width = 110;
 
         this.lblRetxs.Left = this.edtCode.Right + 24; this.lblRetxs.Top = 60;
-        this.edtRetxs.Left = this.lblRetxs.Right + 8; this.edtRetxs.Top = 54; this.edtRetxs.Width = 110;
+        this.edtRetxs.Left = this.lblRetxs.Right + 4; this.edtRetxs.Top = 54; this.edtRetxs.Width = 110;
 
         this.edtRcdtp.BorderRadius = 6;
         this.edtRetxf.BorderRadius = 6;

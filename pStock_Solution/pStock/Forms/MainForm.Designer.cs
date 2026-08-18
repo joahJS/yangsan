@@ -296,7 +296,7 @@ partial class MainForm
         this.tabStripPanel.FlowDirection = FlowDirection.LeftToRight;
         this.tabStripPanel.WrapContents = false;
         this.tabStripPanel.AutoScroll = true;
-        this.tabStripPanel.Padding = new Padding(8, 6, 8, 0);
+        this.tabStripPanel.Padding = new Padding(12, 6, 8, 0);
         //
         // formHostPanel (실제 업무 화면 폼들을 TopLevel=false로 올려 붙이는 영역 — 한 번에
         // 하나만 Visible=true로 보이고 나머지는 숨겨진다)
