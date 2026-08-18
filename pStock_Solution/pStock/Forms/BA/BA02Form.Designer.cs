@@ -303,12 +303,16 @@ partial class BA02Form
         this.gridGroup.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(75, 85, 99);
         this.gridGroup.ColumnHeadersDefaultCellStyle.Font = new Font("맑은 고딕", 9F, FontStyle.Bold);
         this.gridGroup.RowTemplate.Height = 32;
-        this.gridGroup.GridColor = Color.FromArgb(229, 231, 235);
-        this.gridGroup.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+        this.gridGroup.GridColor = Color.FromArgb(209, 213, 219);
+        this.gridGroup.CellBorderStyle = DataGridViewCellBorderStyle.Single;
         this.gridGroup.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         this.gridGroup.DefaultCellStyle.SelectionBackColor = Color.FromArgb(232, 240, 254);
         this.gridGroup.DefaultCellStyle.SelectionForeColor = Color.FromArgb(31, 41, 55);
         this.gridGroup.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(250, 250, 251);
+        this.gridGroup.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(248, 249, 251);
+        this.gridGroup.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.FromArgb(75, 85, 99);
+        this.gridGroup.RowHeadersDefaultCellStyle.SelectionBackColor = Color.White;
+        this.gridGroup.RowHeadersDefaultCellStyle.SelectionForeColor = Color.FromArgb(75, 85, 99);
 
         this.groupCardPanel.Dock = DockStyle.Left;
         this.groupCardPanel.Width = 560;
@@ -316,6 +320,7 @@ partial class BA02Form
         this.groupCardPanel.BorderRadius = 10;
         this.groupCardPanel.BorderColor = Color.FromArgb(229, 231, 235);
         this.groupCardPanel.BorderThickness = 1;
+        this.groupCardPanel.Padding = new Padding(1);
         this.groupCardPanel.ShadowDecoration.Enabled = false;
         this.groupCardPanel.Controls.Add(this.gridGroup);
         this.groupCardPanel.Controls.Add(this.groupHeaderPanel);
@@ -357,18 +362,23 @@ partial class BA02Form
         this.gridCode.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(75, 85, 99);
         this.gridCode.ColumnHeadersDefaultCellStyle.Font = new Font("맑은 고딕", 9F, FontStyle.Bold);
         this.gridCode.RowTemplate.Height = 32;
-        this.gridCode.GridColor = Color.FromArgb(229, 231, 235);
-        this.gridCode.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+        this.gridCode.GridColor = Color.FromArgb(209, 213, 219);
+        this.gridCode.CellBorderStyle = DataGridViewCellBorderStyle.Single;
         this.gridCode.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         this.gridCode.DefaultCellStyle.SelectionBackColor = Color.FromArgb(232, 240, 254);
         this.gridCode.DefaultCellStyle.SelectionForeColor = Color.FromArgb(31, 41, 55);
         this.gridCode.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(250, 250, 251);
+        this.gridCode.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(248, 249, 251);
+        this.gridCode.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.FromArgb(75, 85, 99);
+        this.gridCode.RowHeadersDefaultCellStyle.SelectionBackColor = Color.White;
+        this.gridCode.RowHeadersDefaultCellStyle.SelectionForeColor = Color.FromArgb(75, 85, 99);
 
         this.codeCardPanel.Dock = DockStyle.Fill;
         this.codeCardPanel.FillColor = Color.White;
         this.codeCardPanel.BorderRadius = 10;
         this.codeCardPanel.BorderColor = Color.FromArgb(229, 231, 235);
         this.codeCardPanel.BorderThickness = 1;
+        this.codeCardPanel.Padding = new Padding(1);
         this.codeCardPanel.ShadowDecoration.Enabled = false;
         this.codeCardPanel.Controls.Add(this.gridCode);
         this.codeCardPanel.Controls.Add(this.codeHeaderPanel);
@@ -382,15 +392,13 @@ partial class BA02Form
         this.gridAreaPanel.Controls.Add(this.splitterGap);
         this.gridAreaPanel.Controls.Add(this.groupCardPanel);
         //
-        // cardPanel (전체를 감싸는 카드 — 제목은 OS 기본 캡션바에만 표시)
+        // cardPanel (탭 콘텐츠 영역을 가장자리까지 꽉 채운다 — 더 이상 떠 있는 카드가 아니다)
         //
         this.cardPanel.Dock = DockStyle.Fill;
         this.cardPanel.FillColor = Color.White;
-        this.cardPanel.BorderRadius = 12;
+        this.cardPanel.BorderRadius = 0;
         this.cardPanel.BorderThickness = 0;
-        this.cardPanel.ShadowDecoration.Enabled = true;
-        this.cardPanel.ShadowDecoration.Color = Color.FromArgb(40, 0, 0, 0);
-        this.cardPanel.ShadowDecoration.Depth = 20;
+        this.cardPanel.ShadowDecoration.Enabled = false;
         this.cardPanel.Controls.Add(this.gridAreaPanel);
         this.cardPanel.Controls.Add(this.filterAreaPanel);
         this.cardPanel.Controls.Add(this.toolbarPanel);
@@ -415,8 +423,7 @@ partial class BA02Form
         this.Width = 1200;
         this.Height = 800;
         this.KeyPreview = true;
-        this.BackColor = Color.FromArgb(243, 244, 247);
-        this.Padding = new Padding(16);
+        this.BackColor = Color.White;
         this.Controls.Add(this.cardPanel);
         this.Load += new EventHandler(this.BA02Form_Load);
         this.KeyDown += new KeyEventHandler(this.BA02Form_KeyDown);
