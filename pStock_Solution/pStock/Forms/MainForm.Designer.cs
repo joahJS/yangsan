@@ -37,6 +37,7 @@ partial class MainForm
     private Panel contentPanel;
     private FlowLayoutPanel tabStripPanel;
     private Panel formHostPanel;
+    private Panel statusBarTopBorder;
     private StatusStrip statusBar;
     private ToolStripStatusLabel statusUser;
     private ToolStripStatusLabel statusServer;
@@ -75,6 +76,7 @@ partial class MainForm
         this.contentPanel = new Panel();
         this.tabStripPanel = new FlowLayoutPanel();
         this.formHostPanel = new Panel();
+        this.statusBarTopBorder = new Panel();
         this.statusBar = new StatusStrip();
         this.statusUser = new ToolStripStatusLabel();
         this.statusServer = new ToolStripStatusLabel();
@@ -90,7 +92,7 @@ partial class MainForm
         //
         // logoBadge / logoIcon / logoText (사이드바 상단 로고 영역 — 헤더는 이거 하나만 쓴다)
         //
-        this.logoBadge.BackColor = Color.FromArgb(244, 247, 250);
+        this.logoBadge.BackColor = Color.FromArgb(243, 244, 247);
         this.logoBadge.FillColor = Color.FromArgb(47, 111, 237);
         this.logoBadge.BorderRadius = 10;
         this.logoBadge.BorderThickness = 0;
@@ -110,10 +112,10 @@ partial class MainForm
         //
         this.logoPanel.Dock = DockStyle.Top;
         this.logoPanel.Height = 70;
-        this.logoPanel.BackColor = Color.FromArgb(244, 247, 250);
+        this.logoPanel.BackColor = Color.FromArgb(243, 244, 247);
         this.logoPanel.BorderThickness = 0;
         this.logoPanel.ShadowDecoration.Enabled = false;
-        this.logoPanel.FillColor = Color.FromArgb(244, 247, 250);
+        this.logoPanel.FillColor = Color.FromArgb(243, 244, 247);
         this.logoPanel.Controls.Add(this.logoBadge);
         this.logoPanel.Controls.Add(this.logoText);
         //
@@ -322,6 +324,12 @@ partial class MainForm
         this.sidebarPanel.Controls.Add(this.navFlow);
         this.sidebarPanel.Controls.Add(this.logoPanel);
         //
+        // statusBarTopBorder (statusBar 위쪽 경계선)
+        //
+        this.statusBarTopBorder.Dock = DockStyle.Bottom;
+        this.statusBarTopBorder.Height = 1;
+        this.statusBarTopBorder.BackColor = Color.FromArgb(229, 231, 235);
+        //
         // statusBar
         //
         this.statusBar.Dock = DockStyle.Bottom;
@@ -354,6 +362,7 @@ partial class MainForm
         this.StartPosition = FormStartPosition.CenterScreen;
         this.BackColor = Color.FromArgb(243, 244, 247);
         this.Controls.Add(this.contentPanel);
+        this.Controls.Add(this.statusBarTopBorder);
         this.Controls.Add(this.statusBar);
         this.Controls.Add(this.sidebarPanel);
         this.FormClosing += this.MainForm_FormClosing;

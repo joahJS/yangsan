@@ -213,10 +213,12 @@ partial class BA02Form
         this.radModeCode.Left = this.radModeGroup.Right + 24; this.radModeCode.Top = 62;
 
         this.lblRcdtp.Text = "구분:";
+        this.lblRcdtp.AutoSize = true;
         this.lblRcdtp.Left = this.radModeCode.Right + 30; this.lblRcdtp.Top = 60;
         this.edtRcdtp.Left = this.lblRcdtp.Right + 4; this.edtRcdtp.Top = 54; this.edtRcdtp.Width = 130;
 
         this.lblRetxf.Text = "전체명:";
+        this.lblRetxf.AutoSize = true;
         this.lblRetxf.Left = this.edtRcdtp.Right + 24; this.lblRetxf.Top = 60;
         this.edtRetxf.Left = this.lblRetxf.Right + 4; this.edtRetxf.Top = 54; this.edtRetxf.Width = 160;
 
