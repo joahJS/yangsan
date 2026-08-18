@@ -294,6 +294,7 @@ partial class BA02Form
         this.gridGroup.Dock = DockStyle.Fill;
         this.gridGroup.ReadOnly = true;
         this.gridGroup.AllowUserToAddRows = false;
+        this.gridGroup.BackgroundColor = Color.White;
         this.gridGroup.BorderStyle = BorderStyle.None;
         this.gridGroup.EnableHeadersVisualStyles = false;
         this.gridGroup.ColumnHeadersHeight = 36;
@@ -356,6 +357,7 @@ partial class BA02Form
         this.gridCode.Dock = DockStyle.Fill;
         this.gridCode.ReadOnly = true;
         this.gridCode.AllowUserToAddRows = false;
+        this.gridCode.BackgroundColor = Color.White;
         this.gridCode.BorderStyle = BorderStyle.None;
         this.gridCode.EnableHeadersVisualStyles = false;
         this.gridCode.ColumnHeadersHeight = 36;
@@ -413,6 +415,7 @@ partial class BA02Form
         this.btnMinCap.ForeColor = Color.FromArgb(75, 85, 99);
         this.btnMinCap.BorderThickness = 0;
         this.btnMinCap.BorderRadius = 6;
+        this.btnMinCap.ImageSize = new Size(12, 12);
         this.btnMinCap.HoverState.FillColor = Color.FromArgb(243, 244, 247);
 
         this.btnMaxCap.Text = "";
@@ -421,6 +424,7 @@ partial class BA02Form
         this.btnMaxCap.ForeColor = Color.FromArgb(75, 85, 99);
         this.btnMaxCap.BorderThickness = 0;
         this.btnMaxCap.BorderRadius = 6;
+        this.btnMaxCap.ImageSize = new Size(12, 12);
         this.btnMaxCap.HoverState.FillColor = Color.FromArgb(243, 244, 247);
 
         this.btnCloseCap.Text = "";
@@ -429,6 +433,7 @@ partial class BA02Form
         this.btnCloseCap.ForeColor = Color.FromArgb(75, 85, 99);
         this.btnCloseCap.BorderThickness = 0;
         this.btnCloseCap.BorderRadius = 6;
+        this.btnCloseCap.ImageSize = new Size(12, 12);
         this.btnCloseCap.HoverState.FillColor = Color.FromArgb(220, 53, 69);
         this.btnCloseCap.HoverState.ForeColor = Color.White;
 
@@ -456,6 +461,7 @@ partial class BA02Form
         this.borderless.DragForm = true;
         this.borderless.ResizeForm = true;
         this.borderless.TransparentWhileDrag = false;
+        this.borderless.HasFormShadow = false;
         this.borderless.SetDrag(this.cardHeader);
         //
         // cardPanel (전체를 감싸는 카드)
