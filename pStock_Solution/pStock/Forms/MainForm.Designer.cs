@@ -19,16 +19,20 @@ partial class MainForm
     private Guna2Panel logoPanel;
     private Guna2Panel logoBadge;
     private Label logoText;
+    private FlowLayoutPanel navFlow;
     private Guna2Button btnNavMain;
     private Guna2Button btnNavStock;
+    private FlowLayoutPanel subStock;
     private Guna2Button btnNavFlow;
+    private FlowLayoutPanel subFlow;
     private Guna2Button btnNavSales;
+    private FlowLayoutPanel subSales;
     private Guna2Button btnNavClose;
+    private FlowLayoutPanel subClose;
     private Guna2Button btnNavBase;
+    private FlowLayoutPanel subBase;
     private Guna2Button btnNavSys;
-    private Guna2Panel headerPanel;
-    private Guna2Panel headerIcon;
-    private Label headerTitle;
+    private FlowLayoutPanel subSys;
     private StatusStrip statusBar;
     private ToolStripStatusLabel statusUser;
     private ToolStripStatusLabel statusServer;
@@ -37,11 +41,11 @@ partial class MainForm
     private System.Windows.Forms.Timer clockTimer;
 
     /// <summary>
-    /// 사이드바 버튼 각각에 붙는 하위 화면 목록(ContextMenuStrip)은 FormRegistry.Entries를
-    /// 순회하며 그룹별로 가변 개수 생성되므로(디자이너가 표현할 수 없는 동적 구성)
+    /// 각 카테고리(subXxx) 안의 실제 화면 목록은 FormRegistry.Entries를 순회하며
+    /// 그룹별로 가변 개수 생성되므로(디자이너가 표현할 수 없는 동적 구성)
     /// BuildNavMenus()/BuildStatusBar()에 남겨두고, 생성자에서 InitializeComponent()
-    /// 호출 직후에 호출한다. 팝업 메뉴는 클릭 전까지 화면에 그려지지 않는 요소라
-    /// 디자인 서페이스 렌더링에는 영향이 없다.
+    /// 호출 직후에 호출한다. subXxx 패널은 처음에 접혀 있어(Visible=false) 디자인
+    /// 서페이스에도 빈 채로 나타나는 게 정상 모습이라 문제 없다.
     /// </summary>
     private void InitializeComponent()
     {
@@ -49,16 +53,20 @@ partial class MainForm
         this.logoPanel = new Guna2Panel();
         this.logoBadge = new Guna2Panel();
         this.logoText = new Label();
+        this.navFlow = new FlowLayoutPanel();
         this.btnNavMain = new Guna2Button();
         this.btnNavStock = new Guna2Button();
+        this.subStock = new FlowLayoutPanel();
         this.btnNavFlow = new Guna2Button();
+        this.subFlow = new FlowLayoutPanel();
         this.btnNavSales = new Guna2Button();
+        this.subSales = new FlowLayoutPanel();
         this.btnNavClose = new Guna2Button();
+        this.subClose = new FlowLayoutPanel();
         this.btnNavBase = new Guna2Button();
+        this.subBase = new FlowLayoutPanel();
         this.btnNavSys = new Guna2Button();
-        this.headerPanel = new Guna2Panel();
-        this.headerIcon = new Guna2Panel();
-        this.headerTitle = new Label();
+        this.subSys = new FlowLayoutPanel();
         this.statusBar = new StatusStrip();
         this.statusUser = new ToolStripStatusLabel();
         this.statusServer = new ToolStripStatusLabel();
@@ -67,10 +75,10 @@ partial class MainForm
         this.clockTimer = new System.Windows.Forms.Timer();
         this.sidebarPanel.SuspendLayout();
         this.logoPanel.SuspendLayout();
-        this.headerPanel.SuspendLayout();
+        this.navFlow.SuspendLayout();
         this.SuspendLayout();
         //
-        // logoBadge / logoText (사이드바 상단 로고 영역)
+        // logoBadge / logoText (사이드바 상단 로고 영역 — 헤더는 이거 하나만 쓴다)
         //
         this.logoBadge.FillColor = Color.FromArgb(47, 111, 237);
         this.logoBadge.BorderRadius = 10;
@@ -89,7 +97,7 @@ partial class MainForm
         this.logoPanel.Controls.Add(this.logoBadge);
         this.logoPanel.Controls.Add(this.logoText);
         //
-        // 네비게이션 버튼 공통 스타일 + 개별 배치
+        // 카테고리 버튼 공통 스타일
         //
         this.btnNavMain.Text = "메인";
         this.btnNavStock.Text = "재고관리";
@@ -99,13 +107,21 @@ partial class MainForm
         this.btnNavBase.Text = "기초관리";
         this.btnNavSys.Text = "시스템관리";
 
-        this.btnNavMain.Left = 10; this.btnNavMain.Top = 82; this.btnNavMain.Width = 200; this.btnNavMain.Height = 44;
-        this.btnNavStock.Left = 10; this.btnNavStock.Top = 132; this.btnNavStock.Width = 200; this.btnNavStock.Height = 44;
-        this.btnNavFlow.Left = 10; this.btnNavFlow.Top = 182; this.btnNavFlow.Width = 200; this.btnNavFlow.Height = 44;
-        this.btnNavSales.Left = 10; this.btnNavSales.Top = 232; this.btnNavSales.Width = 200; this.btnNavSales.Height = 44;
-        this.btnNavClose.Left = 10; this.btnNavClose.Top = 282; this.btnNavClose.Width = 200; this.btnNavClose.Height = 44;
-        this.btnNavBase.Left = 10; this.btnNavBase.Top = 332; this.btnNavBase.Width = 200; this.btnNavBase.Height = 44;
-        this.btnNavSys.Left = 10; this.btnNavSys.Top = 382; this.btnNavSys.Width = 200; this.btnNavSys.Height = 44;
+        this.btnNavMain.Width = 200; this.btnNavMain.Height = 44;
+        this.btnNavStock.Width = 200; this.btnNavStock.Height = 44;
+        this.btnNavFlow.Width = 200; this.btnNavFlow.Height = 44;
+        this.btnNavSales.Width = 200; this.btnNavSales.Height = 44;
+        this.btnNavClose.Width = 200; this.btnNavClose.Height = 44;
+        this.btnNavBase.Width = 200; this.btnNavBase.Height = 44;
+        this.btnNavSys.Width = 200; this.btnNavSys.Height = 44;
+
+        this.btnNavMain.Margin = new Padding(10, 6, 10, 0);
+        this.btnNavStock.Margin = new Padding(10, 6, 10, 0);
+        this.btnNavFlow.Margin = new Padding(10, 6, 10, 0);
+        this.btnNavSales.Margin = new Padding(10, 6, 10, 0);
+        this.btnNavClose.Margin = new Padding(10, 6, 10, 0);
+        this.btnNavBase.Margin = new Padding(10, 6, 10, 0);
+        this.btnNavSys.Margin = new Padding(10, 6, 10, 0);
 
         this.btnNavMain.BorderRadius = 8;
         this.btnNavStock.BorderRadius = 8;
@@ -171,39 +187,77 @@ partial class MainForm
         this.btnNavBase.HoverState.ForeColor = Color.FromArgb(47, 111, 237);
         this.btnNavSys.HoverState.ForeColor = Color.FromArgb(47, 111, 237);
         //
+        // 카테고리별 하위 화면 목록을 담을 서브패널(초기엔 접힌 상태) 공통 스타일
+        //
+        this.subStock.Width = 220; this.subFlow.Width = 220; this.subSales.Width = 220;
+        this.subClose.Width = 220; this.subBase.Width = 220; this.subSys.Width = 220;
+
+        this.subStock.FlowDirection = FlowDirection.TopDown;
+        this.subFlow.FlowDirection = FlowDirection.TopDown;
+        this.subSales.FlowDirection = FlowDirection.TopDown;
+        this.subClose.FlowDirection = FlowDirection.TopDown;
+        this.subBase.FlowDirection = FlowDirection.TopDown;
+        this.subSys.FlowDirection = FlowDirection.TopDown;
+
+        this.subStock.WrapContents = false;
+        this.subFlow.WrapContents = false;
+        this.subSales.WrapContents = false;
+        this.subClose.WrapContents = false;
+        this.subBase.WrapContents = false;
+        this.subSys.WrapContents = false;
+
+        this.subStock.AutoSize = true;
+        this.subFlow.AutoSize = true;
+        this.subSales.AutoSize = true;
+        this.subClose.AutoSize = true;
+        this.subBase.AutoSize = true;
+        this.subSys.AutoSize = true;
+
+        this.subStock.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+        this.subFlow.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+        this.subSales.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+        this.subClose.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+        this.subBase.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+        this.subSys.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+
+        this.subStock.Margin = new Padding(0);
+        this.subFlow.Margin = new Padding(0);
+        this.subSales.Margin = new Padding(0);
+        this.subClose.Margin = new Padding(0);
+        this.subBase.Margin = new Padding(0);
+        this.subSys.Margin = new Padding(0);
+
+        this.subStock.Visible = false;
+        this.subFlow.Visible = false;
+        this.subSales.Visible = false;
+        this.subClose.Visible = false;
+        this.subBase.Visible = false;
+        this.subSys.Visible = false;
+        //
+        // navFlow (사이드바 본문 — 카테고리 버튼 + 서브패널이 세로로 쌓이는 아코디언)
+        //
+        this.navFlow.Dock = DockStyle.Fill;
+        this.navFlow.FlowDirection = FlowDirection.TopDown;
+        this.navFlow.WrapContents = false;
+        this.navFlow.AutoScroll = true;
+        this.navFlow.Controls.AddRange(new Control[]
+        {
+            this.btnNavMain,
+            this.btnNavStock, this.subStock,
+            this.btnNavFlow, this.subFlow,
+            this.btnNavSales, this.subSales,
+            this.btnNavClose, this.subClose,
+            this.btnNavBase, this.subBase,
+            this.btnNavSys, this.subSys
+        });
+        //
         // sidebarPanel
         //
         this.sidebarPanel.Dock = DockStyle.Left;
         this.sidebarPanel.Width = 220;
         this.sidebarPanel.FillColor = Color.White;
-        this.sidebarPanel.Controls.Add(this.btnNavSys);
-        this.sidebarPanel.Controls.Add(this.btnNavBase);
-        this.sidebarPanel.Controls.Add(this.btnNavClose);
-        this.sidebarPanel.Controls.Add(this.btnNavSales);
-        this.sidebarPanel.Controls.Add(this.btnNavFlow);
-        this.sidebarPanel.Controls.Add(this.btnNavStock);
-        this.sidebarPanel.Controls.Add(this.btnNavMain);
+        this.sidebarPanel.Controls.Add(this.navFlow);
         this.sidebarPanel.Controls.Add(this.logoPanel);
-        //
-        // headerIcon / headerTitle
-        //
-        this.headerIcon.FillColor = Color.FromArgb(47, 111, 237);
-        this.headerIcon.BorderRadius = 8;
-        this.headerIcon.Left = 24; this.headerIcon.Top = 14; this.headerIcon.Width = 32; this.headerIcon.Height = 32;
-        this.headerTitle.Text = "재고관리 시스템_개발서버";
-        this.headerTitle.Font = new Font("맑은 고딕", 12F, FontStyle.Bold);
-        this.headerTitle.ForeColor = Color.FromArgb(31, 41, 55);
-        this.headerTitle.AutoSize = true;
-        this.headerTitle.Left = 68; this.headerTitle.Top = 20;
-        //
-        // headerPanel
-        //
-        this.headerPanel.Dock = DockStyle.Top;
-        this.headerPanel.Height = 60;
-        this.headerPanel.FillColor = Color.White;
-        this.headerPanel.BorderThickness = 0;
-        this.headerPanel.Controls.Add(this.headerIcon);
-        this.headerPanel.Controls.Add(this.headerTitle);
         //
         // statusBar
         //
@@ -233,16 +287,14 @@ partial class MainForm
         this.StartPosition = FormStartPosition.CenterScreen;
         this.BackColor = Color.FromArgb(243, 244, 247);
         this.Controls.Add(this.statusBar);
-        this.Controls.Add(this.headerPanel);
         this.Controls.Add(this.sidebarPanel);
         this.FormClosing += this.MainForm_FormClosing;
         this.KeyDown += this.MainForm_KeyDown;
         this.KeyPreview = true;
+        this.navFlow.ResumeLayout(false);
         this.sidebarPanel.ResumeLayout(false);
         this.logoPanel.ResumeLayout(false);
         this.logoPanel.PerformLayout();
-        this.headerPanel.ResumeLayout(false);
-        this.headerPanel.PerformLayout();
         this.ResumeLayout(false);
         this.PerformLayout();
     }

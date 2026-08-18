@@ -43,26 +43,45 @@ public partial class MainForm : Form
     {
         btnNavMain.Click += (_, _) => { foreach (Form child in MdiChildren.ToArray()) child.Close(); };
 
-        AttachGroupMenu(btnNavStock, "STOCK");
-        AttachGroupMenu(btnNavFlow, "FLOW");
-        AttachGroupMenu(btnNavSales, "SALES");
-        AttachGroupMenu(btnNavClose, "CLOSE");
-        AttachGroupMenu(btnNavBase, "BASE");
-        AttachGroupMenu(btnNavSys, "SYS");
+        AttachGroupMenu(btnNavStock, subStock, "STOCK");
+        AttachGroupMenu(btnNavFlow, subFlow, "FLOW");
+        AttachGroupMenu(btnNavSales, subSales, "SALES");
+        AttachGroupMenu(btnNavClose, subClose, "CLOSE");
+        AttachGroupMenu(btnNavBase, subBase, "BASE");
+        AttachGroupMenu(btnNavSys, subSys, "SYS");
     }
 
-    /// <summary>사이드바 버튼을 클릭하면 그 카테고리(Group)에 속한 화면 목록을
-    /// 버튼 바로 아래에 팝업 메뉴로 띄운다.</summary>
-    private void AttachGroupMenu(Guna.UI2.WinForms.Guna2Button button, string group)
+    /// <summary>카테고리 버튼 아래 서브패널(subPanel)에 그 그룹(Group)에 속한 화면 목록을
+    /// 채워 넣고, 버튼 클릭 시 서브패널을 펼치거나 접는다. 사이드바 전체가
+    /// FlowLayoutPanel(navFlow) 안에 있어서, 펼침/접힘에 따라 그 아래 다른 카테고리들이
+    /// 자동으로 밀리거나 당겨진다(계단식 아코디언).</summary>
+    private void AttachGroupMenu(Guna.UI2.WinForms.Guna2Button button, FlowLayoutPanel subPanel, string group)
     {
-        var popup = new ContextMenuStrip();
         foreach (var entry in FormRegistry.Entries.Where(e => e.Group == group))
         {
-            var item = new ToolStripMenuItem(entry.Caption) { Tag = entry.Tag };
-            item.Click += (_, _) => ShowScreen((int)item.Tag!);
-            popup.Items.Add(item);
+            var item = new Label
+            {
+                Text = entry.Caption,
+                Tag = entry.Tag,
+                AutoSize = false,
+                Width = 220,
+                Height = 34,
+                Padding = new Padding(40, 0, 0, 0),
+                TextAlign = ContentAlignment.MiddleLeft,
+                ForeColor = Color.FromArgb(55, 65, 81),
+                Font = new Font("맑은 고딕", 9.5F),
+                Cursor = Cursors.Hand,
+                BackColor = Color.FromArgb(243, 244, 247),
+                Margin = new Padding(0),
+            };
+            var tag = entry.Tag;
+            item.Click += (_, _) => ShowScreen(tag);
+            item.MouseEnter += (_, _) => item.BackColor = Color.FromArgb(232, 240, 254);
+            item.MouseLeave += (_, _) => item.BackColor = Color.FromArgb(243, 244, 247);
+            subPanel.Controls.Add(item);
         }
-        button.Click += (_, _) => popup.Show(button, new Point(0, button.Height));
+
+        button.Click += (_, _) => subPanel.Visible = !subPanel.Visible;
     }
 
     private void BuildStatusBar()
