@@ -37,7 +37,10 @@ partial class BA02Form
 
     private Guna2Panel cardPanel;
     private Panel toolbarPanel;
+    private Panel filterAreaPanel;
     private Guna2Panel filterPanel;
+    private Guna2Panel filterTitleBar;
+    private Label filterTitleLabel;
     private Panel gridAreaPanel;
     private Guna2Panel groupCardPanel;
     private Panel groupHeaderPanel;
@@ -71,7 +74,10 @@ partial class BA02Form
         this.btnClose = new Guna2Button();
         this.cardPanel = new Guna2Panel();
         this.toolbarPanel = new Panel();
+        this.filterAreaPanel = new Panel();
         this.filterPanel = new Guna2Panel();
+        this.filterTitleBar = new Guna2Panel();
+        this.filterTitleLabel = new Label();
         this.gridAreaPanel = new Panel();
         this.groupCardPanel = new Guna2Panel();
         this.groupHeaderPanel = new Panel();
@@ -83,6 +89,7 @@ partial class BA02Form
         this.codeTitleBar = new Guna2Panel();
         this.codeTitleLabel = new Label();
         this.toolbarPanel.SuspendLayout();
+        this.filterAreaPanel.SuspendLayout();
         this.filterPanel.SuspendLayout();
         this.groupHeaderPanel.SuspendLayout();
         this.groupCardPanel.SuspendLayout();
@@ -192,30 +199,43 @@ partial class BA02Form
         this.toolbarPanel.Controls.Add(this.btnSearch);
         this.toolbarPanel.Controls.Add(this.btnClose);
         //
-        // filterPanel (구분 모드 라디오버튼 + 검색 조건 입력란)
+        // filterPanel (검색조건 카드 — 구분 모드 라디오버튼 + 검색 조건 입력란)
         //
-        this.filterPanel.Dock = DockStyle.Top;
-        this.filterPanel.Height = 66;
-        this.filterPanel.FillColor = Color.FromArgb(249, 250, 251);
-        this.filterPanel.BorderThickness = 0;
+        this.filterPanel.Dock = DockStyle.Fill;
+        this.filterPanel.FillColor = Color.White;
+        this.filterPanel.BorderColor = Color.FromArgb(229, 231, 235);
+        this.filterPanel.BorderThickness = 1;
+        this.filterPanel.BorderRadius = 10;
         this.filterPanel.ShadowDecoration.Enabled = false;
 
-        this.radModeGroup.Left = 20; this.radModeGroup.Top = 26;
-        this.radModeCode.Left = this.radModeGroup.Right + 24; this.radModeCode.Top = 26;
+        this.filterTitleBar.FillColor = Color.FromArgb(47, 111, 237);
+        this.filterTitleBar.BorderRadius = 2;
+        this.filterTitleBar.BorderThickness = 0;
+        this.filterTitleBar.ShadowDecoration.Enabled = false;
+        this.filterTitleBar.Left = 16; this.filterTitleBar.Top = 14; this.filterTitleBar.Width = 4; this.filterTitleBar.Height = 18;
+
+        this.filterTitleLabel.Text = "검색조건";
+        this.filterTitleLabel.Font = new Font("맑은 고딕", 10F, FontStyle.Bold);
+        this.filterTitleLabel.ForeColor = Color.FromArgb(31, 41, 55);
+        this.filterTitleLabel.AutoSize = true;
+        this.filterTitleLabel.Left = 28; this.filterTitleLabel.Top = 13;
+
+        this.radModeGroup.Left = 20; this.radModeGroup.Top = 62;
+        this.radModeCode.Left = this.radModeGroup.Right + 24; this.radModeCode.Top = 62;
 
         this.lblRcdtp.Text = "구분:";
-        this.lblRcdtp.Left = this.radModeCode.Right + 30; this.lblRcdtp.Top = 24;
-        this.edtRcdtp.Left = this.lblRcdtp.Right + 8; this.edtRcdtp.Top = 18; this.edtRcdtp.Width = 130;
+        this.lblRcdtp.Left = this.radModeCode.Right + 30; this.lblRcdtp.Top = 60;
+        this.edtRcdtp.Left = this.lblRcdtp.Right + 8; this.edtRcdtp.Top = 54; this.edtRcdtp.Width = 130;
 
         this.lblRetxf.Text = "전체명:";
-        this.lblRetxf.Left = this.edtRcdtp.Right + 24; this.lblRetxf.Top = 24;
-        this.edtRetxf.Left = this.lblRetxf.Right + 8; this.edtRetxf.Top = 18; this.edtRetxf.Width = 160;
+        this.lblRetxf.Left = this.edtRcdtp.Right + 24; this.lblRetxf.Top = 60;
+        this.edtRetxf.Left = this.lblRetxf.Right + 8; this.edtRetxf.Top = 54; this.edtRetxf.Width = 160;
 
-        this.lblCode.Left = this.edtRetxf.Right + 24; this.lblCode.Top = 24;
-        this.edtCode.Left = this.lblCode.Right + 8; this.edtCode.Top = 18; this.edtCode.Width = 110;
+        this.lblCode.Left = this.edtRetxf.Right + 24; this.lblCode.Top = 60;
+        this.edtCode.Left = this.lblCode.Right + 8; this.edtCode.Top = 54; this.edtCode.Width = 110;
 
-        this.lblRetxs.Left = this.edtCode.Right + 24; this.lblRetxs.Top = 24;
-        this.edtRetxs.Left = this.lblRetxs.Right + 8; this.edtRetxs.Top = 18; this.edtRetxs.Width = 110;
+        this.lblRetxs.Left = this.edtCode.Right + 24; this.lblRetxs.Top = 60;
+        this.edtRetxs.Left = this.lblRetxs.Right + 8; this.edtRetxs.Top = 54; this.edtRetxs.Width = 110;
 
         this.edtRcdtp.BorderRadius = 6;
         this.edtRetxf.BorderRadius = 6;
@@ -236,12 +256,21 @@ partial class BA02Form
 
         this.filterPanel.Controls.AddRange(new Control[]
         {
+            this.filterTitleBar, this.filterTitleLabel,
             this.radModeGroup, this.radModeCode,
             this.lblRcdtp, this.edtRcdtp,
             this.lblRetxf, this.edtRetxf,
             this.lblCode, this.edtCode,
             this.lblRetxs, this.edtRetxs
         });
+        //
+        // filterAreaPanel (검색조건 카드를 cardPanel 가장자리에서 여백을 두고 감싸는 영역)
+        //
+        this.filterAreaPanel.Dock = DockStyle.Top;
+        this.filterAreaPanel.Height = 112;
+        this.filterAreaPanel.BackColor = Color.White;
+        this.filterAreaPanel.Padding = new Padding(16, 12, 16, 0);
+        this.filterAreaPanel.Controls.Add(this.filterPanel);
         //
         // groupCardPanel (좌측: 구분코드 목록)
         //
@@ -363,7 +392,7 @@ partial class BA02Form
         this.cardPanel.ShadowDecoration.Color = Color.FromArgb(40, 0, 0, 0);
         this.cardPanel.ShadowDecoration.Depth = 20;
         this.cardPanel.Controls.Add(this.gridAreaPanel);
-        this.cardPanel.Controls.Add(this.filterPanel);
+        this.cardPanel.Controls.Add(this.filterAreaPanel);
         this.cardPanel.Controls.Add(this.toolbarPanel);
         //
         // 이벤트 배선
@@ -401,6 +430,7 @@ partial class BA02Form
         this.toolbarPanel.ResumeLayout(false);
         this.filterPanel.ResumeLayout(false);
         this.filterPanel.PerformLayout();
+        this.filterAreaPanel.ResumeLayout(false);
         this.cardPanel.ResumeLayout(false);
         this.ResumeLayout(false);
     }
