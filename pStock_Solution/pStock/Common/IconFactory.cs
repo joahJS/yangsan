@@ -77,46 +77,4 @@ public static class IconFactory
         g.DrawLine(pen, 3, 3, 15, 15);
         g.DrawLine(pen, 15, 3, 3, 15);
     }
-
-    public static void Minimize(Graphics g, Color c)
-    {
-        using var pen = new Pen(c, 1.8f);
-        g.DrawLine(pen, 3, 14, 15, 14);
-    }
-
-    public static void Maximize(Graphics g, Color c)
-    {
-        using var pen = new Pen(c, 1.5f);
-        g.DrawRectangle(pen, 3, 3, 12, 12);
-    }
-
-    public static void Restore(Graphics g, Color c)
-    {
-        using var pen = new Pen(c, 1.4f);
-        g.DrawRectangle(pen, 5, 3, 10, 10);
-        g.DrawLine(pen, 3, 6, 3, 15);
-        g.DrawLine(pen, 3, 15, 12, 15);
-        g.DrawLine(pen, 12, 15, 12, 13);
-    }
-
-    public static void Hierarchy(Graphics g, Color c)
-    {
-        using var pen = new Pen(c, 1.4f);
-        g.DrawRectangle(pen, 6, 1, 6, 5);
-        g.DrawRectangle(pen, 0, 12, 6, 5);
-        g.DrawRectangle(pen, 12, 12, 6, 5);
-        g.DrawLine(pen, 9, 6, 9, 9);
-        g.DrawLine(pen, 3, 9, 15, 9);
-        g.DrawLine(pen, 3, 9, 3, 12);
-        g.DrawLine(pen, 15, 9, 15, 12);
-    }
-
-    public static void Document(Graphics g, Color c)
-    {
-        using var pen = new Pen(c, 1.5f);
-        g.DrawRectangle(pen, 3, 2, 12, 15);
-        g.DrawLine(pen, 6, 7, 14, 7);
-        g.DrawLine(pen, 6, 10, 14, 10);
-        g.DrawLine(pen, 6, 13, 11, 13);
-    }
 }
