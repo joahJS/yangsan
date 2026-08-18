@@ -64,7 +64,7 @@ partial class MainForm
         this.statusServer = new ToolStripStatusLabel();
         this.statusCompany = new ToolStripStatusLabel();
         this.statusTime = new ToolStripStatusLabel();
-        this.clockTimer = new System.Windows.Forms.Timer(this.components);
+        this.clockTimer = new System.Windows.Forms.Timer();
         this.sidebarPanel.SuspendLayout();
         this.logoPanel.SuspendLayout();
         this.headerPanel.SuspendLayout();
