@@ -10,10 +10,18 @@ namespace pStock.Forms;
 /// </summary>
 public partial class MainForm : Form
 {
+    private static readonly Color NavColorNormal = Color.FromArgb(107, 114, 128);
+    private static readonly Color NavColorSelected = Color.White;
+
+    /// <summary>카테고리 버튼별 아이콘(선택 안 됨/선택됨 버전)을 미리 만들어 보관한다.</summary>
+    private readonly Dictionary<Guna.UI2.WinForms.Guna2Button, (Image Normal, Image Selected)> _navIcons = new();
+    private Guna.UI2.WinForms.Guna2Button? _selectedNav;
+
     public MainForm()
     {
         InitializeComponent();
 
+        BuildNavIcons();
         BuildNavMenus();
         BuildStatusBar();
     }
@@ -41,7 +49,11 @@ public partial class MainForm : Form
 
     private void BuildNavMenus()
     {
-        btnNavMain.Click += (_, _) => { foreach (Form child in MdiChildren.ToArray()) child.Close(); };
+        btnNavMain.Click += (_, _) =>
+        {
+            foreach (Form child in MdiChildren.ToArray()) child.Close();
+            SelectNav(btnNavMain);
+        };
 
         AttachGroupMenu(btnNavStock, subStock, "STOCK");
         AttachGroupMenu(btnNavFlow, subFlow, "FLOW");
@@ -81,7 +93,122 @@ public partial class MainForm : Form
             subPanel.Controls.Add(item);
         }
 
-        button.Click += (_, _) => subPanel.Visible = !subPanel.Visible;
+        button.Click += (_, _) =>
+        {
+            var willOpen = !subPanel.Visible;
+            subPanel.Visible = willOpen;
+            if (willOpen) SelectNav(button);
+            else if (_selectedNav == button) SelectNav(null);
+        };
+    }
+
+    /// <summary>선택된 카테고리 버튼을 파란 배경 + 흰 텍스트/아이콘으로 강조하고,
+    /// 이전에 선택돼 있던 버튼은 원래 스타일로 되돌린다.</summary>
+    private void SelectNav(Guna.UI2.WinForms.Guna2Button? button)
+    {
+        if (_selectedNav != null) SetNavSelected(_selectedNav, false);
+        if (button != null) SetNavSelected(button, true);
+        _selectedNav = button;
+    }
+
+    private void SetNavSelected(Guna.UI2.WinForms.Guna2Button button, bool selected)
+    {
+        button.FillColor = selected ? Color.FromArgb(47, 111, 237) : Color.White;
+        button.ForeColor = selected ? Color.White : Color.FromArgb(55, 65, 81);
+        if (_navIcons.TryGetValue(button, out var icons))
+            button.Image = selected ? icons.Selected : icons.Normal;
+    }
+
+    /// <summary>대메뉴 좌측에 붙일 작은 아이콘을 GDI+로 직접 그려서 만든다. 이미지 파일이나
+    /// 외부 아이콘 폰트 없이도 어떤 환경에서나 동일하게 렌더링되는 간단한 벡터 아이콘이다.
+    /// 버튼마다 기본색/선택됐을 때(흰색) 두 가지 버전을 만들어 두고 SetNavSelected에서 교체한다.</summary>
+    private void BuildNavIcons()
+    {
+        RegisterNavIcon(btnNavMain, DrawHomeIcon);
+        RegisterNavIcon(btnNavStock, DrawBoxesIcon);
+        RegisterNavIcon(btnNavFlow, DrawFlowIcon);
+        RegisterNavIcon(btnNavSales, DrawChartIcon);
+        RegisterNavIcon(btnNavClose, DrawCalendarIcon);
+        RegisterNavIcon(btnNavBase, DrawDocIcon);
+        RegisterNavIcon(btnNavSys, DrawGearIcon);
+    }
+
+    private void RegisterNavIcon(Guna.UI2.WinForms.Guna2Button button, Action<Graphics, Color> draw)
+    {
+        var normal = CreateIcon(draw, NavColorNormal);
+        var selected = CreateIcon(draw, NavColorSelected);
+        _navIcons[button] = (normal, selected);
+        button.Image = normal;
+    }
+
+    private static Bitmap CreateIcon(Action<Graphics, Color> draw, Color color)
+    {
+        var bmp = new Bitmap(20, 20);
+        using var g = Graphics.FromImage(bmp);
+        g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+        draw(g, color);
+        return bmp;
+    }
+
+    private static void DrawHomeIcon(Graphics g, Color c)
+    {
+        using var brush = new SolidBrush(c);
+        g.FillPolygon(brush, new[] { new Point(10, 2), new Point(18, 9), new Point(2, 9) });
+        g.FillRectangle(brush, 5, 9, 10, 9);
+    }
+
+    private static void DrawBoxesIcon(Graphics g, Color c)
+    {
+        using var brush = new SolidBrush(c);
+        g.FillRectangle(brush, 2, 2, 7, 7);
+        g.FillRectangle(brush, 11, 2, 7, 7);
+        g.FillRectangle(brush, 2, 11, 7, 7);
+        g.FillRectangle(brush, 11, 11, 7, 7);
+    }
+
+    private static void DrawFlowIcon(Graphics g, Color c)
+    {
+        using var brush = new SolidBrush(c);
+        g.FillPolygon(brush, new[] { new Point(6, 1), new Point(11, 8), new Point(1, 8) });
+        g.FillRectangle(brush, 5, 8, 2, 5);
+        g.FillPolygon(brush, new[] { new Point(14, 19), new Point(9, 12), new Point(19, 12) });
+        g.FillRectangle(brush, 13, 6, 2, 5);
+    }
+
+    private static void DrawChartIcon(Graphics g, Color c)
+    {
+        using var brush = new SolidBrush(c);
+        g.FillRectangle(brush, 2, 12, 4, 6);
+        g.FillRectangle(brush, 8, 7, 4, 11);
+        g.FillRectangle(brush, 14, 2, 4, 16);
+    }
+
+    private static void DrawCalendarIcon(Graphics g, Color c)
+    {
+        using var pen = new Pen(c, 1.6f);
+        g.DrawRectangle(pen, 2, 4, 16, 14);
+        g.DrawLine(pen, 2, 8, 18, 8);
+        g.DrawLine(pen, 6, 2, 6, 6);
+        g.DrawLine(pen, 14, 2, 14, 6);
+    }
+
+    private static void DrawDocIcon(Graphics g, Color c)
+    {
+        using var pen = new Pen(c, 1.6f);
+        g.DrawRectangle(pen, 4, 2, 12, 16);
+        g.DrawLine(pen, 7, 7, 15, 7);
+        g.DrawLine(pen, 7, 11, 15, 11);
+        g.DrawLine(pen, 7, 15, 12, 15);
+    }
+
+    private static void DrawGearIcon(Graphics g, Color c)
+    {
+        using var brush = new SolidBrush(c);
+        g.FillRectangle(brush, 8, 0, 4, 4);
+        g.FillRectangle(brush, 8, 16, 4, 4);
+        g.FillRectangle(brush, 0, 8, 4, 4);
+        g.FillRectangle(brush, 16, 8, 4, 4);
+        g.FillEllipse(brush, 4, 4, 12, 12);
     }
 
     private void BuildStatusBar()

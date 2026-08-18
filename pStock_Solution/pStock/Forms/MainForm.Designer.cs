@@ -163,13 +163,29 @@ partial class MainForm
         this.btnNavBase.TextAlign = HorizontalAlignment.Left;
         this.btnNavSys.TextAlign = HorizontalAlignment.Left;
 
-        this.btnNavMain.TextOffset = new Point(16, 0);
-        this.btnNavStock.TextOffset = new Point(16, 0);
-        this.btnNavFlow.TextOffset = new Point(16, 0);
-        this.btnNavSales.TextOffset = new Point(16, 0);
-        this.btnNavClose.TextOffset = new Point(16, 0);
-        this.btnNavBase.TextOffset = new Point(16, 0);
-        this.btnNavSys.TextOffset = new Point(16, 0);
+        this.btnNavMain.TextOffset = new Point(44, 0);
+        this.btnNavStock.TextOffset = new Point(44, 0);
+        this.btnNavFlow.TextOffset = new Point(44, 0);
+        this.btnNavSales.TextOffset = new Point(44, 0);
+        this.btnNavClose.TextOffset = new Point(44, 0);
+        this.btnNavBase.TextOffset = new Point(44, 0);
+        this.btnNavSys.TextOffset = new Point(44, 0);
+
+        this.btnNavMain.ImageAlign = HorizontalAlignment.Left;
+        this.btnNavStock.ImageAlign = HorizontalAlignment.Left;
+        this.btnNavFlow.ImageAlign = HorizontalAlignment.Left;
+        this.btnNavSales.ImageAlign = HorizontalAlignment.Left;
+        this.btnNavClose.ImageAlign = HorizontalAlignment.Left;
+        this.btnNavBase.ImageAlign = HorizontalAlignment.Left;
+        this.btnNavSys.ImageAlign = HorizontalAlignment.Left;
+
+        this.btnNavMain.ImageOffset = new Point(16, 0);
+        this.btnNavStock.ImageOffset = new Point(16, 0);
+        this.btnNavFlow.ImageOffset = new Point(16, 0);
+        this.btnNavSales.ImageOffset = new Point(16, 0);
+        this.btnNavClose.ImageOffset = new Point(16, 0);
+        this.btnNavBase.ImageOffset = new Point(16, 0);
+        this.btnNavSys.ImageOffset = new Point(16, 0);
 
         this.btnNavMain.HoverState.FillColor = Color.FromArgb(232, 240, 254);
         this.btnNavStock.HoverState.FillColor = Color.FromArgb(232, 240, 254);

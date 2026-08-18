@@ -36,6 +36,13 @@ public partial class LoginForm : Form
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        var savedUserId = LoginPreferences.LoadSavedUserId();
+        if (!string.IsNullOrEmpty(savedUserId))
+        {
+            edtCode.Text = savedUserId;
+            chkRemember.Checked = true;
+        }
+
         EdtCode_Leave(this, EventArgs.Empty);
     }
 
@@ -85,6 +92,11 @@ public partial class LoginForm : Form
             var today = DateTime.Now.ToString("yyyy-MM-dd");
             if (string.CompareOrdinal(_vSdat, today) <= 0 && string.CompareOrdinal(today, _vEdat) < 0)
             {
+                if (chkRemember.Checked)
+                    LoginPreferences.SaveUserId(edtCode.Text.Trim());
+                else
+                    LoginPreferences.ClearSavedUserId();
+
                 Close();
                 return;
             }

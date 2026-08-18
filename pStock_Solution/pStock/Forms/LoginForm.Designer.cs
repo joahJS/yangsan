@@ -19,6 +19,7 @@ partial class LoginForm
     private Button btnCancel;
     private Label lblCodeCaption;
     private Label lblPassCaption;
+    private CheckBox chkRemember;
 
     private void InitializeComponent()
     {
@@ -28,6 +29,7 @@ partial class LoginForm
         this.btnCancel = new Button();
         this.lblCodeCaption = new Label();
         this.lblPassCaption = new Label();
+        this.chkRemember = new CheckBox();
         this.SuspendLayout();
         //
         // LoginForm
@@ -37,7 +39,7 @@ partial class LoginForm
         this.StartPosition = FormStartPosition.CenterScreen;
         this.MaximizeBox = false;
         this.MinimizeBox = false;
-        this.ClientSize = new Size(320, 160);
+        this.ClientSize = new Size(320, 195);
         this.KeyPreview = true;
         //
         // lblCodeCaption
@@ -64,23 +66,30 @@ partial class LoginForm
         this.edtNo.Width = 160;
         this.edtNo.PasswordChar = '*';
         //
+        // chkRemember
+        //
+        this.chkRemember.Text = "접속정보 기억하기";
+        this.chkRemember.Location = new Point(120, 88);
+        this.chkRemember.AutoSize = true;
+        //
         // btnOk
         //
         this.btnOk.Text = "확인";
-        this.btnOk.Location = new Point(120, 100);
+        this.btnOk.Location = new Point(120, 130);
         this.btnOk.Width = 75;
         this.btnOk.Click += this.BtnOk_Click;
         //
         // btnCancel
         //
         this.btnCancel.Text = "취소";
-        this.btnCancel.Location = new Point(205, 100);
+        this.btnCancel.Location = new Point(205, 130);
         this.btnCancel.Width = 75;
         this.btnCancel.Click += this.BtnCancel_Click;
 
         this.Controls.AddRange(new Control[]
         {
-            this.lblCodeCaption, this.edtCode, this.lblPassCaption, this.edtNo, this.btnOk, this.btnCancel
+            this.lblCodeCaption, this.edtCode, this.lblPassCaption, this.edtNo,
+            this.chkRemember, this.btnOk, this.btnCancel
         });
 
         this.AcceptButton = this.btnOk;
