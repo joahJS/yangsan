@@ -39,17 +39,14 @@ partial class BA02Form
     private Panel toolbarPanel;
     private Panel filterAreaPanel;
     private Guna2Panel filterPanel;
-    private Guna2Panel filterTitleBar;
     private Label filterTitleLabel;
     private Panel gridAreaPanel;
     private Guna2Panel groupCardPanel;
     private Panel groupHeaderPanel;
-    private Guna2Panel groupTitleBar;
     private Label groupTitleLabel;
     private Panel splitterGap;
     private Guna2Panel codeCardPanel;
     private Panel codeHeaderPanel;
-    private Guna2Panel codeTitleBar;
     private Label codeTitleLabel;
 
     private void InitializeComponent()
@@ -76,17 +73,14 @@ partial class BA02Form
         this.toolbarPanel = new Panel();
         this.filterAreaPanel = new Panel();
         this.filterPanel = new Guna2Panel();
-        this.filterTitleBar = new Guna2Panel();
         this.filterTitleLabel = new Label();
         this.gridAreaPanel = new Panel();
         this.groupCardPanel = new Guna2Panel();
         this.groupHeaderPanel = new Panel();
-        this.groupTitleBar = new Guna2Panel();
         this.groupTitleLabel = new Label();
         this.splitterGap = new Panel();
         this.codeCardPanel = new Guna2Panel();
         this.codeHeaderPanel = new Panel();
-        this.codeTitleBar = new Guna2Panel();
         this.codeTitleLabel = new Label();
         this.toolbarPanel.SuspendLayout();
         this.filterAreaPanel.SuspendLayout();
@@ -123,12 +117,12 @@ partial class BA02Form
         this.btnSearch.Text = "조회";
         this.btnClose.Text = "닫기(Esc)";
 
-        this.btnNew.Left = 20; this.btnNew.Top = 10; this.btnNew.Width = 110; this.btnNew.Height = 36;
-        this.btnSave.Left = 138; this.btnSave.Top = 10; this.btnSave.Width = 110; this.btnSave.Height = 36;
-        this.btnUpd.Left = 256; this.btnUpd.Top = 10; this.btnUpd.Width = 110; this.btnUpd.Height = 36;
-        this.btnDel.Left = 374; this.btnDel.Top = 10; this.btnDel.Width = 110; this.btnDel.Height = 36;
-        this.btnSearch.Left = 492; this.btnSearch.Top = 10; this.btnSearch.Width = 110; this.btnSearch.Height = 36;
-        this.btnClose.Left = 610; this.btnClose.Top = 10; this.btnClose.Width = 110; this.btnClose.Height = 36;
+        this.btnNew.Left = 20; this.btnNew.Top = 15; this.btnNew.Width = 110; this.btnNew.Height = 36;
+        this.btnSave.Left = 138; this.btnSave.Top = 15; this.btnSave.Width = 110; this.btnSave.Height = 36;
+        this.btnUpd.Left = 256; this.btnUpd.Top = 15; this.btnUpd.Width = 110; this.btnUpd.Height = 36;
+        this.btnDel.Left = 374; this.btnDel.Top = 15; this.btnDel.Width = 110; this.btnDel.Height = 36;
+        this.btnSearch.Left = 492; this.btnSearch.Top = 15; this.btnSearch.Width = 110; this.btnSearch.Height = 36;
+        this.btnClose.Left = 610; this.btnClose.Top = 15; this.btnClose.Width = 110; this.btnClose.Height = 36;
 
         this.btnNew.BorderRadius = 8;
         this.btnSave.BorderRadius = 8;
@@ -137,12 +131,12 @@ partial class BA02Form
         this.btnSearch.BorderRadius = 8;
         this.btnClose.BorderRadius = 8;
 
-        this.btnNew.ImageSize = new Size(13, 13);
-        this.btnSave.ImageSize = new Size(13, 13);
-        this.btnUpd.ImageSize = new Size(13, 13);
-        this.btnDel.ImageSize = new Size(13, 13);
-        this.btnSearch.ImageSize = new Size(13, 13);
-        this.btnClose.ImageSize = new Size(13, 13);
+        this.btnNew.ImageSize = new Size(15, 15);
+        this.btnSave.ImageSize = new Size(15, 15);
+        this.btnUpd.ImageSize = new Size(15, 15);
+        this.btnDel.ImageSize = new Size(15, 15);
+        this.btnSearch.ImageSize = new Size(15, 15);
+        this.btnClose.ImageSize = new Size(15, 15);
 
         this.btnNew.FillColor = Color.FromArgb(47, 111, 237);
         this.btnNew.ForeColor = Color.White;
@@ -209,17 +203,11 @@ partial class BA02Form
         this.filterPanel.BorderRadius = 10;
         this.filterPanel.ShadowDecoration.Enabled = false;
 
-        this.filterTitleBar.FillColor = Color.FromArgb(47, 111, 237);
-        this.filterTitleBar.BorderRadius = 2;
-        this.filterTitleBar.BorderThickness = 0;
-        this.filterTitleBar.ShadowDecoration.Enabled = false;
-        this.filterTitleBar.Left = 16; this.filterTitleBar.Top = 14; this.filterTitleBar.Width = 4; this.filterTitleBar.Height = 18;
-
         this.filterTitleLabel.Text = "검색조건";
         this.filterTitleLabel.Font = new Font("맑은 고딕", 10F, FontStyle.Bold);
         this.filterTitleLabel.ForeColor = Color.FromArgb(31, 41, 55);
         this.filterTitleLabel.AutoSize = true;
-        this.filterTitleLabel.Left = 28; this.filterTitleLabel.Top = 13;
+        this.filterTitleLabel.Left = 16; this.filterTitleLabel.Top = 13;
 
         this.radModeGroup.Left = 20; this.radModeGroup.Top = 62;
         this.radModeCode.Left = this.radModeGroup.Right + 24; this.radModeCode.Top = 62;
@@ -257,7 +245,7 @@ partial class BA02Form
 
         this.filterPanel.Controls.AddRange(new Control[]
         {
-            this.filterTitleBar, this.filterTitleLabel,
+            this.filterTitleLabel,
             this.radModeGroup, this.radModeCode,
             this.lblRcdtp, this.edtRcdtp,
             this.lblRetxf, this.edtRetxf,
@@ -275,22 +263,15 @@ partial class BA02Form
         //
         // groupCardPanel (좌측: 구분코드 목록)
         //
-        this.groupTitleBar.FillColor = Color.FromArgb(47, 111, 237);
-        this.groupTitleBar.BorderRadius = 2;
-        this.groupTitleBar.BorderThickness = 0;
-        this.groupTitleBar.ShadowDecoration.Enabled = false;
-        this.groupTitleBar.Left = 16; this.groupTitleBar.Top = 12; this.groupTitleBar.Width = 4; this.groupTitleBar.Height = 20;
-
         this.groupTitleLabel.Text = "구분코드";
         this.groupTitleLabel.Font = new Font("맑은 고딕", 10F, FontStyle.Bold);
         this.groupTitleLabel.ForeColor = Color.FromArgb(31, 41, 55);
         this.groupTitleLabel.AutoSize = true;
-        this.groupTitleLabel.Left = 28; this.groupTitleLabel.Top = 11;
+        this.groupTitleLabel.Left = 16; this.groupTitleLabel.Top = 11;
 
         this.groupHeaderPanel.Dock = DockStyle.Top;
         this.groupHeaderPanel.Height = 44;
         this.groupHeaderPanel.BackColor = Color.White;
-        this.groupHeaderPanel.Controls.Add(this.groupTitleBar);
         this.groupHeaderPanel.Controls.Add(this.groupTitleLabel);
 
         this.gridGroup.Dock = DockStyle.Fill;
@@ -337,22 +318,15 @@ partial class BA02Form
         //
         // codeCardPanel (우측: 선택된 구분에 속한 코드 목록)
         //
-        this.codeTitleBar.FillColor = Color.FromArgb(47, 111, 237);
-        this.codeTitleBar.BorderRadius = 2;
-        this.codeTitleBar.BorderThickness = 0;
-        this.codeTitleBar.ShadowDecoration.Enabled = false;
-        this.codeTitleBar.Left = 16; this.codeTitleBar.Top = 12; this.codeTitleBar.Width = 4; this.codeTitleBar.Height = 20;
-
         this.codeTitleLabel.Text = "공통코드";
         this.codeTitleLabel.Font = new Font("맑은 고딕", 10F, FontStyle.Bold);
         this.codeTitleLabel.ForeColor = Color.FromArgb(31, 41, 55);
         this.codeTitleLabel.AutoSize = true;
-        this.codeTitleLabel.Left = 28; this.codeTitleLabel.Top = 11;
+        this.codeTitleLabel.Left = 16; this.codeTitleLabel.Top = 11;
 
         this.codeHeaderPanel.Dock = DockStyle.Top;
         this.codeHeaderPanel.Height = 44;
         this.codeHeaderPanel.BackColor = Color.White;
-        this.codeHeaderPanel.Controls.Add(this.codeTitleBar);
         this.codeHeaderPanel.Controls.Add(this.codeTitleLabel);
 
         this.gridCode.Dock = DockStyle.Fill;
@@ -430,7 +404,8 @@ partial class BA02Form
         this.Width = 1200;
         this.Height = 800;
         this.KeyPreview = true;
-        this.BackColor = Color.White;
+        this.BackColor = Color.FromArgb(244, 247, 250);
+        this.Padding = new Padding(12, 0, 0, 0);
         this.Controls.Add(this.cardPanel);
         this.Load += new EventHandler(this.BA02Form_Load);
         this.KeyDown += new KeyEventHandler(this.BA02Form_KeyDown);

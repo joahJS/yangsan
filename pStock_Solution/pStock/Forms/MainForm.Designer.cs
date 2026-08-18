@@ -90,7 +90,7 @@ partial class MainForm
         //
         // logoBadge / logoIcon / logoText (사이드바 상단 로고 영역 — 헤더는 이거 하나만 쓴다)
         //
-        this.logoBadge.BackColor = Color.White;
+        this.logoBadge.BackColor = Color.FromArgb(244, 247, 250);
         this.logoBadge.FillColor = Color.FromArgb(47, 111, 237);
         this.logoBadge.BorderRadius = 10;
         this.logoBadge.BorderThickness = 0;
@@ -110,10 +110,10 @@ partial class MainForm
         //
         this.logoPanel.Dock = DockStyle.Top;
         this.logoPanel.Height = 70;
-        this.logoPanel.BackColor = Color.White;
+        this.logoPanel.BackColor = Color.FromArgb(244, 247, 250);
         this.logoPanel.BorderThickness = 0;
         this.logoPanel.ShadowDecoration.Enabled = false;
-        this.logoPanel.FillColor = Color.White;
+        this.logoPanel.FillColor = Color.FromArgb(244, 247, 250);
         this.logoPanel.Controls.Add(this.logoBadge);
         this.logoPanel.Controls.Add(this.logoText);
         //

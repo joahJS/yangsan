@@ -23,12 +23,12 @@ public partial class BA02Form : Form
     {
         InitializeComponent();
 
-        btnNew.Image = IconFactory.Create(IconFactory.New, Color.White, 13);
-        btnSave.Image = IconFactory.Create(IconFactory.Save, Color.FromArgb(31, 41, 55), 13);
-        btnUpd.Image = IconFactory.Create(IconFactory.Edit, Color.FromArgb(47, 111, 237), 13);
-        btnDel.Image = IconFactory.Create(IconFactory.Delete, Color.FromArgb(220, 53, 69), 13);
-        btnSearch.Image = IconFactory.Create(IconFactory.Search, Color.FromArgb(47, 111, 237), 13);
-        btnClose.Image = IconFactory.Create(IconFactory.Close, Color.FromArgb(31, 41, 55), 13);
+        btnNew.Image = IconFactory.Create(IconFactory.New, Color.White, 15);
+        btnSave.Image = IconFactory.Create(IconFactory.Save, Color.FromArgb(47, 111, 237), 15);
+        btnUpd.Image = IconFactory.Create(IconFactory.Edit, Color.FromArgb(47, 111, 237), 15);
+        btnDel.Image = IconFactory.Create(IconFactory.Delete, Color.FromArgb(47, 111, 237), 15);
+        btnSearch.Image = IconFactory.Create(IconFactory.Search, Color.FromArgb(47, 111, 237), 15);
+        btnClose.Image = IconFactory.Create(IconFactory.Close, Color.FromArgb(47, 111, 237), 15);
         btnNew.ImageAlign = HorizontalAlignment.Left;
         btnSave.ImageAlign = HorizontalAlignment.Left;
         btnUpd.ImageAlign = HorizontalAlignment.Left;
