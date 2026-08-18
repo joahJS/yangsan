@@ -21,6 +21,7 @@ public partial class MainForm : Form
     {
         InitializeComponent();
 
+        logoIcon.Image = CreateIcon(DrawBoxesIcon, Color.White);
         BuildNavIcons();
         BuildNavMenus();
         BuildStatusBar();

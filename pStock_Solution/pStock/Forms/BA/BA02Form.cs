@@ -22,6 +22,33 @@ public partial class BA02Form : Form
     public BA02Form()
     {
         InitializeComponent();
+
+        headerIconImg.Image = IconFactory.Create(IconFactory.Document, Color.White, 18);
+        btnNew.Image = IconFactory.Create(IconFactory.New, Color.White, 16);
+        btnSave.Image = IconFactory.Create(IconFactory.Save, Color.FromArgb(47, 111, 237), 16);
+        btnUpd.Image = IconFactory.Create(IconFactory.Edit, Color.FromArgb(47, 111, 237), 16);
+        btnDel.Image = IconFactory.Create(IconFactory.Delete, Color.FromArgb(220, 53, 69), 16);
+        btnSearch.Image = IconFactory.Create(IconFactory.Search, Color.FromArgb(47, 111, 237), 16);
+        btnClose.Image = IconFactory.Create(IconFactory.Close, Color.FromArgb(75, 85, 99), 16);
+        btnNew.ImageAlign = HorizontalAlignment.Left;
+        btnSave.ImageAlign = HorizontalAlignment.Left;
+        btnUpd.ImageAlign = HorizontalAlignment.Left;
+        btnDel.ImageAlign = HorizontalAlignment.Left;
+        btnSearch.ImageAlign = HorizontalAlignment.Left;
+        btnClose.ImageAlign = HorizontalAlignment.Left;
+        btnNew.ImageOffset = new Point(12, 0);
+        btnSave.ImageOffset = new Point(12, 0);
+        btnUpd.ImageOffset = new Point(12, 0);
+        btnDel.ImageOffset = new Point(12, 0);
+        btnSearch.ImageOffset = new Point(12, 0);
+        btnClose.ImageOffset = new Point(12, 0);
+        btnNew.TextOffset = new Point(10, 0);
+        btnSave.TextOffset = new Point(10, 0);
+        btnUpd.TextOffset = new Point(10, 0);
+        btnDel.TextOffset = new Point(10, 0);
+        btnSearch.TextOffset = new Point(10, 0);
+        btnClose.TextOffset = new Point(10, 0);
+
         ApplyMode();
     }
 
@@ -116,11 +143,6 @@ public partial class BA02Form : Form
     private void BA02Form_Load(object? sender, EventArgs e)
     {
         LoadGroup();
-        // 생성자 시점에는 splitContainer가 실제 화면 크기를 아직 갖지 못해 SplitterDistance를
-        // 픽셀값으로 바로 지정하면 이후 폼이 리사이즈될 때 비율이 깨지면서(작은 초기값 기준으로
-        // 재계산되어) 오른쪽에 큰 빈 여백이 생기는 문제가 있었다. 폼이 실제 크기를 가진 뒤인
-        // Load 시점에 왼쪽(그룹) 그리드 컬럼들이 다 보일 정도로만 폭을 잡아준다.
-        this.splitContainer.SplitterDistance = 560;
     }
 
     private void RadModeGroup_CheckedChanged(object? sender, EventArgs e)
@@ -198,6 +220,7 @@ public partial class BA02Form : Form
         if (gridGroup.Columns["RETXS"] != null) gridGroup.Columns["RETXS"]!.HeaderText = "약칭(S)";
         if (gridGroup.Columns["RPRINT"] != null) gridGroup.Columns["RPRINT"]!.HeaderText = "출력여부";
         if (gridGroup.Columns["REFNO"] != null) gridGroup.Columns["REFNO"]!.Visible = false;
+        groupBadgeLabel.Text = (_groupTable?.Rows.Count ?? 0) + "건";
         LoadCode(string.Empty);
     }
 
@@ -221,6 +244,7 @@ public partial class BA02Form : Form
         if (gridCode.Columns["RETXF"] != null) gridCode.Columns["RETXF"]!.HeaderText = "전체명";
         if (gridCode.Columns["RETXS"] != null) gridCode.Columns["RETXS"]!.HeaderText = "약칭(S)";
         if (gridCode.Columns["RPRINT"] != null) gridCode.Columns["RPRINT"]!.HeaderText = "출력여부";
+        codeBadgeLabel.Text = (_codeTable?.Rows.Count ?? 0) + "건";
     }
 
     private void GridGroup_SelectionChanged(object? sender, EventArgs e)
@@ -447,5 +471,6 @@ public partial class BA02Form : Form
         q.Open();
         _groupTable = q.Table;
         gridGroup.DataSource = _groupTable;
+        groupBadgeLabel.Text = (_groupTable?.Rows.Count ?? 0) + "건";
     }
 }

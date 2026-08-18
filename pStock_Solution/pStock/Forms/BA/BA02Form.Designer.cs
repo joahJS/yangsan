@@ -1,4 +1,5 @@
 using pStock.Common;
+using Guna.UI2.WinForms;
 
 namespace pStock.Forms.BA;
 
@@ -17,55 +18,91 @@ partial class BA02Form
 
     private FastDataGridView gridGroup;
     private FastDataGridView gridCode;
-    private SplitContainer splitContainer;
     private RadioButton radModeGroup;
     private RadioButton radModeCode;
-    private TextBox edtRcdtp;
-    private TextBox edtRetxf;
+    private Guna2TextBox edtRcdtp;
+    private Guna2TextBox edtRetxf;
     private Label lblRcdtp;
     private Label lblRetxf;
     private Label lblCode;
-    private TextBox edtCode;
+    private Guna2TextBox edtCode;
     private Label lblRetxs;
-    private TextBox edtRetxs;
-    private Button btnNew;
-    private Button btnSave;
-    private Button btnUpd;
-    private Button btnDel;
-    private Button btnSearch;
-    private Button btnClose;
-    private Panel panelTop;
-    private Panel panelEdit;
+    private Guna2TextBox edtRetxs;
+    private Guna2Button btnNew;
+    private Guna2Button btnSave;
+    private Guna2Button btnUpd;
+    private Guna2Button btnDel;
+    private Guna2Button btnSearch;
+    private Guna2Button btnClose;
+
+    private Guna2Panel cardPanel;
+    private Guna2Panel cardHeader;
+    private Guna2Panel headerIconBadge;
+    private PictureBox headerIconImg;
+    private Label cardTitle;
+    private Panel toolbarPanel;
+    private Guna2Panel filterPanel;
+    private Panel gridAreaPanel;
+    private Guna2Panel groupCardPanel;
+    private Panel groupHeaderPanel;
+    private Guna2Panel groupTitleBar;
+    private Label groupTitleLabel;
+    private Label groupBadgeLabel;
+    private Panel splitterGap;
+    private Guna2Panel codeCardPanel;
+    private Panel codeHeaderPanel;
+    private Guna2Panel codeTitleBar;
+    private Label codeTitleLabel;
+    private Label codeBadgeLabel;
 
     private void InitializeComponent()
     {
         this.gridGroup = new FastDataGridView();
         this.gridCode = new FastDataGridView();
-        this.splitContainer = new SplitContainer();
         this.radModeGroup = new RadioButton();
         this.radModeCode = new RadioButton();
         this.lblRcdtp = new Label();
-        this.edtRcdtp = new TextBox();
+        this.edtRcdtp = new Guna2TextBox();
         this.lblRetxf = new Label();
-        this.edtRetxf = new TextBox();
+        this.edtRetxf = new Guna2TextBox();
         this.lblCode = new Label();
-        this.edtCode = new TextBox();
+        this.edtCode = new Guna2TextBox();
         this.lblRetxs = new Label();
-        this.edtRetxs = new TextBox();
-        this.btnNew = new Button();
-        this.btnSave = new Button();
-        this.btnUpd = new Button();
-        this.btnDel = new Button();
-        this.btnSearch = new Button();
-        this.btnClose = new Button();
-        this.panelTop = new Panel();
-        this.panelEdit = new Panel();
-        ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
-        this.splitContainer.Panel1.SuspendLayout();
-        this.splitContainer.Panel2.SuspendLayout();
-        this.splitContainer.SuspendLayout();
-        this.panelTop.SuspendLayout();
-        this.panelEdit.SuspendLayout();
+        this.edtRetxs = new Guna2TextBox();
+        this.btnNew = new Guna2Button();
+        this.btnSave = new Guna2Button();
+        this.btnUpd = new Guna2Button();
+        this.btnDel = new Guna2Button();
+        this.btnSearch = new Guna2Button();
+        this.btnClose = new Guna2Button();
+        this.cardPanel = new Guna2Panel();
+        this.cardHeader = new Guna2Panel();
+        this.headerIconBadge = new Guna2Panel();
+        this.headerIconImg = new PictureBox();
+        this.cardTitle = new Label();
+        this.toolbarPanel = new Panel();
+        this.filterPanel = new Guna2Panel();
+        this.gridAreaPanel = new Panel();
+        this.groupCardPanel = new Guna2Panel();
+        this.groupHeaderPanel = new Panel();
+        this.groupTitleBar = new Guna2Panel();
+        this.groupTitleLabel = new Label();
+        this.groupBadgeLabel = new Label();
+        this.splitterGap = new Panel();
+        this.codeCardPanel = new Guna2Panel();
+        this.codeHeaderPanel = new Panel();
+        this.codeTitleBar = new Guna2Panel();
+        this.codeTitleLabel = new Label();
+        this.codeBadgeLabel = new Label();
+        this.cardHeader.SuspendLayout();
+        this.toolbarPanel.SuspendLayout();
+        this.filterPanel.SuspendLayout();
+        this.groupHeaderPanel.SuspendLayout();
+        this.groupCardPanel.SuspendLayout();
+        this.codeHeaderPanel.SuspendLayout();
+        this.codeCardPanel.SuspendLayout();
+        this.gridAreaPanel.SuspendLayout();
+        this.cardPanel.SuspendLayout();
         this.SuspendLayout();
         //
         // radModeGroup / radModeCode
@@ -76,15 +113,14 @@ partial class BA02Form
         this.radModeCode.Text = "코드";
         this.radModeCode.AutoSize = true;
         //
-        // lblCode / lblRetxs (원본에서 필드로 선언돼 SyncEditFromGroup 등에서 참조되지는 않지만
-        // ApplyMode()에서 Visible 토글 대상이라 그대로 필드 유지)
+        // lblCode / lblRetxs
         //
-        this.lblCode.Text = "코드";
+        this.lblCode.Text = "코드:";
         this.lblCode.AutoSize = true;
-        this.lblRetxs.Text = "약칭(S)";
+        this.lblRetxs.Text = "약칭(S):";
         this.lblRetxs.AutoSize = true;
         //
-        // 상단 버튼 6개
+        // 상단 버튼 6개 (신규만 강조 채움, 나머지는 흰 배경 + 파란 테두리)
         //
         this.btnNew.Text = "신규(F1)";
         this.btnSave.Text = "저장(F2)";
@@ -92,94 +128,295 @@ partial class BA02Form
         this.btnDel.Text = "삭제(F4)";
         this.btnSearch.Text = "조회";
         this.btnClose.Text = "닫기(Esc)";
+
+        this.btnNew.Left = 20; this.btnNew.Top = 10; this.btnNew.Width = 110; this.btnNew.Height = 36;
+        this.btnSave.Left = 138; this.btnSave.Top = 10; this.btnSave.Width = 110; this.btnSave.Height = 36;
+        this.btnUpd.Left = 256; this.btnUpd.Top = 10; this.btnUpd.Width = 110; this.btnUpd.Height = 36;
+        this.btnDel.Left = 374; this.btnDel.Top = 10; this.btnDel.Width = 110; this.btnDel.Height = 36;
+        this.btnSearch.Left = 492; this.btnSearch.Top = 10; this.btnSearch.Width = 110; this.btnSearch.Height = 36;
+        this.btnClose.Left = 610; this.btnClose.Top = 10; this.btnClose.Width = 110; this.btnClose.Height = 36;
+
+        this.btnNew.BorderRadius = 8;
+        this.btnSave.BorderRadius = 8;
+        this.btnUpd.BorderRadius = 8;
+        this.btnDel.BorderRadius = 8;
+        this.btnSearch.BorderRadius = 8;
+        this.btnClose.BorderRadius = 8;
+
+        this.btnNew.FillColor = Color.FromArgb(47, 111, 237);
+        this.btnNew.ForeColor = Color.White;
+        this.btnNew.BorderThickness = 0;
+        this.btnNew.HoverState.FillColor = Color.FromArgb(35, 96, 220);
+
+        this.btnSave.FillColor = Color.White;
+        this.btnUpd.FillColor = Color.White;
+        this.btnDel.FillColor = Color.White;
+        this.btnSearch.FillColor = Color.White;
+        this.btnClose.FillColor = Color.White;
+
+        this.btnSave.ForeColor = Color.FromArgb(47, 111, 237);
+        this.btnUpd.ForeColor = Color.FromArgb(47, 111, 237);
+        this.btnDel.ForeColor = Color.FromArgb(220, 53, 69);
+        this.btnSearch.ForeColor = Color.FromArgb(47, 111, 237);
+        this.btnClose.ForeColor = Color.FromArgb(75, 85, 99);
+
+        this.btnSave.BorderThickness = 1;
+        this.btnUpd.BorderThickness = 1;
+        this.btnDel.BorderThickness = 1;
+        this.btnSearch.BorderThickness = 1;
+        this.btnClose.BorderThickness = 1;
+
+        this.btnSave.BorderColor = Color.FromArgb(47, 111, 237);
+        this.btnUpd.BorderColor = Color.FromArgb(47, 111, 237);
+        this.btnDel.BorderColor = Color.FromArgb(220, 53, 69);
+        this.btnSearch.BorderColor = Color.FromArgb(47, 111, 237);
+        this.btnClose.BorderColor = Color.FromArgb(209, 213, 219);
+
+        this.btnNew.Font = new Font("맑은 고딕", 9.5F, FontStyle.Bold);
+        this.btnSave.Font = new Font("맑은 고딕", 9.5F);
+        this.btnUpd.Font = new Font("맑은 고딕", 9.5F);
+        this.btnDel.Font = new Font("맑은 고딕", 9.5F);
+        this.btnSearch.Font = new Font("맑은 고딕", 9.5F);
+        this.btnClose.Font = new Font("맑은 고딕", 9.5F);
+
+        this.btnNew.TextAlign = HorizontalAlignment.Center;
+        this.btnSave.TextAlign = HorizontalAlignment.Center;
+        this.btnUpd.TextAlign = HorizontalAlignment.Center;
+        this.btnDel.TextAlign = HorizontalAlignment.Center;
+        this.btnSearch.TextAlign = HorizontalAlignment.Center;
+        this.btnClose.TextAlign = HorizontalAlignment.Center;
         //
-        // panelTop (원본 BuildLayout()의 top 패널: 버튼 6개를 95px 간격으로 가로 배치)
+        // toolbarPanel
         //
-        this.panelTop.Dock = DockStyle.Top;
-        this.panelTop.Height = 40;
-        this.btnNew.Left = 5;
-        this.btnNew.Top = 8;
-        this.btnNew.Width = 90;
-        this.panelTop.Controls.Add(this.btnNew);
-        this.btnSave.Left = 100;
-        this.btnSave.Top = 8;
-        this.btnSave.Width = 90;
-        this.panelTop.Controls.Add(this.btnSave);
-        this.btnUpd.Left = 195;
-        this.btnUpd.Top = 8;
-        this.btnUpd.Width = 90;
-        this.panelTop.Controls.Add(this.btnUpd);
-        this.btnDel.Left = 290;
-        this.btnDel.Top = 8;
-        this.btnDel.Width = 90;
-        this.panelTop.Controls.Add(this.btnDel);
-        this.btnSearch.Left = 385;
-        this.btnSearch.Top = 8;
-        this.btnSearch.Width = 90;
-        this.panelTop.Controls.Add(this.btnSearch);
-        this.btnClose.Left = 480;
-        this.btnClose.Top = 8;
-        this.btnClose.Width = 90;
-        this.panelTop.Controls.Add(this.btnClose);
+        this.toolbarPanel.Dock = DockStyle.Top;
+        this.toolbarPanel.Height = 56;
+        this.toolbarPanel.BackColor = Color.White;
+        this.toolbarPanel.Controls.Add(this.btnNew);
+        this.toolbarPanel.Controls.Add(this.btnSave);
+        this.toolbarPanel.Controls.Add(this.btnUpd);
+        this.toolbarPanel.Controls.Add(this.btnDel);
+        this.toolbarPanel.Controls.Add(this.btnSearch);
+        this.toolbarPanel.Controls.Add(this.btnClose);
         //
-        // panelEdit (원본 BuildLayout()의 editPanel: 라디오버튼 2개 + 라벨/입력란 4쌍을
-        // 이전 컨트롤의 오른쪽 끝(Right) 기준으로 이어붙이던 좌표 계산을 그대로 유지)
+        // filterPanel (구분 모드 라디오버튼 + 검색 조건 입력란)
         //
-        this.panelEdit.Dock = DockStyle.Top;
-        this.panelEdit.Height = 40;
-        this.radModeGroup.Left = 5;
-        this.radModeGroup.Top = 12;
-        this.panelEdit.Controls.Add(this.radModeGroup);
-        this.radModeCode.Left = this.radModeGroup.Right + 10;
-        this.radModeCode.Top = 12;
-        this.panelEdit.Controls.Add(this.radModeCode);
-        this.lblRcdtp.Text = "구분";
-        this.lblRcdtp.AutoSize = true;
-        this.lblRcdtp.Left = this.radModeCode.Right + 20;
-        this.lblRcdtp.Top = 12;
-        this.panelEdit.Controls.Add(this.lblRcdtp);
-        this.edtRcdtp.Left = this.lblRcdtp.Right + 5;
-        this.edtRcdtp.Top = 8;
-        this.edtRcdtp.Width = 120;
-        this.panelEdit.Controls.Add(this.edtRcdtp);
-        this.lblRetxf.Text = "전체명";
-        this.lblRetxf.AutoSize = true;
-        this.lblRetxf.Left = this.edtRcdtp.Right + 20;
-        this.lblRetxf.Top = 12;
-        this.panelEdit.Controls.Add(this.lblRetxf);
-        this.edtRetxf.Left = this.lblRetxf.Right + 5;
-        this.edtRetxf.Top = 8;
-        this.edtRetxf.Width = 120;
-        this.panelEdit.Controls.Add(this.edtRetxf);
-        this.lblCode.Left = this.edtRetxf.Right + 20;
-        this.lblCode.Top = 12;
-        this.panelEdit.Controls.Add(this.lblCode);
-        this.edtCode.Left = this.lblCode.Right + 5;
-        this.edtCode.Top = 8;
-        this.edtCode.Width = 120;
-        this.panelEdit.Controls.Add(this.edtCode);
-        this.lblRetxs.Left = this.edtCode.Right + 20;
-        this.lblRetxs.Top = 12;
-        this.panelEdit.Controls.Add(this.lblRetxs);
-        this.edtRetxs.Left = this.lblRetxs.Right + 5;
-        this.edtRetxs.Top = 8;
-        this.edtRetxs.Width = 120;
-        this.panelEdit.Controls.Add(this.edtRetxs);
+        this.filterPanel.Dock = DockStyle.Top;
+        this.filterPanel.Height = 66;
+        this.filterPanel.FillColor = Color.FromArgb(249, 250, 251);
+        this.filterPanel.BorderThickness = 0;
+        this.filterPanel.ShadowDecoration.Enabled = false;
+
+        this.radModeGroup.Left = 20; this.radModeGroup.Top = 26;
+        this.radModeCode.Left = this.radModeGroup.Right + 24; this.radModeCode.Top = 26;
+
+        this.lblRcdtp.Text = "구분:";
+        this.lblRcdtp.Left = this.radModeCode.Right + 30; this.lblRcdtp.Top = 24;
+        this.edtRcdtp.Left = this.lblRcdtp.Right + 8; this.edtRcdtp.Top = 18; this.edtRcdtp.Width = 130;
+
+        this.lblRetxf.Text = "전체명:";
+        this.lblRetxf.Left = this.edtRcdtp.Right + 24; this.lblRetxf.Top = 24;
+        this.edtRetxf.Left = this.lblRetxf.Right + 8; this.edtRetxf.Top = 18; this.edtRetxf.Width = 160;
+
+        this.lblCode.Left = this.edtRetxf.Right + 24; this.lblCode.Top = 24;
+        this.edtCode.Left = this.lblCode.Right + 8; this.edtCode.Top = 18; this.edtCode.Width = 110;
+
+        this.lblRetxs.Left = this.edtCode.Right + 24; this.lblRetxs.Top = 24;
+        this.edtRetxs.Left = this.lblRetxs.Right + 8; this.edtRetxs.Top = 18; this.edtRetxs.Width = 110;
+
+        this.edtRcdtp.BorderRadius = 6;
+        this.edtRetxf.BorderRadius = 6;
+        this.edtCode.BorderRadius = 6;
+        this.edtRetxs.BorderRadius = 6;
+        this.edtRcdtp.BorderColor = Color.FromArgb(209, 213, 219);
+        this.edtRetxf.BorderColor = Color.FromArgb(209, 213, 219);
+        this.edtCode.BorderColor = Color.FromArgb(209, 213, 219);
+        this.edtRetxs.BorderColor = Color.FromArgb(209, 213, 219);
+        this.edtRcdtp.FillColor = Color.White;
+        this.edtRetxf.FillColor = Color.White;
+        this.edtCode.FillColor = Color.White;
+        this.edtRetxs.FillColor = Color.White;
+        this.edtRcdtp.FocusedState.BorderColor = Color.FromArgb(47, 111, 237);
+        this.edtRetxf.FocusedState.BorderColor = Color.FromArgb(47, 111, 237);
+        this.edtCode.FocusedState.BorderColor = Color.FromArgb(47, 111, 237);
+        this.edtRetxs.FocusedState.BorderColor = Color.FromArgb(47, 111, 237);
+
+        this.filterPanel.Controls.AddRange(new Control[]
+        {
+            this.radModeGroup, this.radModeCode,
+            this.lblRcdtp, this.edtRcdtp,
+            this.lblRetxf, this.edtRetxf,
+            this.lblCode, this.edtCode,
+            this.lblRetxs, this.edtRetxs
+        });
         //
-        // gridGroup / gridCode / splitContainer
+        // groupCardPanel (좌측: 구분코드 목록)
         //
+        this.groupTitleBar.FillColor = Color.FromArgb(47, 111, 237);
+        this.groupTitleBar.BorderRadius = 2;
+        this.groupTitleBar.BorderThickness = 0;
+        this.groupTitleBar.ShadowDecoration.Enabled = false;
+        this.groupTitleBar.Left = 16; this.groupTitleBar.Top = 12; this.groupTitleBar.Width = 4; this.groupTitleBar.Height = 20;
+
+        this.groupTitleLabel.Text = "구분코드";
+        this.groupTitleLabel.Font = new Font("맑은 고딕", 10F, FontStyle.Bold);
+        this.groupTitleLabel.ForeColor = Color.FromArgb(31, 41, 55);
+        this.groupTitleLabel.AutoSize = true;
+        this.groupTitleLabel.Left = 28; this.groupTitleLabel.Top = 11;
+
+        this.groupBadgeLabel.Text = "0건";
+        this.groupBadgeLabel.Font = new Font("맑은 고딕", 8.5F, FontStyle.Bold);
+        this.groupBadgeLabel.ForeColor = Color.FromArgb(47, 111, 237);
+        this.groupBadgeLabel.BackColor = Color.FromArgb(232, 240, 254);
+        this.groupBadgeLabel.AutoSize = true;
+        this.groupBadgeLabel.Padding = new Padding(8, 3, 8, 3);
+        this.groupBadgeLabel.Left = 96; this.groupBadgeLabel.Top = 8;
+
+        this.groupHeaderPanel.Dock = DockStyle.Top;
+        this.groupHeaderPanel.Height = 44;
+        this.groupHeaderPanel.BackColor = Color.White;
+        this.groupHeaderPanel.Controls.Add(this.groupTitleBar);
+        this.groupHeaderPanel.Controls.Add(this.groupTitleLabel);
+        this.groupHeaderPanel.Controls.Add(this.groupBadgeLabel);
+
         this.gridGroup.Dock = DockStyle.Fill;
         this.gridGroup.ReadOnly = true;
         this.gridGroup.AllowUserToAddRows = false;
+        this.gridGroup.BorderStyle = BorderStyle.None;
+        this.gridGroup.EnableHeadersVisualStyles = false;
+        this.gridGroup.ColumnHeadersHeight = 36;
+        this.gridGroup.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(248, 249, 251);
+        this.gridGroup.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(75, 85, 99);
+        this.gridGroup.ColumnHeadersDefaultCellStyle.Font = new Font("맑은 고딕", 9F, FontStyle.Bold);
+        this.gridGroup.RowTemplate.Height = 32;
+        this.gridGroup.GridColor = Color.FromArgb(229, 231, 235);
+        this.gridGroup.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+        this.gridGroup.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        this.gridGroup.DefaultCellStyle.SelectionBackColor = Color.FromArgb(232, 240, 254);
+        this.gridGroup.DefaultCellStyle.SelectionForeColor = Color.FromArgb(31, 41, 55);
+        this.gridGroup.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(250, 250, 251);
+
+        this.groupCardPanel.Dock = DockStyle.Left;
+        this.groupCardPanel.Width = 560;
+        this.groupCardPanel.FillColor = Color.White;
+        this.groupCardPanel.BorderRadius = 10;
+        this.groupCardPanel.BorderColor = Color.FromArgb(229, 231, 235);
+        this.groupCardPanel.BorderThickness = 1;
+        this.groupCardPanel.ShadowDecoration.Enabled = false;
+        this.groupCardPanel.Controls.Add(this.gridGroup);
+        this.groupCardPanel.Controls.Add(this.groupHeaderPanel);
+        //
+        // splitterGap (두 카드 사이 여백)
+        //
+        this.splitterGap.Dock = DockStyle.Left;
+        this.splitterGap.Width = 16;
+        this.splitterGap.BackColor = Color.FromArgb(243, 244, 247);
+        //
+        // codeCardPanel (우측: 선택된 구분에 속한 코드 목록)
+        //
+        this.codeTitleBar.FillColor = Color.FromArgb(47, 111, 237);
+        this.codeTitleBar.BorderRadius = 2;
+        this.codeTitleBar.BorderThickness = 0;
+        this.codeTitleBar.ShadowDecoration.Enabled = false;
+        this.codeTitleBar.Left = 16; this.codeTitleBar.Top = 12; this.codeTitleBar.Width = 4; this.codeTitleBar.Height = 20;
+
+        this.codeTitleLabel.Text = "공통코드";
+        this.codeTitleLabel.Font = new Font("맑은 고딕", 10F, FontStyle.Bold);
+        this.codeTitleLabel.ForeColor = Color.FromArgb(31, 41, 55);
+        this.codeTitleLabel.AutoSize = true;
+        this.codeTitleLabel.Left = 28; this.codeTitleLabel.Top = 11;
+
+        this.codeBadgeLabel.Text = "0건";
+        this.codeBadgeLabel.Font = new Font("맑은 고딕", 8.5F, FontStyle.Bold);
+        this.codeBadgeLabel.ForeColor = Color.FromArgb(47, 111, 237);
+        this.codeBadgeLabel.BackColor = Color.FromArgb(232, 240, 254);
+        this.codeBadgeLabel.AutoSize = true;
+        this.codeBadgeLabel.Padding = new Padding(8, 3, 8, 3);
+        this.codeBadgeLabel.Left = 100; this.codeBadgeLabel.Top = 8;
+
+        this.codeHeaderPanel.Dock = DockStyle.Top;
+        this.codeHeaderPanel.Height = 44;
+        this.codeHeaderPanel.BackColor = Color.White;
+        this.codeHeaderPanel.Controls.Add(this.codeTitleBar);
+        this.codeHeaderPanel.Controls.Add(this.codeTitleLabel);
+        this.codeHeaderPanel.Controls.Add(this.codeBadgeLabel);
+
         this.gridCode.Dock = DockStyle.Fill;
         this.gridCode.ReadOnly = true;
         this.gridCode.AllowUserToAddRows = false;
-        this.splitContainer.Dock = DockStyle.Fill;
-        this.splitContainer.FixedPanel = FixedPanel.Panel1;
-        this.splitContainer.Panel1.Controls.Add(this.gridGroup);
-        this.splitContainer.Panel2.Controls.Add(this.gridCode);
+        this.gridCode.BorderStyle = BorderStyle.None;
+        this.gridCode.EnableHeadersVisualStyles = false;
+        this.gridCode.ColumnHeadersHeight = 36;
+        this.gridCode.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(248, 249, 251);
+        this.gridCode.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(75, 85, 99);
+        this.gridCode.ColumnHeadersDefaultCellStyle.Font = new Font("맑은 고딕", 9F, FontStyle.Bold);
+        this.gridCode.RowTemplate.Height = 32;
+        this.gridCode.GridColor = Color.FromArgb(229, 231, 235);
+        this.gridCode.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+        this.gridCode.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        this.gridCode.DefaultCellStyle.SelectionBackColor = Color.FromArgb(232, 240, 254);
+        this.gridCode.DefaultCellStyle.SelectionForeColor = Color.FromArgb(31, 41, 55);
+        this.gridCode.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(250, 250, 251);
+
+        this.codeCardPanel.Dock = DockStyle.Fill;
+        this.codeCardPanel.FillColor = Color.White;
+        this.codeCardPanel.BorderRadius = 10;
+        this.codeCardPanel.BorderColor = Color.FromArgb(229, 231, 235);
+        this.codeCardPanel.BorderThickness = 1;
+        this.codeCardPanel.ShadowDecoration.Enabled = false;
+        this.codeCardPanel.Controls.Add(this.gridCode);
+        this.codeCardPanel.Controls.Add(this.codeHeaderPanel);
         //
-        // 이벤트 배선 (원본 BuildLayout()에서 그대로 이동)
+        // gridAreaPanel (Fill을 가장 먼저 추가해야 나중에 추가되는 Left 카드들이 우선권을 가짐)
+        //
+        this.gridAreaPanel.Dock = DockStyle.Fill;
+        this.gridAreaPanel.BackColor = Color.FromArgb(243, 244, 247);
+        this.gridAreaPanel.Padding = new Padding(16, 12, 16, 16);
+        this.gridAreaPanel.Controls.Add(this.codeCardPanel);
+        this.gridAreaPanel.Controls.Add(this.splitterGap);
+        this.gridAreaPanel.Controls.Add(this.groupCardPanel);
+        //
+        // headerIconBadge / headerIconImg / cardTitle
+        //
+        this.headerIconBadge.FillColor = Color.FromArgb(47, 111, 237);
+        this.headerIconBadge.BorderRadius = 8;
+        this.headerIconBadge.BorderThickness = 0;
+        this.headerIconBadge.ShadowDecoration.Enabled = false;
+        this.headerIconBadge.Left = 16; this.headerIconBadge.Top = 10; this.headerIconBadge.Width = 30; this.headerIconBadge.Height = 30;
+        this.headerIconImg.BackColor = Color.Transparent;
+        this.headerIconImg.SizeMode = PictureBoxSizeMode.CenterImage;
+        this.headerIconImg.Left = 0; this.headerIconImg.Top = 0; this.headerIconImg.Width = 30; this.headerIconImg.Height = 30;
+        this.headerIconBadge.Controls.Add(this.headerIconImg);
+        this.cardTitle.Text = "공통코드 마스터";
+        this.cardTitle.Font = new Font("맑은 고딕", 11.5F, FontStyle.Bold);
+        this.cardTitle.ForeColor = Color.FromArgb(31, 41, 55);
+        this.cardTitle.AutoSize = true;
+        this.cardTitle.Left = 58; this.cardTitle.Top = 15;
+        //
+        // cardHeader
+        //
+        this.cardHeader.Dock = DockStyle.Top;
+        this.cardHeader.Height = 52;
+        this.cardHeader.FillColor = Color.White;
+        this.cardHeader.BorderThickness = 0;
+        this.cardHeader.ShadowDecoration.Enabled = false;
+        this.cardHeader.Controls.Add(this.headerIconBadge);
+        this.cardHeader.Controls.Add(this.cardTitle);
+        //
+        // cardPanel (전체를 감싸는 카드)
+        //
+        this.cardPanel.Dock = DockStyle.Fill;
+        this.cardPanel.FillColor = Color.White;
+        this.cardPanel.BorderRadius = 12;
+        this.cardPanel.BorderThickness = 0;
+        this.cardPanel.ShadowDecoration.Enabled = true;
+        this.cardPanel.ShadowDecoration.Color = Color.FromArgb(40, 0, 0, 0);
+        this.cardPanel.ShadowDecoration.Depth = 20;
+        this.cardPanel.Controls.Add(this.gridAreaPanel);
+        this.cardPanel.Controls.Add(this.filterPanel);
+        this.cardPanel.Controls.Add(this.toolbarPanel);
+        this.cardPanel.Controls.Add(this.cardHeader);
+        //
+        // 이벤트 배선
         //
         this.radModeGroup.CheckedChanged += new EventHandler(this.RadModeGroup_CheckedChanged);
         this.radModeCode.CheckedChanged += new EventHandler(this.RadModeCode_CheckedChanged);
@@ -199,18 +436,24 @@ partial class BA02Form
         this.Width = 1200;
         this.Height = 800;
         this.KeyPreview = true;
-        this.Controls.Add(this.splitContainer);
-        this.Controls.Add(this.panelEdit);
-        this.Controls.Add(this.panelTop);
+        this.BackColor = Color.FromArgb(243, 244, 247);
+        this.Padding = new Padding(16);
+        this.Controls.Add(this.cardPanel);
         this.Load += new EventHandler(this.BA02Form_Load);
         this.KeyDown += new KeyEventHandler(this.BA02Form_KeyDown);
-        this.splitContainer.Panel1.ResumeLayout(false);
-        this.splitContainer.Panel2.ResumeLayout(false);
-        ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
-        this.splitContainer.ResumeLayout(false);
-        this.panelTop.ResumeLayout(false);
-        this.panelEdit.ResumeLayout(false);
-        this.panelEdit.PerformLayout();
+        this.groupHeaderPanel.ResumeLayout(false);
+        this.groupHeaderPanel.PerformLayout();
+        this.groupCardPanel.ResumeLayout(false);
+        this.codeHeaderPanel.ResumeLayout(false);
+        this.codeHeaderPanel.PerformLayout();
+        this.codeCardPanel.ResumeLayout(false);
+        this.gridAreaPanel.ResumeLayout(false);
+        this.toolbarPanel.ResumeLayout(false);
+        this.filterPanel.ResumeLayout(false);
+        this.filterPanel.PerformLayout();
+        this.cardHeader.ResumeLayout(false);
+        this.cardHeader.PerformLayout();
+        this.cardPanel.ResumeLayout(false);
         this.ResumeLayout(false);
     }
 }

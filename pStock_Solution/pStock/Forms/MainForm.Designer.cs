@@ -18,6 +18,7 @@ partial class MainForm
     private Guna2Panel sidebarPanel;
     private Guna2Panel logoPanel;
     private Guna2Panel logoBadge;
+    private PictureBox logoIcon;
     private Label logoText;
     private FlowLayoutPanel navFlow;
     private Guna2Button btnNavMain;
@@ -52,6 +53,7 @@ partial class MainForm
         this.sidebarPanel = new Guna2Panel();
         this.logoPanel = new Guna2Panel();
         this.logoBadge = new Guna2Panel();
+        this.logoIcon = new PictureBox();
         this.logoText = new Label();
         this.navFlow = new FlowLayoutPanel();
         this.btnNavMain = new Guna2Button();
@@ -78,11 +80,17 @@ partial class MainForm
         this.navFlow.SuspendLayout();
         this.SuspendLayout();
         //
-        // logoBadge / logoText (사이드바 상단 로고 영역 — 헤더는 이거 하나만 쓴다)
+        // logoBadge / logoIcon / logoText (사이드바 상단 로고 영역 — 헤더는 이거 하나만 쓴다)
         //
         this.logoBadge.FillColor = Color.FromArgb(47, 111, 237);
         this.logoBadge.BorderRadius = 10;
+        this.logoBadge.BorderThickness = 0;
+        this.logoBadge.ShadowDecoration.Enabled = false;
         this.logoBadge.Left = 20; this.logoBadge.Top = 15; this.logoBadge.Width = 36; this.logoBadge.Height = 36;
+        this.logoIcon.BackColor = Color.Transparent;
+        this.logoIcon.SizeMode = PictureBoxSizeMode.CenterImage;
+        this.logoIcon.Left = 0; this.logoIcon.Top = 0; this.logoIcon.Width = 36; this.logoIcon.Height = 36;
+        this.logoBadge.Controls.Add(this.logoIcon);
         this.logoText.Text = "재고관리 시스템";
         this.logoText.Font = new Font("맑은 고딕", 11F, FontStyle.Bold);
         this.logoText.ForeColor = Color.FromArgb(31, 41, 55);
@@ -93,6 +101,8 @@ partial class MainForm
         //
         this.logoPanel.Dock = DockStyle.Top;
         this.logoPanel.Height = 70;
+        this.logoPanel.BorderThickness = 0;
+        this.logoPanel.ShadowDecoration.Enabled = false;
         this.logoPanel.FillColor = Color.White;
         this.logoPanel.Controls.Add(this.logoBadge);
         this.logoPanel.Controls.Add(this.logoText);
@@ -272,6 +282,8 @@ partial class MainForm
         this.sidebarPanel.Dock = DockStyle.Left;
         this.sidebarPanel.Width = 220;
         this.sidebarPanel.FillColor = Color.White;
+        this.sidebarPanel.BorderThickness = 0;
+        this.sidebarPanel.ShadowDecoration.Enabled = false;
         this.sidebarPanel.Controls.Add(this.navFlow);
         this.sidebarPanel.Controls.Add(this.logoPanel);
         //
