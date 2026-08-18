@@ -34,7 +34,8 @@ partial class MainForm
     private FlowLayoutPanel subBase;
     private Guna2Button btnNavSys;
     private FlowLayoutPanel subSys;
-    private Panel contentPanel;
+    private Guna2Panel contentPanel;
+    private Panel sidebarRightBorder;
     private FlowLayoutPanel tabStripPanel;
     private Panel formHostPanel;
     private Panel statusBarTopBorder;
@@ -73,7 +74,8 @@ partial class MainForm
         this.subBase = new FlowLayoutPanel();
         this.btnNavSys = new Guna2Button();
         this.subSys = new FlowLayoutPanel();
-        this.contentPanel = new Panel();
+        this.contentPanel = new Guna2Panel();
+        this.sidebarRightBorder = new Panel();
         this.tabStripPanel = new FlowLayoutPanel();
         this.formHostPanel = new Panel();
         this.statusBarTopBorder = new Panel();
@@ -310,11 +312,21 @@ partial class MainForm
         //
         this.contentPanel.Dock = DockStyle.Fill;
         this.contentPanel.BackColor = Color.FromArgb(243, 244, 247);
+        this.contentPanel.FillColor = Color.FromArgb(243, 244, 247);
+        this.contentPanel.BorderColor = Color.FromArgb(229, 231, 235);
+        this.contentPanel.BorderThickness = 1;
+        this.contentPanel.BorderRadius = 0;
+        this.contentPanel.Padding = new Padding(1);
+        this.contentPanel.ShadowDecoration.Enabled = false;
         this.contentPanel.Controls.Add(this.formHostPanel);
         this.contentPanel.Controls.Add(this.tabStripPanel);
         //
         // sidebarPanel
         //
+        this.sidebarRightBorder.Dock = DockStyle.Right;
+        this.sidebarRightBorder.Width = 1;
+        this.sidebarRightBorder.BackColor = Color.FromArgb(229, 231, 235);
+
         this.sidebarPanel.Dock = DockStyle.Left;
         this.sidebarPanel.Width = 220;
         this.sidebarPanel.BackColor = Color.White;
@@ -323,6 +335,7 @@ partial class MainForm
         this.sidebarPanel.ShadowDecoration.Enabled = false;
         this.sidebarPanel.Controls.Add(this.navFlow);
         this.sidebarPanel.Controls.Add(this.logoPanel);
+        this.sidebarPanel.Controls.Add(this.sidebarRightBorder);
         //
         // statusBarTopBorder (statusBar 위쪽 경계선)
         //
