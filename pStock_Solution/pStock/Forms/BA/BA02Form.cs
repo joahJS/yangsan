@@ -23,13 +23,13 @@ public partial class BA02Form : Form
     {
         InitializeComponent();
 
-        headerIconImg.Image = IconFactory.Create(IconFactory.Document, Color.White, 18);
-        btnNew.Image = IconFactory.Create(IconFactory.New, Color.White, 14);
-        btnSave.Image = IconFactory.Create(IconFactory.Save, Color.FromArgb(47, 111, 237), 14);
-        btnUpd.Image = IconFactory.Create(IconFactory.Edit, Color.FromArgb(47, 111, 237), 14);
-        btnDel.Image = IconFactory.Create(IconFactory.Delete, Color.FromArgb(47, 111, 237), 14);
-        btnSearch.Image = IconFactory.Create(IconFactory.Search, Color.FromArgb(47, 111, 237), 14);
-        btnClose.Image = IconFactory.Create(IconFactory.Close, Color.FromArgb(47, 111, 237), 14);
+        headerIconImg.Image = IconFactory.Create(IconFactory.Hierarchy, Color.FromArgb(47, 111, 237), 18);
+        btnNew.Image = IconFactory.Create(IconFactory.New, Color.White, 13);
+        btnSave.Image = IconFactory.Create(IconFactory.Save, Color.FromArgb(31, 41, 55), 13);
+        btnUpd.Image = IconFactory.Create(IconFactory.Edit, Color.FromArgb(47, 111, 237), 13);
+        btnDel.Image = IconFactory.Create(IconFactory.Delete, Color.FromArgb(220, 53, 69), 13);
+        btnSearch.Image = IconFactory.Create(IconFactory.Search, Color.FromArgb(47, 111, 237), 13);
+        btnClose.Image = IconFactory.Create(IconFactory.Close, Color.FromArgb(31, 41, 55), 13);
         btnNew.ImageAlign = HorizontalAlignment.Left;
         btnSave.ImageAlign = HorizontalAlignment.Left;
         btnUpd.ImageAlign = HorizontalAlignment.Left;
@@ -49,9 +49,9 @@ public partial class BA02Form : Form
         btnSearch.TextOffset = new Point(18, 0);
         btnClose.TextOffset = new Point(18, 0);
 
-        btnMinCap.Image = IconFactory.Create(IconFactory.Minimize, Color.FromArgb(75, 85, 99), 14);
-        btnMaxCap.Image = IconFactory.Create(IconFactory.Maximize, Color.FromArgb(75, 85, 99), 14);
-        btnCloseCap.Image = IconFactory.Create(IconFactory.Close, Color.FromArgb(75, 85, 99), 14);
+        btnMinCap.Image = IconFactory.Create(IconFactory.Minimize, Color.FromArgb(75, 85, 99), 11);
+        btnMaxCap.Image = IconFactory.Create(IconFactory.Maximize, Color.FromArgb(75, 85, 99), 11);
+        btnCloseCap.Image = IconFactory.Create(IconFactory.Close, Color.FromArgb(75, 85, 99), 11);
 
         ApplyMode();
     }
@@ -79,12 +79,12 @@ public partial class BA02Form : Form
         if (WindowState == FormWindowState.Maximized)
         {
             WindowState = FormWindowState.Normal;
-            btnMaxCap.Image = IconFactory.Create(IconFactory.Maximize, Color.FromArgb(75, 85, 99), 14);
+            btnMaxCap.Image = IconFactory.Create(IconFactory.Maximize, Color.FromArgb(75, 85, 99), 11);
         }
         else
         {
             WindowState = FormWindowState.Maximized;
-            btnMaxCap.Image = IconFactory.Create(IconFactory.Restore, Color.FromArgb(75, 85, 99), 14);
+            btnMaxCap.Image = IconFactory.Create(IconFactory.Restore, Color.FromArgb(75, 85, 99), 11);
         }
     }
 
@@ -262,7 +262,6 @@ public partial class BA02Form : Form
         if (gridGroup.Columns["RETXS"] != null) gridGroup.Columns["RETXS"]!.HeaderText = "약칭(S)";
         if (gridGroup.Columns["RPRINT"] != null) gridGroup.Columns["RPRINT"]!.HeaderText = "출력여부";
         if (gridGroup.Columns["REFNO"] != null) gridGroup.Columns["REFNO"]!.Visible = false;
-        groupBadgeLabel.Text = (_groupTable?.Rows.Count ?? 0) + "건";
         LoadCode(string.Empty);
     }
 
@@ -286,7 +285,6 @@ public partial class BA02Form : Form
         if (gridCode.Columns["RETXF"] != null) gridCode.Columns["RETXF"]!.HeaderText = "전체명";
         if (gridCode.Columns["RETXS"] != null) gridCode.Columns["RETXS"]!.HeaderText = "약칭(S)";
         if (gridCode.Columns["RPRINT"] != null) gridCode.Columns["RPRINT"]!.HeaderText = "출력여부";
-        codeBadgeLabel.Text = (_codeTable?.Rows.Count ?? 0) + "건";
     }
 
     private void GridGroup_SelectionChanged(object? sender, EventArgs e)
@@ -513,6 +511,5 @@ public partial class BA02Form : Form
         q.Open();
         _groupTable = q.Table;
         gridGroup.DataSource = _groupTable;
-        groupBadgeLabel.Text = (_groupTable?.Rows.Count ?? 0) + "건";
     }
 }

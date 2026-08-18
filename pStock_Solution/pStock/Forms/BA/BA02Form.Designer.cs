@@ -37,7 +37,6 @@ partial class BA02Form
 
     private Guna2Panel cardPanel;
     private Guna2Panel cardHeader;
-    private Guna2Panel headerIconBadge;
     private PictureBox headerIconImg;
     private Label cardTitle;
     private Panel toolbarPanel;
@@ -47,13 +46,11 @@ partial class BA02Form
     private Panel groupHeaderPanel;
     private Guna2Panel groupTitleBar;
     private Label groupTitleLabel;
-    private Label groupBadgeLabel;
     private Panel splitterGap;
     private Guna2Panel codeCardPanel;
     private Panel codeHeaderPanel;
     private Guna2Panel codeTitleBar;
     private Label codeTitleLabel;
-    private Label codeBadgeLabel;
 
     // OS 기본 캡션바를 없애고 카드 헤더를 커스텀 캡션으로 쓰기 위한 컴포넌트 (실험적)
     private Guna2BorderlessForm borderless;
@@ -84,7 +81,6 @@ partial class BA02Form
         this.btnClose = new Guna2Button();
         this.cardPanel = new Guna2Panel();
         this.cardHeader = new Guna2Panel();
-        this.headerIconBadge = new Guna2Panel();
         this.headerIconImg = new PictureBox();
         this.cardTitle = new Label();
         this.toolbarPanel = new Panel();
@@ -94,13 +90,11 @@ partial class BA02Form
         this.groupHeaderPanel = new Panel();
         this.groupTitleBar = new Guna2Panel();
         this.groupTitleLabel = new Label();
-        this.groupBadgeLabel = new Label();
         this.splitterGap = new Panel();
         this.codeCardPanel = new Guna2Panel();
         this.codeHeaderPanel = new Panel();
         this.codeTitleBar = new Guna2Panel();
         this.codeTitleLabel = new Label();
-        this.codeBadgeLabel = new Label();
         this.borderless = new Guna2BorderlessForm();
         this.captionButtonsPanel = new Panel();
         this.btnMinCap = new Guna2Button();
@@ -155,6 +149,13 @@ partial class BA02Form
         this.btnDel.BorderRadius = 8;
         this.btnSearch.BorderRadius = 8;
         this.btnClose.BorderRadius = 8;
+
+        this.btnNew.ImageSize = new Size(13, 13);
+        this.btnSave.ImageSize = new Size(13, 13);
+        this.btnUpd.ImageSize = new Size(13, 13);
+        this.btnDel.ImageSize = new Size(13, 13);
+        this.btnSearch.ImageSize = new Size(13, 13);
+        this.btnClose.ImageSize = new Size(13, 13);
 
         this.btnNew.FillColor = Color.FromArgb(47, 111, 237);
         this.btnNew.ForeColor = Color.White;
@@ -276,20 +277,11 @@ partial class BA02Form
         this.groupTitleLabel.AutoSize = true;
         this.groupTitleLabel.Left = 28; this.groupTitleLabel.Top = 11;
 
-        this.groupBadgeLabel.Text = "0건";
-        this.groupBadgeLabel.Font = new Font("맑은 고딕", 8.5F, FontStyle.Bold);
-        this.groupBadgeLabel.ForeColor = Color.FromArgb(47, 111, 237);
-        this.groupBadgeLabel.BackColor = Color.FromArgb(232, 240, 254);
-        this.groupBadgeLabel.AutoSize = true;
-        this.groupBadgeLabel.Padding = new Padding(8, 3, 8, 3);
-        this.groupBadgeLabel.Left = 96; this.groupBadgeLabel.Top = 8;
-
         this.groupHeaderPanel.Dock = DockStyle.Top;
         this.groupHeaderPanel.Height = 44;
         this.groupHeaderPanel.BackColor = Color.White;
         this.groupHeaderPanel.Controls.Add(this.groupTitleBar);
         this.groupHeaderPanel.Controls.Add(this.groupTitleLabel);
-        this.groupHeaderPanel.Controls.Add(this.groupBadgeLabel);
 
         this.gridGroup.Dock = DockStyle.Fill;
         this.gridGroup.ReadOnly = true;
@@ -339,20 +331,11 @@ partial class BA02Form
         this.codeTitleLabel.AutoSize = true;
         this.codeTitleLabel.Left = 28; this.codeTitleLabel.Top = 11;
 
-        this.codeBadgeLabel.Text = "0건";
-        this.codeBadgeLabel.Font = new Font("맑은 고딕", 8.5F, FontStyle.Bold);
-        this.codeBadgeLabel.ForeColor = Color.FromArgb(47, 111, 237);
-        this.codeBadgeLabel.BackColor = Color.FromArgb(232, 240, 254);
-        this.codeBadgeLabel.AutoSize = true;
-        this.codeBadgeLabel.Padding = new Padding(8, 3, 8, 3);
-        this.codeBadgeLabel.Left = 100; this.codeBadgeLabel.Top = 8;
-
         this.codeHeaderPanel.Dock = DockStyle.Top;
         this.codeHeaderPanel.Height = 44;
         this.codeHeaderPanel.BackColor = Color.White;
         this.codeHeaderPanel.Controls.Add(this.codeTitleBar);
         this.codeHeaderPanel.Controls.Add(this.codeTitleLabel);
-        this.codeHeaderPanel.Controls.Add(this.codeBadgeLabel);
 
         this.gridCode.Dock = DockStyle.Fill;
         this.gridCode.ReadOnly = true;
@@ -390,22 +373,16 @@ partial class BA02Form
         this.gridAreaPanel.Controls.Add(this.splitterGap);
         this.gridAreaPanel.Controls.Add(this.groupCardPanel);
         //
-        // headerIconBadge / headerIconImg / cardTitle
+        // headerIconImg / cardTitle
         //
-        this.headerIconBadge.FillColor = Color.FromArgb(47, 111, 237);
-        this.headerIconBadge.BorderRadius = 8;
-        this.headerIconBadge.BorderThickness = 0;
-        this.headerIconBadge.ShadowDecoration.Enabled = false;
-        this.headerIconBadge.Left = 16; this.headerIconBadge.Top = 10; this.headerIconBadge.Width = 30; this.headerIconBadge.Height = 30;
         this.headerIconImg.BackColor = Color.Transparent;
-        this.headerIconImg.SizeMode = PictureBoxSizeMode.CenterImage;
-        this.headerIconImg.Left = 0; this.headerIconImg.Top = 0; this.headerIconImg.Width = 30; this.headerIconImg.Height = 30;
-        this.headerIconBadge.Controls.Add(this.headerIconImg);
+        this.headerIconImg.SizeMode = PictureBoxSizeMode.Zoom;
+        this.headerIconImg.Left = 18; this.headerIconImg.Top = 15; this.headerIconImg.Width = 22; this.headerIconImg.Height = 22;
         this.cardTitle.Text = "공통코드 마스터";
         this.cardTitle.Font = new Font("맑은 고딕", 11.5F, FontStyle.Bold);
         this.cardTitle.ForeColor = Color.FromArgb(31, 41, 55);
         this.cardTitle.AutoSize = true;
-        this.cardTitle.Left = 58; this.cardTitle.Top = 15;
+        this.cardTitle.Left = 48; this.cardTitle.Top = 15;
         //
         // captionButtonsPanel (OS 기본 캡션바 대신 카드 헤더 우측에 배치하는 최소화/최대화/닫기)
         //
@@ -415,7 +392,7 @@ partial class BA02Form
         this.btnMinCap.ForeColor = Color.FromArgb(75, 85, 99);
         this.btnMinCap.BorderThickness = 0;
         this.btnMinCap.BorderRadius = 6;
-        this.btnMinCap.ImageSize = new Size(12, 12);
+        this.btnMinCap.ImageSize = new Size(11, 11);
         this.btnMinCap.HoverState.FillColor = Color.FromArgb(243, 244, 247);
 
         this.btnMaxCap.Text = "";
@@ -424,7 +401,7 @@ partial class BA02Form
         this.btnMaxCap.ForeColor = Color.FromArgb(75, 85, 99);
         this.btnMaxCap.BorderThickness = 0;
         this.btnMaxCap.BorderRadius = 6;
-        this.btnMaxCap.ImageSize = new Size(12, 12);
+        this.btnMaxCap.ImageSize = new Size(11, 11);
         this.btnMaxCap.HoverState.FillColor = Color.FromArgb(243, 244, 247);
 
         this.btnCloseCap.Text = "";
@@ -433,7 +410,7 @@ partial class BA02Form
         this.btnCloseCap.ForeColor = Color.FromArgb(75, 85, 99);
         this.btnCloseCap.BorderThickness = 0;
         this.btnCloseCap.BorderRadius = 6;
-        this.btnCloseCap.ImageSize = new Size(12, 12);
+        this.btnCloseCap.ImageSize = new Size(11, 11);
         this.btnCloseCap.HoverState.FillColor = Color.FromArgb(220, 53, 69);
         this.btnCloseCap.HoverState.ForeColor = Color.White;
 
@@ -451,7 +428,7 @@ partial class BA02Form
         this.cardHeader.FillColor = Color.White;
         this.cardHeader.BorderThickness = 0;
         this.cardHeader.ShadowDecoration.Enabled = false;
-        this.cardHeader.Controls.Add(this.headerIconBadge);
+        this.cardHeader.Controls.Add(this.headerIconImg);
         this.cardHeader.Controls.Add(this.cardTitle);
         this.cardHeader.Controls.Add(this.captionButtonsPanel);
         //

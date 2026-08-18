@@ -9,11 +9,21 @@ namespace pStock.Common;
 /// </summary>
 public static class IconFactory
 {
+    /// <summary>
+    /// 모든 draw 메서드는 18x18 논리 캔버스 기준 좌표로 그려져 있다. 실제로는 4배 해상도로
+    /// 그린 뒤(안티앨리어싱이 훨씬 매끈해짐) 호출부에서 버튼의 ImageSize를 <paramref name="size"/>로
+    /// 작게 지정해 다운스케일하도록 한다 — 작은 아이콘을 그대로 그릴 때 생기는 흐림/계단현상을 줄인다.
+    /// </summary>
     public static Bitmap Create(Action<Graphics, Color> draw, Color color, int size = 18)
     {
-        var bmp = new Bitmap(size, size);
+        const int logicalCanvas = 18;
+        const int supersample = 4;
+        int physical = size * supersample;
+        var bmp = new Bitmap(physical, physical);
         using var g = Graphics.FromImage(bmp);
         g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+        g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+        g.ScaleTransform((float)physical / logicalCanvas, (float)physical / logicalCanvas);
         draw(g, color);
         return bmp;
     }
@@ -87,6 +97,18 @@ public static class IconFactory
         g.DrawLine(pen, 3, 6, 3, 15);
         g.DrawLine(pen, 3, 15, 12, 15);
         g.DrawLine(pen, 12, 15, 12, 13);
+    }
+
+    public static void Hierarchy(Graphics g, Color c)
+    {
+        using var pen = new Pen(c, 1.4f);
+        g.DrawRectangle(pen, 6, 1, 6, 5);
+        g.DrawRectangle(pen, 0, 12, 6, 5);
+        g.DrawRectangle(pen, 12, 12, 6, 5);
+        g.DrawLine(pen, 9, 6, 9, 9);
+        g.DrawLine(pen, 3, 9, 15, 9);
+        g.DrawLine(pen, 3, 9, 3, 12);
+        g.DrawLine(pen, 15, 9, 15, 12);
     }
 
     public static void Document(Graphics g, Color c)
