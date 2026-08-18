@@ -104,9 +104,15 @@ partial class BA02Form
         // lblCode / lblRetxs
         //
         this.lblCode.Text = "코드:";
-        this.lblCode.AutoSize = true;
+        this.lblCode.AutoSize = false;
+        this.lblCode.TextAlign = ContentAlignment.MiddleLeft;
+        this.lblCode.Width = 40;
+        this.lblCode.Height = 20;
         this.lblRetxs.Text = "약칭(S):";
-        this.lblRetxs.AutoSize = true;
+        this.lblRetxs.AutoSize = false;
+        this.lblRetxs.TextAlign = ContentAlignment.MiddleLeft;
+        this.lblRetxs.Width = 60;
+        this.lblRetxs.Height = 20;
         //
         // 상단 버튼 6개 (신규만 강조 채움, 나머지는 흰 배경 + 파란 테두리)
         //
@@ -213,20 +219,26 @@ partial class BA02Form
         this.radModeCode.Left = this.radModeGroup.Right + 24; this.radModeCode.Top = 62;
 
         this.lblRcdtp.Text = "구분:";
-        this.lblRcdtp.AutoSize = true;
+        this.lblRcdtp.AutoSize = false;
+        this.lblRcdtp.TextAlign = ContentAlignment.MiddleLeft;
+        this.lblRcdtp.Width = 40;
+        this.lblRcdtp.Height = 20;
         this.lblRcdtp.Left = this.radModeCode.Right + 30; this.lblRcdtp.Top = 60;
-        this.edtRcdtp.Left = this.lblRcdtp.Right + 4; this.edtRcdtp.Top = 54; this.edtRcdtp.Width = 130;
+        this.edtRcdtp.Left = this.lblRcdtp.Right + 2; this.edtRcdtp.Top = 54; this.edtRcdtp.Width = 130;
 
         this.lblRetxf.Text = "전체명:";
-        this.lblRetxf.AutoSize = true;
+        this.lblRetxf.AutoSize = false;
+        this.lblRetxf.TextAlign = ContentAlignment.MiddleLeft;
+        this.lblRetxf.Width = 55;
+        this.lblRetxf.Height = 20;
         this.lblRetxf.Left = this.edtRcdtp.Right + 24; this.lblRetxf.Top = 60;
-        this.edtRetxf.Left = this.lblRetxf.Right + 4; this.edtRetxf.Top = 54; this.edtRetxf.Width = 160;
+        this.edtRetxf.Left = this.lblRetxf.Right + 2; this.edtRetxf.Top = 54; this.edtRetxf.Width = 160;
 
         this.lblCode.Left = this.edtRetxf.Right + 24; this.lblCode.Top = 60;
-        this.edtCode.Left = this.lblCode.Right + 4; this.edtCode.Top = 54; this.edtCode.Width = 110;
+        this.edtCode.Left = this.lblCode.Right + 2; this.edtCode.Top = 54; this.edtCode.Width = 110;
 
         this.lblRetxs.Left = this.edtCode.Right + 24; this.lblRetxs.Top = 60;
-        this.edtRetxs.Left = this.lblRetxs.Right + 4; this.edtRetxs.Top = 54; this.edtRetxs.Width = 110;
+        this.edtRetxs.Left = this.lblRetxs.Right + 2; this.edtRetxs.Top = 54; this.edtRetxs.Width = 110;
 
         this.edtRcdtp.BorderRadius = 6;
         this.edtRetxf.BorderRadius = 6;
