@@ -190,6 +190,7 @@ partial class MainForm
         this.headerIcon.FillColor = Color.FromArgb(47, 111, 237);
         this.headerIcon.BorderRadius = 8;
         this.headerIcon.Left = 24; this.headerIcon.Top = 14; this.headerIcon.Width = 32; this.headerIcon.Height = 32;
+        this.headerTitle.Text = "재고관리 시스템_개발서버";
         this.headerTitle.Font = new Font("맑은 고딕", 12F, FontStyle.Bold);
         this.headerTitle.ForeColor = Color.FromArgb(31, 41, 55);
         this.headerTitle.AutoSize = true;

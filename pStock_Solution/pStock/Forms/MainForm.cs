@@ -62,7 +62,7 @@ public partial class MainForm : Form
             item.Click += (_, _) => ShowScreen((int)item.Tag!);
             popup.Items.Add(item);
         }
-        button.Click += (_, _) => popup.Show(button, new Point(button.Width, 0));
+        button.Click += (_, _) => popup.Show(button, new Point(0, button.Height));
     }
 
     private void BuildStatusBar()
