@@ -36,10 +36,11 @@ public partial class LoginForm : Form
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        var savedUserId = LoginPreferences.LoadSavedUserId();
+        var (savedUserId, savedPassword) = LoginPreferences.LoadSaved();
         if (!string.IsNullOrEmpty(savedUserId))
         {
             edtCode.Text = savedUserId;
+            edtNo.Text = savedPassword ?? string.Empty;
             chkRemember.Checked = true;
         }
 
@@ -93,9 +94,9 @@ public partial class LoginForm : Form
             if (string.CompareOrdinal(_vSdat, today) <= 0 && string.CompareOrdinal(today, _vEdat) < 0)
             {
                 if (chkRemember.Checked)
-                    LoginPreferences.SaveUserId(edtCode.Text.Trim());
+                    LoginPreferences.Save(edtCode.Text.Trim(), edtNo.Text);
                 else
-                    LoginPreferences.ClearSavedUserId();
+                    LoginPreferences.Clear();
 
                 Close();
                 return;

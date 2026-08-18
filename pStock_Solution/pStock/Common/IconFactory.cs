@@ -68,6 +68,27 @@ public static class IconFactory
         g.DrawLine(pen, 15, 3, 3, 15);
     }
 
+    public static void Minimize(Graphics g, Color c)
+    {
+        using var pen = new Pen(c, 1.8f);
+        g.DrawLine(pen, 3, 14, 15, 14);
+    }
+
+    public static void Maximize(Graphics g, Color c)
+    {
+        using var pen = new Pen(c, 1.5f);
+        g.DrawRectangle(pen, 3, 3, 12, 12);
+    }
+
+    public static void Restore(Graphics g, Color c)
+    {
+        using var pen = new Pen(c, 1.4f);
+        g.DrawRectangle(pen, 5, 3, 10, 10);
+        g.DrawLine(pen, 3, 6, 3, 15);
+        g.DrawLine(pen, 3, 15, 12, 15);
+        g.DrawLine(pen, 12, 15, 12, 13);
+    }
+
     public static void Document(Graphics g, Color c)
     {
         using var pen = new Pen(c, 1.5f);

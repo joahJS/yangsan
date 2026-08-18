@@ -27,9 +27,9 @@ public partial class BA02Form : Form
         btnNew.Image = IconFactory.Create(IconFactory.New, Color.White, 16);
         btnSave.Image = IconFactory.Create(IconFactory.Save, Color.FromArgb(47, 111, 237), 16);
         btnUpd.Image = IconFactory.Create(IconFactory.Edit, Color.FromArgb(47, 111, 237), 16);
-        btnDel.Image = IconFactory.Create(IconFactory.Delete, Color.FromArgb(220, 53, 69), 16);
+        btnDel.Image = IconFactory.Create(IconFactory.Delete, Color.FromArgb(47, 111, 237), 16);
         btnSearch.Image = IconFactory.Create(IconFactory.Search, Color.FromArgb(47, 111, 237), 16);
-        btnClose.Image = IconFactory.Create(IconFactory.Close, Color.FromArgb(75, 85, 99), 16);
+        btnClose.Image = IconFactory.Create(IconFactory.Close, Color.FromArgb(47, 111, 237), 16);
         btnNew.ImageAlign = HorizontalAlignment.Left;
         btnSave.ImageAlign = HorizontalAlignment.Left;
         btnUpd.ImageAlign = HorizontalAlignment.Left;
@@ -49,7 +49,49 @@ public partial class BA02Form : Form
         btnSearch.TextOffset = new Point(10, 0);
         btnClose.TextOffset = new Point(10, 0);
 
+        btnMinCap.Image = IconFactory.Create(IconFactory.Minimize, Color.FromArgb(75, 85, 99), 14);
+        btnMaxCap.Image = IconFactory.Create(IconFactory.Maximize, Color.FromArgb(75, 85, 99), 14);
+        btnCloseCap.Image = IconFactory.Create(IconFactory.Close, Color.FromArgb(75, 85, 99), 14);
+
         ApplyMode();
+    }
+
+    /// <summary>OS 기본 캡션바 대신 카드 헤더에 넣은 최소화 버튼.</summary>
+    private void BtnMinCap_Click(object? sender, EventArgs e)
+    {
+        WindowState = FormWindowState.Minimized;
+    }
+
+    /// <summary>OS 기본 캡션바 대신 카드 헤더에 넣은 최대화/복원 버튼.</summary>
+    private void BtnMaxCap_Click(object? sender, EventArgs e)
+    {
+        ToggleMaximizeRestore();
+    }
+
+    /// <summary>OS 기본 캡션바처럼 헤더 더블클릭으로도 최대화/복원할 수 있게 한다.</summary>
+    private void CardHeader_MouseDoubleClick(object? sender, MouseEventArgs e)
+    {
+        ToggleMaximizeRestore();
+    }
+
+    private void ToggleMaximizeRestore()
+    {
+        if (WindowState == FormWindowState.Maximized)
+        {
+            WindowState = FormWindowState.Normal;
+            btnMaxCap.Image = IconFactory.Create(IconFactory.Maximize, Color.FromArgb(75, 85, 99), 14);
+        }
+        else
+        {
+            WindowState = FormWindowState.Maximized;
+            btnMaxCap.Image = IconFactory.Create(IconFactory.Restore, Color.FromArgb(75, 85, 99), 14);
+        }
+    }
+
+    /// <summary>OS 기본 캡션바 대신 카드 헤더에 넣은 닫기 버튼.</summary>
+    private void BtnCloseCap_Click(object? sender, EventArgs e)
+    {
+        Close();
     }
 
     /// <summary>

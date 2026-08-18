@@ -55,6 +55,13 @@ partial class BA02Form
     private Label codeTitleLabel;
     private Label codeBadgeLabel;
 
+    // OS 기본 캡션바를 없애고 카드 헤더를 커스텀 캡션으로 쓰기 위한 컴포넌트 (실험적)
+    private Guna2BorderlessForm borderless;
+    private Panel captionButtonsPanel;
+    private Guna2Button btnMinCap;
+    private Guna2Button btnMaxCap;
+    private Guna2Button btnCloseCap;
+
     private void InitializeComponent()
     {
         this.gridGroup = new FastDataGridView();
@@ -94,6 +101,11 @@ partial class BA02Form
         this.codeTitleBar = new Guna2Panel();
         this.codeTitleLabel = new Label();
         this.codeBadgeLabel = new Label();
+        this.borderless = new Guna2BorderlessForm();
+        this.captionButtonsPanel = new Panel();
+        this.btnMinCap = new Guna2Button();
+        this.btnMaxCap = new Guna2Button();
+        this.btnCloseCap = new Guna2Button();
         this.cardHeader.SuspendLayout();
         this.toolbarPanel.SuspendLayout();
         this.filterPanel.SuspendLayout();
@@ -102,6 +114,7 @@ partial class BA02Form
         this.codeHeaderPanel.SuspendLayout();
         this.codeCardPanel.SuspendLayout();
         this.gridAreaPanel.SuspendLayout();
+        this.captionButtonsPanel.SuspendLayout();
         this.cardPanel.SuspendLayout();
         this.SuspendLayout();
         //
@@ -154,10 +167,10 @@ partial class BA02Form
         this.btnSearch.FillColor = Color.White;
         this.btnClose.FillColor = Color.White;
 
-        this.btnSave.ForeColor = Color.FromArgb(47, 111, 237);
-        this.btnUpd.ForeColor = Color.FromArgb(47, 111, 237);
-        this.btnDel.ForeColor = Color.FromArgb(220, 53, 69);
-        this.btnSearch.ForeColor = Color.FromArgb(47, 111, 237);
+        this.btnSave.ForeColor = Color.FromArgb(75, 85, 99);
+        this.btnUpd.ForeColor = Color.FromArgb(75, 85, 99);
+        this.btnDel.ForeColor = Color.FromArgb(75, 85, 99);
+        this.btnSearch.ForeColor = Color.FromArgb(75, 85, 99);
         this.btnClose.ForeColor = Color.FromArgb(75, 85, 99);
 
         this.btnSave.BorderThickness = 1;
@@ -166,10 +179,10 @@ partial class BA02Form
         this.btnSearch.BorderThickness = 1;
         this.btnClose.BorderThickness = 1;
 
-        this.btnSave.BorderColor = Color.FromArgb(47, 111, 237);
-        this.btnUpd.BorderColor = Color.FromArgb(47, 111, 237);
-        this.btnDel.BorderColor = Color.FromArgb(220, 53, 69);
-        this.btnSearch.BorderColor = Color.FromArgb(47, 111, 237);
+        this.btnSave.BorderColor = Color.FromArgb(209, 213, 219);
+        this.btnUpd.BorderColor = Color.FromArgb(209, 213, 219);
+        this.btnDel.BorderColor = Color.FromArgb(209, 213, 219);
+        this.btnSearch.BorderColor = Color.FromArgb(209, 213, 219);
         this.btnClose.BorderColor = Color.FromArgb(209, 213, 219);
 
         this.btnNew.Font = new Font("맑은 고딕", 9.5F, FontStyle.Bold);
@@ -309,7 +322,7 @@ partial class BA02Form
         //
         this.splitterGap.Dock = DockStyle.Left;
         this.splitterGap.Width = 16;
-        this.splitterGap.BackColor = Color.FromArgb(243, 244, 247);
+        this.splitterGap.BackColor = Color.White;
         //
         // codeCardPanel (우측: 선택된 구분에 속한 코드 목록)
         //
@@ -369,7 +382,7 @@ partial class BA02Form
         // gridAreaPanel (Fill을 가장 먼저 추가해야 나중에 추가되는 Left 카드들이 우선권을 가짐)
         //
         this.gridAreaPanel.Dock = DockStyle.Fill;
-        this.gridAreaPanel.BackColor = Color.FromArgb(243, 244, 247);
+        this.gridAreaPanel.BackColor = Color.White;
         this.gridAreaPanel.Padding = new Padding(16, 12, 16, 16);
         this.gridAreaPanel.Controls.Add(this.codeCardPanel);
         this.gridAreaPanel.Controls.Add(this.splitterGap);
@@ -392,6 +405,40 @@ partial class BA02Form
         this.cardTitle.AutoSize = true;
         this.cardTitle.Left = 58; this.cardTitle.Top = 15;
         //
+        // captionButtonsPanel (OS 기본 캡션바 대신 카드 헤더 우측에 배치하는 최소화/최대화/닫기)
+        //
+        this.btnMinCap.Text = "";
+        this.btnMinCap.Left = 6; this.btnMinCap.Top = 12; this.btnMinCap.Width = 32; this.btnMinCap.Height = 28;
+        this.btnMinCap.FillColor = Color.White;
+        this.btnMinCap.ForeColor = Color.FromArgb(75, 85, 99);
+        this.btnMinCap.BorderThickness = 0;
+        this.btnMinCap.BorderRadius = 6;
+        this.btnMinCap.HoverState.FillColor = Color.FromArgb(243, 244, 247);
+
+        this.btnMaxCap.Text = "";
+        this.btnMaxCap.Left = 42; this.btnMaxCap.Top = 12; this.btnMaxCap.Width = 32; this.btnMaxCap.Height = 28;
+        this.btnMaxCap.FillColor = Color.White;
+        this.btnMaxCap.ForeColor = Color.FromArgb(75, 85, 99);
+        this.btnMaxCap.BorderThickness = 0;
+        this.btnMaxCap.BorderRadius = 6;
+        this.btnMaxCap.HoverState.FillColor = Color.FromArgb(243, 244, 247);
+
+        this.btnCloseCap.Text = "";
+        this.btnCloseCap.Left = 78; this.btnCloseCap.Top = 12; this.btnCloseCap.Width = 32; this.btnCloseCap.Height = 28;
+        this.btnCloseCap.FillColor = Color.White;
+        this.btnCloseCap.ForeColor = Color.FromArgb(75, 85, 99);
+        this.btnCloseCap.BorderThickness = 0;
+        this.btnCloseCap.BorderRadius = 6;
+        this.btnCloseCap.HoverState.FillColor = Color.FromArgb(220, 53, 69);
+        this.btnCloseCap.HoverState.ForeColor = Color.White;
+
+        this.captionButtonsPanel.Dock = DockStyle.Right;
+        this.captionButtonsPanel.Width = 116;
+        this.captionButtonsPanel.BackColor = Color.White;
+        this.captionButtonsPanel.Controls.Add(this.btnMinCap);
+        this.captionButtonsPanel.Controls.Add(this.btnMaxCap);
+        this.captionButtonsPanel.Controls.Add(this.btnCloseCap);
+        //
         // cardHeader
         //
         this.cardHeader.Dock = DockStyle.Top;
@@ -401,6 +448,15 @@ partial class BA02Form
         this.cardHeader.ShadowDecoration.Enabled = false;
         this.cardHeader.Controls.Add(this.headerIconBadge);
         this.cardHeader.Controls.Add(this.cardTitle);
+        this.cardHeader.Controls.Add(this.captionButtonsPanel);
+        //
+        // borderless (OS 기본 캡션바 제거, 카드 헤더를 커스텀 캡션으로 사용 — 실험적 기능)
+        //
+        this.borderless.ContainerControl = this;
+        this.borderless.DragForm = true;
+        this.borderless.ResizeForm = true;
+        this.borderless.TransparentWhileDrag = false;
+        this.borderless.SetDrag(this.cardHeader);
         //
         // cardPanel (전체를 감싸는 카드)
         //
@@ -429,6 +485,10 @@ partial class BA02Form
         this.btnDel.Click += new EventHandler(this.BtnDel_Click);
         this.btnSearch.Click += new EventHandler(this.BtnSearch_Click);
         this.btnClose.Click += new EventHandler(this.BtnClose_Click);
+        this.btnMinCap.Click += new EventHandler(this.BtnMinCap_Click);
+        this.btnMaxCap.Click += new EventHandler(this.BtnMaxCap_Click);
+        this.btnCloseCap.Click += new EventHandler(this.BtnCloseCap_Click);
+        this.cardHeader.MouseDoubleClick += new MouseEventHandler(this.CardHeader_MouseDoubleClick);
         //
         // BA02Form
         //
@@ -438,6 +498,7 @@ partial class BA02Form
         this.KeyPreview = true;
         this.BackColor = Color.FromArgb(243, 244, 247);
         this.Padding = new Padding(16);
+        this.FormBorderStyle = FormBorderStyle.None;
         this.Controls.Add(this.cardPanel);
         this.Load += new EventHandler(this.BA02Form_Load);
         this.KeyDown += new KeyEventHandler(this.BA02Form_KeyDown);
@@ -451,6 +512,7 @@ partial class BA02Form
         this.toolbarPanel.ResumeLayout(false);
         this.filterPanel.ResumeLayout(false);
         this.filterPanel.PerformLayout();
+        this.captionButtonsPanel.ResumeLayout(false);
         this.cardHeader.ResumeLayout(false);
         this.cardHeader.PerformLayout();
         this.cardPanel.ResumeLayout(false);
