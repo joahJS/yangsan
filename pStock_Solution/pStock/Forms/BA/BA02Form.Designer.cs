@@ -202,8 +202,9 @@ partial class BA02Form
         // filterPanel (검색조건 카드 — 구분 모드 라디오버튼 + 검색 조건 입력란)
         //
         this.filterPanel.Dock = DockStyle.Fill;
+        this.filterPanel.BackColor = Color.White;
         this.filterPanel.FillColor = Color.White;
-        this.filterPanel.BorderColor = Color.FromArgb(229, 231, 235);
+        this.filterPanel.BorderColor = Color.FromArgb(209, 213, 219);
         this.filterPanel.BorderThickness = 1;
         this.filterPanel.BorderRadius = 10;
         this.filterPanel.ShadowDecoration.Enabled = false;
@@ -305,6 +306,8 @@ partial class BA02Form
         this.gridGroup.RowTemplate.Height = 32;
         this.gridGroup.GridColor = Color.FromArgb(209, 213, 219);
         this.gridGroup.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+        this.gridGroup.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+        this.gridGroup.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
         this.gridGroup.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         this.gridGroup.DefaultCellStyle.SelectionBackColor = Color.FromArgb(232, 240, 254);
         this.gridGroup.DefaultCellStyle.SelectionForeColor = Color.FromArgb(31, 41, 55);
@@ -316,11 +319,12 @@ partial class BA02Form
 
         this.groupCardPanel.Dock = DockStyle.Left;
         this.groupCardPanel.Width = 560;
+        this.groupCardPanel.BackColor = Color.White;
         this.groupCardPanel.FillColor = Color.White;
         this.groupCardPanel.BorderRadius = 10;
-        this.groupCardPanel.BorderColor = Color.FromArgb(229, 231, 235);
+        this.groupCardPanel.BorderColor = Color.FromArgb(209, 213, 219);
         this.groupCardPanel.BorderThickness = 1;
-        this.groupCardPanel.Padding = new Padding(1);
+        this.groupCardPanel.Padding = new Padding(10);
         this.groupCardPanel.ShadowDecoration.Enabled = false;
         this.groupCardPanel.Controls.Add(this.gridGroup);
         this.groupCardPanel.Controls.Add(this.groupHeaderPanel);
@@ -364,6 +368,8 @@ partial class BA02Form
         this.gridCode.RowTemplate.Height = 32;
         this.gridCode.GridColor = Color.FromArgb(209, 213, 219);
         this.gridCode.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+        this.gridCode.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+        this.gridCode.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
         this.gridCode.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         this.gridCode.DefaultCellStyle.SelectionBackColor = Color.FromArgb(232, 240, 254);
         this.gridCode.DefaultCellStyle.SelectionForeColor = Color.FromArgb(31, 41, 55);
@@ -374,11 +380,12 @@ partial class BA02Form
         this.gridCode.RowHeadersDefaultCellStyle.SelectionForeColor = Color.FromArgb(75, 85, 99);
 
         this.codeCardPanel.Dock = DockStyle.Fill;
+        this.codeCardPanel.BackColor = Color.White;
         this.codeCardPanel.FillColor = Color.White;
         this.codeCardPanel.BorderRadius = 10;
-        this.codeCardPanel.BorderColor = Color.FromArgb(229, 231, 235);
+        this.codeCardPanel.BorderColor = Color.FromArgb(209, 213, 219);
         this.codeCardPanel.BorderThickness = 1;
-        this.codeCardPanel.Padding = new Padding(1);
+        this.codeCardPanel.Padding = new Padding(10);
         this.codeCardPanel.ShadowDecoration.Enabled = false;
         this.codeCardPanel.Controls.Add(this.gridCode);
         this.codeCardPanel.Controls.Add(this.codeHeaderPanel);

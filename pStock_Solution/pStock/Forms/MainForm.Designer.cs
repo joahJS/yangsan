@@ -90,6 +90,7 @@ partial class MainForm
         //
         // logoBadge / logoIcon / logoText (사이드바 상단 로고 영역 — 헤더는 이거 하나만 쓴다)
         //
+        this.logoBadge.BackColor = Color.White;
         this.logoBadge.FillColor = Color.FromArgb(47, 111, 237);
         this.logoBadge.BorderRadius = 10;
         this.logoBadge.BorderThickness = 0;
@@ -97,7 +98,7 @@ partial class MainForm
         this.logoBadge.Left = 20; this.logoBadge.Top = 15; this.logoBadge.Width = 36; this.logoBadge.Height = 36;
         this.logoIcon.BackColor = Color.Transparent;
         this.logoIcon.SizeMode = PictureBoxSizeMode.CenterImage;
-        this.logoIcon.Left = 0; this.logoIcon.Top = 0; this.logoIcon.Width = 36; this.logoIcon.Height = 36;
+        this.logoIcon.Left = 3; this.logoIcon.Top = 3; this.logoIcon.Width = 30; this.logoIcon.Height = 30;
         this.logoBadge.Controls.Add(this.logoIcon);
         this.logoText.Text = "재고관리 시스템";
         this.logoText.Font = new Font("맑은 고딕", 11F, FontStyle.Bold);
@@ -109,6 +110,7 @@ partial class MainForm
         //
         this.logoPanel.Dock = DockStyle.Top;
         this.logoPanel.Height = 70;
+        this.logoPanel.BackColor = Color.White;
         this.logoPanel.BorderThickness = 0;
         this.logoPanel.ShadowDecoration.Enabled = false;
         this.logoPanel.FillColor = Color.White;
@@ -313,6 +315,7 @@ partial class MainForm
         //
         this.sidebarPanel.Dock = DockStyle.Left;
         this.sidebarPanel.Width = 220;
+        this.sidebarPanel.BackColor = Color.White;
         this.sidebarPanel.FillColor = Color.White;
         this.sidebarPanel.BorderThickness = 0;
         this.sidebarPanel.ShadowDecoration.Enabled = false;
@@ -324,10 +327,15 @@ partial class MainForm
         this.statusBar.Dock = DockStyle.Bottom;
         this.statusBar.BackColor = Color.White;
         this.statusBar.SizingGrip = false;
+        this.statusBar.Padding = new Padding(12, 4, 12, 4);
         this.statusUser.ForeColor = Color.FromArgb(107, 114, 128);
         this.statusServer.ForeColor = Color.FromArgb(107, 114, 128);
         this.statusCompany.ForeColor = Color.FromArgb(107, 114, 128);
         this.statusTime.ForeColor = Color.FromArgb(107, 114, 128);
+        this.statusUser.Margin = new Padding(0, 3, 24, 3);
+        this.statusServer.Margin = new Padding(0, 3, 24, 3);
+        this.statusCompany.Margin = new Padding(0, 3, 24, 3);
+        this.statusTime.Margin = new Padding(0, 3, 0, 3);
         this.statusBar.Items.AddRange(new ToolStripItem[]
         {
             this.statusUser, this.statusServer, this.statusCompany, this.statusTime

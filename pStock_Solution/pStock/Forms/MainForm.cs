@@ -196,12 +196,55 @@ public partial class MainForm : Form
         g.FillEllipse(brush, 4, 4, 12, 12);
     }
 
+    private static void DrawUserIcon(Graphics g, Color c)
+    {
+        using var brush = new SolidBrush(c);
+        g.FillEllipse(brush, 6, 2, 8, 8);
+        g.FillEllipse(brush, 3, 12, 14, 10);
+    }
+
+    private static void DrawServerIcon(Graphics g, Color c)
+    {
+        using var pen = new Pen(c, 1.6f);
+        using var brush = new SolidBrush(c);
+        g.DrawRectangle(pen, 2, 3, 16, 6);
+        g.DrawRectangle(pen, 2, 11, 16, 6);
+        g.FillEllipse(brush, 4, 5, 2, 2);
+        g.FillEllipse(brush, 4, 13, 2, 2);
+    }
+
+    private static void DrawBuildingIcon(Graphics g, Color c)
+    {
+        using var pen = new Pen(c, 1.6f);
+        using var brush = new SolidBrush(c);
+        g.DrawRectangle(pen, 3, 3, 14, 16);
+        g.FillRectangle(brush, 6, 6, 3, 3);
+        g.FillRectangle(brush, 11, 6, 3, 3);
+        g.FillRectangle(brush, 6, 11, 3, 3);
+        g.FillRectangle(brush, 11, 11, 3, 3);
+    }
+
+    private static void DrawClockIcon(Graphics g, Color c)
+    {
+        using var pen = new Pen(c, 1.6f);
+        g.DrawEllipse(pen, 2, 2, 16, 16);
+        g.DrawLine(pen, 10, 10, 10, 5);
+        g.DrawLine(pen, 10, 10, 14, 12);
+    }
+
     private void BuildStatusBar()
     {
         var userName = string.IsNullOrWhiteSpace(UserContext.Current.Name) ? "관리자" : UserContext.Current.Name;
         statusUser.Text = "사용자 : " + userName;
         statusServer.Text = "접속서버 : " + AppDb.Server;
         statusCompany.Text = "회사명 : " + LoadCompanyName();
+
+        var statusIconColor = Color.FromArgb(107, 114, 128);
+        statusUser.Image = CreateIcon(DrawUserIcon, statusIconColor);
+        statusServer.Image = CreateIcon(DrawServerIcon, statusIconColor);
+        statusCompany.Image = CreateIcon(DrawBuildingIcon, statusIconColor);
+        statusTime.Image = CreateIcon(DrawClockIcon, statusIconColor);
+
         UpdateClock();
     }
 
