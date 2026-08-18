@@ -17,6 +17,11 @@ public partial class MainForm : Form
     private readonly Dictionary<Guna.UI2.WinForms.Guna2Button, (Image Normal, Image Selected)> _navIcons = new();
     private Guna.UI2.WinForms.Guna2Button? _selectedNav;
 
+    /// <summary>브라우저 탭처럼 열려 있는 화면 목록. Tag(화면 번호) → (호스팅 중인 Form, 탭 버튼).
+    /// 실제 MDI 대신 formHostPanel 위에 TopLevel=false로 올려 붙이고, 한 번에 하나만 보인다.</summary>
+    private readonly Dictionary<int, (Form Form, TabStripItem Tab)> _openScreens = new();
+    private int? _activeTag;
+
     public MainForm()
     {
         InitializeComponent();
@@ -27,32 +32,11 @@ public partial class MainForm : Form
         BuildStatusBar();
     }
 
-    protected override void OnLoad(EventArgs e)
-    {
-        base.OnLoad(e);
-        ApplyMdiClientStyle();
-    }
-
-    /// <summary>MDI 클라이언트 영역(업무 화면들이 떠 있는 배경)을 사이드바/헤더와 어울리는
-    /// 연회색으로 바꾼다. MdiClient는 폼이 실제로 표시된 뒤에야 생성되는 내부 컨트롤이라
-    /// 디자인 타임에는 존재하지 않으므로 런타임 전용으로 처리한다.</summary>
-    private void ApplyMdiClientStyle()
-    {
-        foreach (Control c in Controls)
-        {
-            if (c is MdiClient mdi)
-            {
-                mdi.BackColor = Color.FromArgb(243, 244, 247);
-                return;
-            }
-        }
-    }
-
     private void BuildNavMenus()
     {
         btnNavMain.Click += (_, _) =>
         {
-            foreach (Form child in MdiChildren.ToArray()) child.Close();
+            foreach (var kv in _openScreens.ToArray()) kv.Value.Form.Close();
             SelectNav(btnNavMain);
         };
 
@@ -247,17 +231,14 @@ public partial class MainForm : Form
             new System.Globalization.CultureInfo("ko-KR"));
     }
 
-    /// <summary>원본 prcFormShow(Inx). 이미 열려있는 동일 Tag 화면은 앞으로 가져오고,
-    /// 없으면 FormRegistry에 등록된 factory로 새로 생성한다.</summary>
+    /// <summary>원본 prcFormShow(Inx). 이미 열려있는 동일 Tag 화면은 그 탭으로 전환하고,
+    /// 없으면 FormRegistry에 등록된 factory로 새로 생성해 탭으로 연다.</summary>
     public void ShowScreen(int tag)
     {
-        foreach (Form child in MdiChildren)
+        if (_openScreens.ContainsKey(tag))
         {
-            if (child.Tag is int t && t == tag)
-            {
-                child.BringToFront();
-                return;
-            }
+            ActivateTab(tag);
+            return;
         }
 
         var entry = FormRegistry.Find(tag);
@@ -269,20 +250,74 @@ public partial class MainForm : Form
         if (entry.Modal)
         {
             form.ShowDialog(this);
+            return;
         }
-        else
+
+        OpenTab(tag, entry.Caption, form);
+    }
+
+    /// <summary>실제 MDI 대신 폼을 TopLevel=false로 formHostPanel에 올려 붙이고,
+    /// 그 위에 대응하는 탭 버튼을 만들어 tabStripPanel에 추가한다.</summary>
+    private void OpenTab(int tag, string caption, Form form)
+    {
+        form.TopLevel = false;
+        form.FormBorderStyle = FormBorderStyle.None;
+        form.Dock = DockStyle.Fill;
+        form.Visible = false;
+        formHostPanel.Controls.Add(form);
+        form.Show();
+
+        var tab = new TabStripItem(caption);
+        tab.Activate += (_, _) => ActivateTab(tag);
+        tab.CloseRequested += (_, _) => form.Close();
+        tabStripPanel.Controls.Add(tab.Panel);
+
+        _openScreens[tag] = (form, tab);
+        form.FormClosed += (_, _) => CloseTab(tag);
+
+        ActivateTab(tag);
+    }
+
+    /// <summary>tag에 해당하는 탭/폼을 활성화하고 나머지는 숨긴다.</summary>
+    private void ActivateTab(int tag)
+    {
+        if (!_openScreens.TryGetValue(tag, out var target)) return;
+
+        foreach (var kv in _openScreens)
         {
-            form.MdiParent = this;
-            form.Show();
+            var isActive = kv.Key == tag;
+            kv.Value.Form.Visible = isActive;
+            kv.Value.Tab.SetActive(isActive);
+        }
+
+        target.Form.BringToFront();
+        target.Form.Select();
+        _activeTag = tag;
+    }
+
+    /// <summary>폼이 닫힐 때(닫기 버튼/Esc/탭의 × 버튼 어느 경로든) 탭 UI와 추적 정보를 정리하고,
+    /// 남은 탭이 있으면 마지막 탭으로, 없으면 빈 화면으로 되돌아간다.</summary>
+    private void CloseTab(int tag)
+    {
+        if (!_openScreens.TryGetValue(tag, out var closed)) return;
+
+        _openScreens.Remove(tag);
+        tabStripPanel.Controls.Remove(closed.Tab.Panel);
+        closed.Tab.Panel.Dispose();
+
+        if (_activeTag == tag)
+        {
+            _activeTag = null;
+            if (_openScreens.Count > 0) ActivateTab(_openScreens.Keys.First());
+            else SelectNav(null);
         }
     }
 
     private void MainForm_FormClosing(object? sender, FormClosingEventArgs e)
     {
-        // 원본 FormClose: 모든 MDI 자식을 닫는다.
-        foreach (Form child in MdiChildren.ToArray())
+        foreach (var kv in _openScreens.ToArray())
         {
-            child.Close();
+            kv.Value.Form.Close();
         }
     }
 

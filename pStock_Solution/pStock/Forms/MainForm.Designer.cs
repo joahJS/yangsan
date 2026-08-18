@@ -34,6 +34,9 @@ partial class MainForm
     private FlowLayoutPanel subBase;
     private Guna2Button btnNavSys;
     private FlowLayoutPanel subSys;
+    private Panel contentPanel;
+    private FlowLayoutPanel tabStripPanel;
+    private Panel formHostPanel;
     private StatusStrip statusBar;
     private ToolStripStatusLabel statusUser;
     private ToolStripStatusLabel statusServer;
@@ -69,6 +72,9 @@ partial class MainForm
         this.subBase = new FlowLayoutPanel();
         this.btnNavSys = new Guna2Button();
         this.subSys = new FlowLayoutPanel();
+        this.contentPanel = new Panel();
+        this.tabStripPanel = new FlowLayoutPanel();
+        this.formHostPanel = new Panel();
         this.statusBar = new StatusStrip();
         this.statusUser = new ToolStripStatusLabel();
         this.statusServer = new ToolStripStatusLabel();
@@ -78,6 +84,8 @@ partial class MainForm
         this.sidebarPanel.SuspendLayout();
         this.logoPanel.SuspendLayout();
         this.navFlow.SuspendLayout();
+        this.tabStripPanel.SuspendLayout();
+        this.contentPanel.SuspendLayout();
         this.SuspendLayout();
         //
         // logoBadge / logoIcon / logoText (사이드바 상단 로고 영역 — 헤더는 이거 하나만 쓴다)
@@ -277,6 +285,30 @@ partial class MainForm
             this.btnNavSys, this.subSys
         });
         //
+        // tabStripPanel (열린 화면들을 브라우저 탭처럼 상단에 나열 — 탭 항목은 ShowScreen/
+        // CloseTab에서 동적으로 채워진다)
+        //
+        this.tabStripPanel.Dock = DockStyle.Top;
+        this.tabStripPanel.Height = 40;
+        this.tabStripPanel.BackColor = Color.FromArgb(243, 244, 247);
+        this.tabStripPanel.FlowDirection = FlowDirection.LeftToRight;
+        this.tabStripPanel.WrapContents = false;
+        this.tabStripPanel.AutoScroll = true;
+        this.tabStripPanel.Padding = new Padding(8, 6, 8, 0);
+        //
+        // formHostPanel (실제 업무 화면 폼들을 TopLevel=false로 올려 붙이는 영역 — 한 번에
+        // 하나만 Visible=true로 보이고 나머지는 숨겨진다)
+        //
+        this.formHostPanel.Dock = DockStyle.Fill;
+        this.formHostPanel.BackColor = Color.FromArgb(243, 244, 247);
+        //
+        // contentPanel (사이드바 오른쪽 전체 — 가장 먼저 추가해야 사이드바/상태바가 우선권을 가짐)
+        //
+        this.contentPanel.Dock = DockStyle.Fill;
+        this.contentPanel.BackColor = Color.FromArgb(243, 244, 247);
+        this.contentPanel.Controls.Add(this.formHostPanel);
+        this.contentPanel.Controls.Add(this.tabStripPanel);
+        //
         // sidebarPanel
         //
         this.sidebarPanel.Dock = DockStyle.Left;
@@ -310,10 +342,10 @@ partial class MainForm
         // MainForm
         //
         this.Text = "재고관리 시스템_개발서버";
-        this.IsMdiContainer = true;
         this.WindowState = FormWindowState.Maximized;
         this.StartPosition = FormStartPosition.CenterScreen;
         this.BackColor = Color.FromArgb(243, 244, 247);
+        this.Controls.Add(this.contentPanel);
         this.Controls.Add(this.statusBar);
         this.Controls.Add(this.sidebarPanel);
         this.FormClosing += this.MainForm_FormClosing;
@@ -323,6 +355,8 @@ partial class MainForm
         this.sidebarPanel.ResumeLayout(false);
         this.logoPanel.ResumeLayout(false);
         this.logoPanel.PerformLayout();
+        this.tabStripPanel.ResumeLayout(false);
+        this.contentPanel.ResumeLayout(false);
         this.ResumeLayout(false);
         this.PerformLayout();
     }
