@@ -35,6 +35,8 @@
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
     <!-- 원본 gp_SendToExcel(RealGrid 전용)을 대체하는 Excel 내보내기 -->
     <PackageReference Include="ClosedXML" Version="0.104.1" />
+    <!-- 사이드바 네비게이션/카드형 화면 리디자인에 쓰는 무료(MIT) WinForms UI 컨트롤 모음 -->
+    <PackageReference Include="Guna.UI2.WinForms" Version="2.0.4.8" />
   </ItemGroup>
 
 </Project>

@@ -66,6 +66,20 @@ global using global::System.Windows.Forms;
 EOF
 fi
 
+# Guna.UI2.WinForms(사이드바/카드형 UI 컨트롤)는 net8.0-windows 전용 lib가 아직 없어
+# net7.0-windows7.0 타깃 DLL을 그대로 참조로 쓴다(NuGet이 net8.0-windows 프로젝트에도
+# 이 타깃을 호환 자산으로 선택하는 것과 동일). 위 최초 준비 블록과 별개로, 파일이 없을
+# 때만 받는다 — .csproj에 이 패키지가 나중에 추가됐을 수도 있어서.
+if [ ! -f "$REFS/Guna.UI2.dll" ]; then
+  echo "[compile_check] Guna.UI2.WinForms 참조 어셈블리를 준비합니다..."
+  GUNAVER=2.0.4.8
+  TMPD=$(mktemp -d)
+  curl -sS -m 60 -o "$TMPD/guna.nupkg" "https://api.nuget.org/v3-flatcontainer/guna.ui2.winforms/${GUNAVER}/guna.ui2.winforms.${GUNAVER}.nupkg"
+  ( cd "$TMPD" && unzip -q guna.nupkg )
+  cp "$TMPD/lib/net7.0-windows7.0/Guna.UI2.dll" "$REFS"/
+  rm -rf "$TMPD"
+fi
+
 cd "$(dirname "$0")/pStock"
 
 REFARGS=()
