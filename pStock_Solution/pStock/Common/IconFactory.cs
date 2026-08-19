@@ -77,4 +77,28 @@ public static class IconFactory
         g.DrawLine(pen, 3, 3, 15, 15);
         g.DrawLine(pen, 15, 3, 3, 15);
     }
+
+    public static void Refresh(Graphics g, Color c)
+    {
+        using var pen = new Pen(c, 1.6f);
+        g.DrawArc(pen, 2, 2, 14, 14, -20, 260);
+        g.DrawLine(pen, 15, 2, 16, 6);
+        g.DrawLine(pen, 15, 2, 11, 3);
+    }
+
+    public static void Excel(Graphics g, Color c)
+    {
+        using var pen = new Pen(c, 1.4f);
+        g.DrawRectangle(pen, 2, 2, 14, 14);
+        g.DrawLine(pen, 2, 8, 16, 8);
+        g.DrawLine(pen, 8, 2, 8, 16);
+    }
+
+    public static void Print(Graphics g, Color c)
+    {
+        using var pen = new Pen(c, 1.4f);
+        g.DrawRectangle(pen, 3, 6, 12, 7);
+        g.DrawRectangle(pen, 5, 2, 8, 5);
+        g.DrawRectangle(pen, 5, 12, 8, 4);
+    }
 }

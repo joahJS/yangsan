@@ -10,9 +10,9 @@ namespace pStock.Forms.JA;
 /// 기초잔량(BBALQ)을 한 행에 저장하는 구조. 선택한 월 기준으로
 /// 기초(BQTY)/입고(IQTY)/출고(OQTY)/조정(XQTY)/재고(JQTY)를 계산해서 보여준다.
 ///
-/// 탭 구성(원본 PageControl1): 1=품목별, 2=거래처별, 3=저장위치별.
+/// 조회 모드(원본 PageControl1의 탭들을 라디오버튼으로 재구성): 품목별/거래처별/저장위치별.
 /// 원본 4번째 탭(Drum, qryDrum 별도 쿼리)은 DFM에서 SQL을 확인하지 못해 이번 단계에서는
-/// 3번째 탭과 동일한 조회로 대체해 두었다 — 원본 SQL을 확인되는 대로 갱신 필요.
+/// 저장위치별과 동일한 조회로 대체해 두었다 — 원본 SQL을 확인되는 대로 갱신 필요.
 /// </summary>
 public partial class JA01Form : Form
 {
@@ -21,6 +21,25 @@ public partial class JA01Form : Form
     public JA01Form()
     {
         InitializeComponent();
+
+        btnNew.Image = IconFactory.Create(IconFactory.Refresh, Color.White, 15);
+        btnSearch.Image = IconFactory.Create(IconFactory.Search, Color.FromArgb(47, 111, 237), 15);
+        btnExcel.Image = IconFactory.Create(IconFactory.Excel, Color.FromArgb(47, 111, 237), 15);
+        btnPrint.Image = IconFactory.Create(IconFactory.Print, Color.FromArgb(47, 111, 237), 15);
+        btnClose.Image = IconFactory.Create(IconFactory.Close, Color.FromArgb(47, 111, 237), 15);
+
+        ApplyMode();
+    }
+
+    /// <summary>선택된 조회 모드(품목별/거래처별/저장위치별)에 맞는 검색란만 보이게 한다.</summary>
+    private void ApplyMode()
+    {
+        lblNo.Visible = radModeItem.Checked;
+        edtNo.Visible = radModeItem.Checked;
+        lblCvnam.Visible = radModeVendor.Checked;
+        edtCvnam.Visible = radModeVendor.Checked;
+        lblHouse.Visible = radModeHouse.Checked;
+        cboHouse.Visible = radModeHouse.Checked;
     }
 
     private void JA01Form_KeyDown(object? sender, KeyEventArgs e)
@@ -80,12 +99,12 @@ public partial class JA01Form : Form
         q.Add(extraWhere);
         q.ParamByName("YEAR").AsString = year;
 
-        if (tabs.SelectedTab == tab1)
+        if (radModeItem.Checked)
         {
             q.Add($"AND ITDSC LIKE '{edtNo.Text.Trim()}%'");
             q.Add("ORDER BY ITDSC,ISPEC,HOUSE");
         }
-        else if (tabs.SelectedTab == tab2)
+        else if (radModeVendor.Checked)
         {
             q.Add($"AND CVNAM LIKE '{edtCvnam.Text.Trim()}%'");
             q.Add("ORDER BY CVNAM,ITDSC,ISPEC,HOUSE");
@@ -208,8 +227,10 @@ public partial class JA01Form : Form
         LocateInGrid("HOUSE", this.cboHouse.Text);
     }
 
-    private void Tabs_SelectedIndexChanged(object? sender, EventArgs e)
+    private void RadMode_CheckedChanged(object? sender, EventArgs e)
     {
+        if (sender is RadioButton { Checked: false }) return;
+        ApplyMode();
         ReloadList();
     }
 
