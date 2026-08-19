@@ -93,11 +93,11 @@ partial class JA01Form
         this.btnPrint.Text = "인쇄";
         this.btnClose.Text = "닫기(Esc)";
 
-        this.btnNew.Left = 20; this.btnNew.Top = 15; this.btnNew.Width = 110; this.btnNew.Height = 36;
-        this.btnSearch.Left = 138; this.btnSearch.Top = 15; this.btnSearch.Width = 110; this.btnSearch.Height = 36;
-        this.btnExcel.Left = 256; this.btnExcel.Top = 15; this.btnExcel.Width = 110; this.btnExcel.Height = 36;
-        this.btnPrint.Left = 374; this.btnPrint.Top = 15; this.btnPrint.Width = 110; this.btnPrint.Height = 36;
-        this.btnClose.Left = 492; this.btnClose.Top = 15; this.btnClose.Width = 110; this.btnClose.Height = 36;
+        this.btnNew.Left = 12; this.btnNew.Top = 15; this.btnNew.Width = 110; this.btnNew.Height = 36;
+        this.btnSearch.Left = 130; this.btnSearch.Top = 15; this.btnSearch.Width = 110; this.btnSearch.Height = 36;
+        this.btnExcel.Left = 248; this.btnExcel.Top = 15; this.btnExcel.Width = 110; this.btnExcel.Height = 36;
+        this.btnPrint.Left = 366; this.btnPrint.Top = 15; this.btnPrint.Width = 110; this.btnPrint.Height = 36;
+        this.btnClose.Left = 484; this.btnClose.Top = 15; this.btnClose.Width = 110; this.btnClose.Height = 36;
 
         this.btnNew.BorderRadius = 8;
         this.btnSearch.BorderRadius = 8;
@@ -336,7 +336,7 @@ partial class JA01Form
         //
         this.gridAreaPanel.Dock = DockStyle.Fill;
         this.gridAreaPanel.BackColor = Color.White;
-        this.gridAreaPanel.Padding = new Padding(16, 12, 16, 16);
+        this.gridAreaPanel.Padding = new Padding(16, 6, 16, 16);
         this.gridAreaPanel.Controls.Add(this.gridCardPanel);
         //
         // cardPanel (탭 콘텐츠 영역을 가장자리까지 꽉 채운다)

@@ -123,12 +123,12 @@ partial class BA02Form
         this.btnSearch.Text = "조회";
         this.btnClose.Text = "닫기(Esc)";
 
-        this.btnNew.Left = 20; this.btnNew.Top = 15; this.btnNew.Width = 110; this.btnNew.Height = 36;
-        this.btnSave.Left = 138; this.btnSave.Top = 15; this.btnSave.Width = 110; this.btnSave.Height = 36;
-        this.btnUpd.Left = 256; this.btnUpd.Top = 15; this.btnUpd.Width = 110; this.btnUpd.Height = 36;
-        this.btnDel.Left = 374; this.btnDel.Top = 15; this.btnDel.Width = 110; this.btnDel.Height = 36;
-        this.btnSearch.Left = 492; this.btnSearch.Top = 15; this.btnSearch.Width = 110; this.btnSearch.Height = 36;
-        this.btnClose.Left = 610; this.btnClose.Top = 15; this.btnClose.Width = 110; this.btnClose.Height = 36;
+        this.btnNew.Left = 12; this.btnNew.Top = 15; this.btnNew.Width = 110; this.btnNew.Height = 36;
+        this.btnSave.Left = 130; this.btnSave.Top = 15; this.btnSave.Width = 110; this.btnSave.Height = 36;
+        this.btnUpd.Left = 248; this.btnUpd.Top = 15; this.btnUpd.Width = 110; this.btnUpd.Height = 36;
+        this.btnDel.Left = 366; this.btnDel.Top = 15; this.btnDel.Width = 110; this.btnDel.Height = 36;
+        this.btnSearch.Left = 484; this.btnSearch.Top = 15; this.btnSearch.Width = 110; this.btnSearch.Height = 36;
+        this.btnClose.Left = 602; this.btnClose.Top = 15; this.btnClose.Width = 110; this.btnClose.Height = 36;
 
         this.btnNew.BorderRadius = 8;
         this.btnSave.BorderRadius = 8;
@@ -384,7 +384,7 @@ partial class BA02Form
         //
         this.gridAreaPanel.Dock = DockStyle.Fill;
         this.gridAreaPanel.BackColor = Color.White;
-        this.gridAreaPanel.Padding = new Padding(16, 12, 16, 16);
+        this.gridAreaPanel.Padding = new Padding(16, 6, 16, 16);
         this.gridAreaPanel.Controls.Add(this.codeCardPanel);
         this.gridAreaPanel.Controls.Add(this.splitterGap);
         this.gridAreaPanel.Controls.Add(this.groupCardPanel);
