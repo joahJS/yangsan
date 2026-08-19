@@ -48,7 +48,20 @@ public partial class BA02Form : Form
         btnSearch.TextOffset = new Point(18, 0);
         btnClose.TextOffset = new Point(18, 0);
 
+        gridAreaPanel.SizeChanged += (_, _) => UpdateGridSplitRatio();
+        UpdateGridSplitRatio();
+
         ApplyMode();
+    }
+
+    /// <summary>구분코드/공통코드 카드 너비 비율을 4:6으로 유지한다. groupCardPanel은
+    /// Dock=Left 고정폭이라 폼 크기가 바뀔 때마다 gridAreaPanel의 실제 가용 폭을
+    /// 기준으로 다시 계산해야 비율이 항상 유지된다.</summary>
+    private void UpdateGridSplitRatio()
+    {
+        var available = gridAreaPanel.ClientSize.Width - splitterGap.Width;
+        if (available > 0)
+            groupCardPanel.Width = (int)(available * 0.4);
     }
 
     /// <summary>
