@@ -137,13 +137,13 @@ partial class MainForm
         this.btnNavBase.Text = "기초관리";
         this.btnNavSys.Text = "시스템관리";
 
-        this.btnNavMain.Width = 200; this.btnNavMain.Height = 44;
-        this.btnNavStock.Width = 200; this.btnNavStock.Height = 44;
-        this.btnNavFlow.Width = 200; this.btnNavFlow.Height = 44;
-        this.btnNavSales.Width = 200; this.btnNavSales.Height = 44;
-        this.btnNavClose.Width = 200; this.btnNavClose.Height = 44;
-        this.btnNavBase.Width = 200; this.btnNavBase.Height = 44;
-        this.btnNavSys.Width = 200; this.btnNavSys.Height = 44;
+        this.btnNavMain.Width = 196; this.btnNavMain.Height = 44;
+        this.btnNavStock.Width = 196; this.btnNavStock.Height = 44;
+        this.btnNavFlow.Width = 196; this.btnNavFlow.Height = 44;
+        this.btnNavSales.Width = 196; this.btnNavSales.Height = 44;
+        this.btnNavClose.Width = 196; this.btnNavClose.Height = 44;
+        this.btnNavBase.Width = 196; this.btnNavBase.Height = 44;
+        this.btnNavSys.Width = 196; this.btnNavSys.Height = 44;
 
         this.btnNavMain.Margin = new Padding(10, 6, 10, 0);
         this.btnNavStock.Margin = new Padding(10, 6, 10, 0);
@@ -235,8 +235,8 @@ partial class MainForm
         //
         // 카테고리별 하위 화면 목록을 담을 서브패널(초기엔 접힌 상태) 공통 스타일
         //
-        this.subStock.Width = 220; this.subFlow.Width = 220; this.subSales.Width = 220;
-        this.subClose.Width = 220; this.subBase.Width = 220; this.subSys.Width = 220;
+        this.subStock.Width = 200; this.subFlow.Width = 200; this.subSales.Width = 200;
+        this.subClose.Width = 200; this.subBase.Width = 200; this.subSys.Width = 200;
 
         this.subStock.FlowDirection = FlowDirection.TopDown;
         this.subFlow.FlowDirection = FlowDirection.TopDown;
@@ -367,6 +367,9 @@ partial class MainForm
         this.statusFormName.Margin = new Padding(0, 3, 0, 3);
         this.statusSpacer.Spring = true;
         this.statusSpacer.Text = "";
+        this.statusSpacer.Overflow = ToolStripItemOverflow.Never;
+        this.statusFormSeparator.Overflow = ToolStripItemOverflow.Never;
+        this.statusFormName.Overflow = ToolStripItemOverflow.Never;
         this.statusBar.Items.AddRange(new ToolStripItem[]
         {
             this.statusUser, this.statusServer, this.statusCompany, this.statusTime,

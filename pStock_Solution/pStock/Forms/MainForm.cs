@@ -61,7 +61,7 @@ public partial class MainForm : Form
                 Text = entry.Caption,
                 Tag = entry.Tag,
                 AutoSize = false,
-                Width = 220,
+                Width = 200,
                 Height = 34,
                 Padding = new Padding(40, 0, 0, 0),
                 TextAlign = ContentAlignment.MiddleLeft,
