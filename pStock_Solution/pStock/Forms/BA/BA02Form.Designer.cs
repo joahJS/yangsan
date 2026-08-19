@@ -298,6 +298,7 @@ partial class BA02Form
         this.gridGroup.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(248, 249, 251);
         this.gridGroup.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(75, 85, 99);
         this.gridGroup.ColumnHeadersDefaultCellStyle.Font = new Font("맑은 고딕", 9F, FontStyle.Bold);
+        this.gridGroup.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         this.gridGroup.RowTemplate.Height = 32;
         this.gridGroup.GridColor = Color.FromArgb(209, 213, 219);
         this.gridGroup.CellBorderStyle = DataGridViewCellBorderStyle.Single;
@@ -353,6 +354,7 @@ partial class BA02Form
         this.gridCode.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(248, 249, 251);
         this.gridCode.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(75, 85, 99);
         this.gridCode.ColumnHeadersDefaultCellStyle.Font = new Font("맑은 고딕", 9F, FontStyle.Bold);
+        this.gridCode.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         this.gridCode.RowTemplate.Height = 32;
         this.gridCode.GridColor = Color.FromArgb(209, 213, 219);
         this.gridCode.CellBorderStyle = DataGridViewCellBorderStyle.Single;
