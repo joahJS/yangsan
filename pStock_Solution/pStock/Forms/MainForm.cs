@@ -336,6 +336,7 @@ public partial class MainForm : Form
         target.Form.BringToFront();
         target.Form.Select();
         _activeTag = tag;
+        statusFormName.Text = target.Form.GetType().Name;
     }
 
     /// <summary>폼이 닫힐 때(닫기 버튼/Esc/탭의 × 버튼 어느 경로든) 탭 UI와 추적 정보를 정리하고,
@@ -351,8 +352,15 @@ public partial class MainForm : Form
         if (_activeTag == tag)
         {
             _activeTag = null;
-            if (_openScreens.Count > 0) ActivateTab(_openScreens.Keys.First());
-            else SelectNav(null);
+            if (_openScreens.Count > 0)
+            {
+                ActivateTab(_openScreens.Keys.First());
+            }
+            else
+            {
+                SelectNav(null);
+                statusFormName.Text = string.Empty;
+            }
         }
     }
 

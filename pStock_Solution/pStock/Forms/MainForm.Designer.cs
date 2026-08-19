@@ -44,6 +44,7 @@ partial class MainForm
     private ToolStripStatusLabel statusServer;
     private ToolStripStatusLabel statusCompany;
     private ToolStripStatusLabel statusTime;
+    private ToolStripStatusLabel statusFormName;
     private System.Windows.Forms.Timer clockTimer;
 
     /// <summary>
@@ -84,6 +85,7 @@ partial class MainForm
         this.statusServer = new ToolStripStatusLabel();
         this.statusCompany = new ToolStripStatusLabel();
         this.statusTime = new ToolStripStatusLabel();
+        this.statusFormName = new ToolStripStatusLabel();
         this.clockTimer = new System.Windows.Forms.Timer();
         this.sidebarPanel.SuspendLayout();
         this.logoPanel.SuspendLayout();
@@ -353,13 +355,16 @@ partial class MainForm
         this.statusServer.ForeColor = Color.FromArgb(107, 114, 128);
         this.statusCompany.ForeColor = Color.FromArgb(107, 114, 128);
         this.statusTime.ForeColor = Color.FromArgb(107, 114, 128);
+        this.statusFormName.ForeColor = Color.FromArgb(107, 114, 128);
+        this.statusFormName.Alignment = ToolStripItemAlignment.Right;
         this.statusUser.Margin = new Padding(0, 3, 24, 3);
         this.statusServer.Margin = new Padding(0, 3, 24, 3);
         this.statusCompany.Margin = new Padding(0, 3, 24, 3);
         this.statusTime.Margin = new Padding(0, 3, 0, 3);
+        this.statusFormName.Margin = new Padding(0, 3, 0, 3);
         this.statusBar.Items.AddRange(new ToolStripItem[]
         {
-            this.statusUser, this.statusServer, this.statusCompany, this.statusTime
+            this.statusUser, this.statusServer, this.statusCompany, this.statusTime, this.statusFormName
         });
         //
         // clockTimer
