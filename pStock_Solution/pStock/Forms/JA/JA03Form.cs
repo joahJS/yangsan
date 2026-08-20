@@ -82,20 +82,20 @@ public partial class JA03Form : Form
         grid.Rows.Add("[이월]", "", "", "", "", "", "", "", "", "", "", "", "", "", PublicLib.MoneyToStr((long)carryBalance));
 
         using var q = new DbQuery();
-        q.Add("SELECT IDATE, 'I' GUBN, SUM(IQTY) QTY, SUM(IAMT) AMT,");
-        q.Add("       SUM(JAMT1) J1, SUM(JAMT2) J2, SUM(JAMT3) J3");
+        q.Add("SELECT IDATE, 'I' GUBN, SUM(CAST(IQTY AS FLOAT)) QTY, SUM(CAST(IAMT AS FLOAT)) AMT,");
+        q.Add("       SUM(CAST(JAMT1 AS FLOAT)) J1, SUM(CAST(JAMT2 AS FLOAT)) J2, SUM(CAST(JAMT3 AS FLOAT)) J3");
         q.Add("  FROM IPGOF");
         q.Add($" WHERE IDATE LIKE @YYMM{cvcodFilter}");
         q.Add(" GROUP BY IDATE");
         q.Add("UNION ALL");
-        q.Add("SELECT TDATE, 'B', SUM(IOQTY), SUM(OAMT),");
-        q.Add("       SUM(JAMT1) J1, SUM(JAMT2) J2, SUM(JAMT3) J3");
+        q.Add("SELECT TDATE, 'B', SUM(CAST(IOQTY AS FLOAT)), SUM(CAST(OAMT AS FLOAT)),");
+        q.Add("       SUM(CAST(JAMT1 AS FLOAT)) J1, SUM(CAST(JAMT2 AS FLOAT)) J2, SUM(CAST(JAMT3 AS FLOAT)) J3");
         q.Add("  FROM IPCHF");
         q.Add($" WHERE TDATE LIKE @YYMM AND GUBN1='1'{cvcodFilter}");
         q.Add(" GROUP BY TDATE");
         q.Add("UNION ALL");
-        q.Add("SELECT TDATE, 'O', SUM(TRQTY), SUM(TRAMT),");
-        q.Add("       SUM(JAMT1) J1, SUM(JAMT2) J2, SUM(JAMT3) J3");
+        q.Add("SELECT TDATE, 'O', SUM(CAST(TRQTY AS FLOAT)), SUM(CAST(TRAMT AS FLOAT)),");
+        q.Add("       SUM(CAST(JAMT1 AS FLOAT)) J1, SUM(CAST(JAMT2 AS FLOAT)) J2, SUM(CAST(JAMT3 AS FLOAT)) J3");
         q.Add("  FROM SALE_M A1");
         q.Add("  LEFT OUTER JOIN SALE_D A2 ON A1.SALNO=A2.SALNO");
         q.Add($" WHERE TDATE LIKE @YYMM{cvcodFilterA}");
@@ -173,13 +173,13 @@ public partial class JA03Form : Form
     private double GetPriorBalance(DateTime monthDate)
     {
         using var q = new DbQuery();
-        q.Add("SELECT SUM(OAMT01+OVAT01) I01,SUM(OAMT02+OVAT02) I02,SUM(OAMT03+OVAT03) I03,SUM(OAMT04+OVAT04) I04,");
-        q.Add("       SUM(OAMT05+OVAT05) I05,SUM(OAMT06+OVAT06) I06,SUM(OAMT07+OVAT07) I07,SUM(OAMT08+OVAT08) I08,");
-        q.Add("       SUM(OAMT09+OVAT09) I09,SUM(OAMT10+OVAT10) I10,SUM(OAMT11+OVAT11) I11,SUM(OAMT12+OVAT12) I12,");
-        q.Add("       SUM(SAMT01) O01,SUM(SAMT02) O02,SUM(SAMT03) O03,SUM(SAMT04) O04,");
-        q.Add("       SUM(SAMT05) O05,SUM(SAMT06) O06,SUM(SAMT07) O07,SUM(SAMT08) O08,");
-        q.Add("       SUM(SAMT09) O09,SUM(SAMT10) O10,SUM(SAMT11) O11,SUM(SAMT12) O12,");
-        q.Add("       SUM(BAMT) BAMT");
+        q.Add("SELECT SUM(CAST(OAMT01+OVAT01 AS FLOAT)) I01,SUM(CAST(OAMT02+OVAT02 AS FLOAT)) I02,SUM(CAST(OAMT03+OVAT03 AS FLOAT)) I03,SUM(CAST(OAMT04+OVAT04 AS FLOAT)) I04,");
+        q.Add("       SUM(CAST(OAMT05+OVAT05 AS FLOAT)) I05,SUM(CAST(OAMT06+OVAT06 AS FLOAT)) I06,SUM(CAST(OAMT07+OVAT07 AS FLOAT)) I07,SUM(CAST(OAMT08+OVAT08 AS FLOAT)) I08,");
+        q.Add("       SUM(CAST(OAMT09+OVAT09 AS FLOAT)) I09,SUM(CAST(OAMT10+OVAT10 AS FLOAT)) I10,SUM(CAST(OAMT11+OVAT11 AS FLOAT)) I11,SUM(CAST(OAMT12+OVAT12 AS FLOAT)) I12,");
+        q.Add("       SUM(CAST(SAMT01 AS FLOAT)) O01,SUM(CAST(SAMT02 AS FLOAT)) O02,SUM(CAST(SAMT03 AS FLOAT)) O03,SUM(CAST(SAMT04 AS FLOAT)) O04,");
+        q.Add("       SUM(CAST(SAMT05 AS FLOAT)) O05,SUM(CAST(SAMT06 AS FLOAT)) O06,SUM(CAST(SAMT07 AS FLOAT)) O07,SUM(CAST(SAMT08 AS FLOAT)) O08,");
+        q.Add("       SUM(CAST(SAMT09 AS FLOAT)) O09,SUM(CAST(SAMT10 AS FLOAT)) O10,SUM(CAST(SAMT11 AS FLOAT)) O11,SUM(CAST(SAMT12 AS FLOAT)) O12,");
+        q.Add("       SUM(CAST(BAMT AS FLOAT)) BAMT");
         q.Add("  FROM MISUF A,CVMAST B");
         q.Add(" WHERE MYEAR = @YEAR AND A.CVCOD=B.CVCOD");
         if (!string.IsNullOrWhiteSpace(edtCvcod.Text)) q.Add($" AND A.CVCOD='{edtCvcod.Text.Trim()}'");
@@ -202,7 +202,7 @@ public partial class JA03Form : Form
     private double GetCollectionAmount(string date)
     {
         using var q = new DbQuery();
-        q.Add($"SELECT SUM(ARAMT) AS AMT FROM SUGMF WHERE ARDAT='{date}'");
+        q.Add($"SELECT SUM(CAST(ARAMT AS FLOAT)) AS AMT FROM SUGMF WHERE ARDAT='{date}'");
         if (!string.IsNullOrWhiteSpace(edtCvcod.Text)) q.Add($" AND CVCOD='{edtCvcod.Text.Trim()}'");
         q.Open();
         return q.IsEmpty || q.FieldByName("AMT").IsNull ? 0 : q.FieldByName("AMT").AsFloat;
@@ -212,16 +212,16 @@ public partial class JA03Form : Form
     private void AddYearSumRow(DateTime monthDate, string cvcodFilter, string cvcodFilterA)
     {
         using var q = new DbQuery();
-        q.Add("SELECT 'I' AS GUBN,SUM(IQTY) QTY,SUM(IAMT) AMT,");
-        q.Add("       SUM(JAMT1) J1,SUM(JAMT2) J2,SUM(JAMT3) J3 FROM IPGOF");
+        q.Add("SELECT 'I' AS GUBN,SUM(CAST(IQTY AS FLOAT)) QTY,SUM(CAST(IAMT AS FLOAT)) AMT,");
+        q.Add("       SUM(CAST(JAMT1 AS FLOAT)) J1,SUM(CAST(JAMT2 AS FLOAT)) J2,SUM(CAST(JAMT3 AS FLOAT)) J3 FROM IPGOF");
         q.Add($" WHERE IDATE BETWEEN @DATE1 AND @DATE2{cvcodFilter}");
         q.Add(" UNION ALL");
-        q.Add("SELECT 'B',SUM(IOQTY) QTY,SUM(OAMT) AMT,");
-        q.Add("       SUM(JAMT1) J1,SUM(JAMT2) J2,SUM(JAMT3) J3 FROM IPCHF");
+        q.Add("SELECT 'B',SUM(CAST(IOQTY AS FLOAT)) QTY,SUM(CAST(OAMT AS FLOAT)) AMT,");
+        q.Add("       SUM(CAST(JAMT1 AS FLOAT)) J1,SUM(CAST(JAMT2 AS FLOAT)) J2,SUM(CAST(JAMT3 AS FLOAT)) J3 FROM IPCHF");
         q.Add($" WHERE TDATE BETWEEN @DATE1 AND @DATE2 AND GUBN1='1'{cvcodFilter}");
         q.Add(" UNION ALL");
-        q.Add("SELECT 'O',SUM(TRQTY) QTY,SUM(TRAMT) AMT,");
-        q.Add("       SUM(JAMT1) J1,SUM(JAMT2) J2,SUM(JAMT3) J3");
+        q.Add("SELECT 'O',SUM(CAST(TRQTY AS FLOAT)) QTY,SUM(CAST(TRAMT AS FLOAT)) AMT,");
+        q.Add("       SUM(CAST(JAMT1 AS FLOAT)) J1,SUM(CAST(JAMT2 AS FLOAT)) J2,SUM(CAST(JAMT3 AS FLOAT)) J3");
         q.Add("  FROM SALE_M A1");
         q.Add("  LEFT OUTER JOIN SALE_D A2 ON A1.SALNO=A2.SALNO");
         q.Add($" WHERE TDATE BETWEEN @DATE1 AND @DATE2{cvcodFilterA}");
@@ -246,7 +246,7 @@ public partial class JA03Form : Form
         double sum = iamt + j1 + j2 + j3 + bamt + bvat + oamt + oj1 + oj2 + oj3;
 
         using var qs = new DbQuery();
-        qs.Add("SELECT SUM(ARAMT) AS AMT FROM SUGMF WHERE ARDAT BETWEEN @DATE1 AND @DATE2");
+        qs.Add("SELECT SUM(CAST(ARAMT AS FLOAT)) AS AMT FROM SUGMF WHERE ARDAT BETWEEN @DATE1 AND @DATE2");
         if (!string.IsNullOrWhiteSpace(edtCvcod.Text)) qs.Add($" AND CVCOD='{edtCvcod.Text.Trim()}'");
         qs.ParamByName("DATE1").AsString = $"{monthDate.Year}-01-01";
         qs.ParamByName("DATE2").AsString = edtMonth.Text.Trim() + "-31";
