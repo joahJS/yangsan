@@ -14,6 +14,10 @@ public partial class JA03Form : Form
     public JA03Form()
     {
         InitializeComponent();
+
+        btnNew.Image = IconFactory.Create(IconFactory.Refresh, Color.White, 15);
+        btnSearch.Image = IconFactory.Create(IconFactory.Search, Color.FromArgb(47, 111, 237), 15);
+        btnClose.Image = IconFactory.Create(IconFactory.Close, Color.FromArgb(47, 111, 237), 15);
     }
 
     private void JA03Form_KeyDown(object? sender, KeyEventArgs e)
